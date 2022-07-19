@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { SERVER_HOST, SERVER_PORT } = process.env;
+var glob = require("glob")
 
 const express = require("express");
 const cors = require("cors");
@@ -20,9 +21,10 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-require("./routes")(app);
-app.use(handlingError.error);
-app.use(handlingError.notFound);
+require("./routes/index")(app);
+
+app.use(errorHandling.error);
+app.use(errorHandling.notFound);
 
 app.listen(port, () => {
   console.log(`> Server running on http://${SERVER_HOST}:${port}`);

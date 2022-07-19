@@ -4,7 +4,6 @@ const { Users } = require("../../models");
 
 const user = async (req, res, next) => {
   const { userId: id } = req.params;
-
   try {
     const updateUser = req.body.password ? { ...req.body, password: hashSync(req.body.password, 10) } : { ...req.body };
     const results = await Users.update(updateUser, { where: { id }, returning: true });
