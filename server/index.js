@@ -5,16 +5,18 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
+
 const app = express();
 const port = SERVER_PORT || 8000;
-const db = require("./models");
-const syncdb = true;
 
+const db = require("./models");
+const syncdb = false;
+
+app.use(cors());
+app.use(helmet());
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(helmet());
-app.use(cors());
-app.use(morgan("dev"));
 
 require("./routes")(app);
 
