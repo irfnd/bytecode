@@ -9,6 +9,5 @@ const users = (sequelize, Sequelize) => {
   return Users;
 };
 
-
 module.exports = users;
  
