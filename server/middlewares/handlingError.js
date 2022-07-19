@@ -1,12 +1,33 @@
-const error = (err, req, res, next) => {
-  res.status(err.cause.code).json({
-    err: {
-      status: err.cause.code,
-      name: err.name,
-      message: err.message,
-    },
-  });
+exports.notFound = (request, response, next) => {
+  response
+    .status(404)
+    .json({
+      error: {
+        status: 404,
+        name: 'notFound',
+        message: 'Not found',
+      },
+    });
   next();
 };
 
-module.exports = error;
+exports.error = (error, request, response, next) => {
+  const codes = {
+    badRequest: 400,
+    validationError: 400,
+    authError: 401,
+  };
+  const status = codes[error.name] || error.status || 500;
+
+  response
+    .status(status)
+    .json({
+      error: {
+        status,
+        name: error.name || 'error',
+        message: error.message || 'error',
+      },
+    });
+    console.log(error);
+  next();
+};

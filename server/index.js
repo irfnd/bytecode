@@ -21,7 +21,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 require("./routes")(app);
-app.use(handlingError);
+app.use(handlingError.error);
+app.use(handlingError.notFound);
 
 app.listen(port, () => {
   console.log(`> Server running on http://${SERVER_HOST}:${port}`);
