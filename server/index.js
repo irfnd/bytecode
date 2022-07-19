@@ -16,6 +16,8 @@ app.use(helmet());
 app.use(cors());
 app.use(morgan("dev"));
 
+require("./routes")(app);
+
 app.listen(port, () => {
   console.log(`> Server running on http://${SERVER_HOST}:${port}`);
   db.sequelize
