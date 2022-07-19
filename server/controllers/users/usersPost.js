@@ -1,7 +1,7 @@
 const { hashSync } = require("bcrypt");
 const { Users } = require("../../models");
 
-const oneUser = async (req, res, next) => {
+const user = async (req, res, next) => {
   try {
     const newUser = { ...req.body, password: hashSync(req.body.password, 10) };
     const results = await Users.create(newUser);
@@ -12,5 +12,5 @@ const oneUser = async (req, res, next) => {
 };
 
 module.exports = {
-  oneUser,
+  user,
 };
