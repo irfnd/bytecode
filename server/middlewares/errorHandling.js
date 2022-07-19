@@ -1,7 +1,9 @@
 const error = (err, req, res, next) => {
-  res.status(err.cause.code).json({
-    err: {
-      status: err.cause.code,
+  const code = err.cause.code || 500;
+
+  res.status(code).json({
+    error: {
+      status: code,
       name: err.name,
       message: err.message,
     },

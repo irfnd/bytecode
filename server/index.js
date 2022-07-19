@@ -12,7 +12,7 @@ const port = SERVER_PORT || 8000;
 const db = require("./models");
 const syncdb = false;
 
-const handlingError = require("./middlewares/handlingError");
+const errorHandling = require("./middlewares/errorHandling");
 
 app.use(cors());
 app.use(helmet());
@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 require("./routes")(app);
-app.use(handlingError);
+app.use(errorHandling);
 
 app.listen(port, () => {
   console.log(`> Server running on http://${SERVER_HOST}:${port}`);
