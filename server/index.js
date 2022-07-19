@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { SERVER_HOST, SERVER_PORT } = process.env;
-var glob = require("glob")
 
+const cookieParser = require('cookie-parser')
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -20,6 +20,7 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 require("./routes/index")(app);
 
