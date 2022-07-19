@@ -1,13 +1,11 @@
 exports.notFound = (request, response, next) => {
-  response
-    .status(404)
-    .json({
-      error: {
-        status: 404,
-        name: 'notFound',
-        message: 'Not found',
-      },
-    });
+  response.status(404).json({
+    error: {
+      status: 404,
+      name: "notFound",
+      message: "Not found",
+    },
+  });
   next();
 };
 
@@ -19,16 +17,14 @@ exports.error = (error, request, response, next) => {
   };
   const status = codes[error.name] || error.status || 500;
 
-  response
-    .status(status)
-    .json({
-      error: {
-        status,
-        name: error.name || 'error',
-        message: error.message || 'error',
-      },
-    });
-    console.log(error);
+  response.status(status).json({
+    error: {
+      status,
+      name: error.name || "error",
+      message: error.message || "error",
+    },
+  });
+  console.log(error);
   next();
 };
 
