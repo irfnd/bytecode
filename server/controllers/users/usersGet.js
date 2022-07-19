@@ -1,28 +1,20 @@
 const status = require("http-status");
 const { Users } = require("../../models");
 
-const usersAll = async (req, res, next) => {
-  try {
-    const results = await Users.findAll();
-    if (results.length < 1) throw new Error("User not found!", { cause: { code: status.NOT_FOUND } });
-    res.status(200).json(results);
-  } catch (err) {
-    next(err);
-  }
+const users = async (req, res) => {
+  const results = await Users.findAll();
+  res.status(status.OK).json(results);
 };
 
-const userById = async (req, res, next) => {
-  const { id } = req.params;
+const user = async (req, res, next) => {
+  const { userId: id } = req.params;
   try {
     const results = await Users.findByPk(id);
-    if (results.length < 1) throw new Error("User not found!", { cause: { code: status.NOT_FOUND } });
-    res.status(200).json(results);
+    if (!results) throw new Error("User not found!", { cause: { code: status.NOT_FOUND } });
+    res.status(status.OK).json(results);
   } catch (err) {
     next(err);
   }
 };
 
-module.exports = {
-  usersAll,
-  userById,
-};
+module.exports = { users, user };
