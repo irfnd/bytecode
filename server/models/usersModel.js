@@ -20,10 +20,8 @@ const users = (sequelize, Sequelize) => {
       allowNull: false,
       unique: true,
       schema: Joi.string()
-        .alphanum()
         .trim()
-        .max(13)
-        .regex(/^[0-9+]{7}-[0-9+]{1}$/),
+        .pattern(/^[0-9]+$/),
     },
     password: {
       type: Sequelize.TEXT,
