@@ -1,11 +1,7 @@
 const router = require("express").Router();
-const companiesController = require("../controllers/companies/companiesController");
+const companies = require("../controllers/companies/companiesController");
 
-router.route("/").get(companiesController.findAll).post(companiesController.create);
-router
-  .route("/:id")
-  .get(companiesController.findById)
-  .patch(companiesController.update)
-  .delete(companiesController.delete);
+router.route("/").get(companies.findAll).post(companies.create);
+router.route("/:id").get(companies.findById).patch(companies.update).delete(companies.delete);
 
 module.exports = router;
