@@ -11,6 +11,17 @@ exports.generateRefreshToken = (payload) => {
   return jwt.sign(payload, REFRESH_TOKEN_SECRET, { expiresIn: REFRESH_TOKEN_EXPIRE });
 };
 
+exports.verifyAccessToken = (token) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET);
+      resolve(decoded);
+    } catch (err) {
+      reject(new Error("Invalid token!", { cause: "FORBIDDEN" }));
+    }
+  });
+};
+
 exports.verifyRefreshToken = (token) => {
   return new Promise((resolve, reject) => {
     try {

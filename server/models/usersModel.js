@@ -3,6 +3,7 @@ const users = (sequelize, Sequelize) => {
     name: { type: Sequelize.TEXT, allowNull: false },
     email: { type: Sequelize.TEXT, allowNull: false, unique: true },
     phoneNumber: { type: Sequelize.TEXT, allowNull: false, unique: true },
+    type: { type: Sequelize.ENUM("jobseeker", "recruiter", "company"), defaultValue: "jobseeker" },
     password: { type: Sequelize.TEXT, allowNull: false },
   });
 
@@ -10,4 +11,3 @@ const users = (sequelize, Sequelize) => {
 };
 
 module.exports = users;
- 
