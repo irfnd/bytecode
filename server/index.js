@@ -1,11 +1,11 @@
 require("dotenv").config();
 const { SERVER_HOST, SERVER_PORT } = process.env;
 
-const cookieParser = require('cookie-parser')
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const port = SERVER_PORT || 8000;
@@ -24,8 +24,7 @@ app.use(cookieParser());
 
 require("./routes/index")(app);
 
-app.use(errorHandling.error);
-app.use(errorHandling.notFound);
+app.use(errorHandling);
 
 app.listen(port, () => {
   console.log(`> Server running on http://${SERVER_HOST}:${port}`);

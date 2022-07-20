@@ -1,30 +1,15 @@
-exports.notFound = (request, response, next) => {
-  response.status(404).json({
+const status = require("http-status");
+
+const error = (err, req, res, next) => {
+  const code = status[err.cause] || 500;
+  console.log(err);
+  res.status(code).json({
     error: {
-      status: 404,
-      name: "notFound",
-      message: "Not found",
+      status: code,
+      name: err.name,
+      message: err.message,
     },
   });
-  next();
 };
 
-exports.error = (error, request, response, next) => {
-  const codes = {
-    badRequest: 400,
-    validationError: 400,
-    authError: 401,
-  };
-  const status = codes[error.name] || error.status || 500;
-
-  response.status(status).json({
-    error: {
-      status,
-      name: error.name || "error",
-      message: error.message || "error",
-    },
-  });
-  console.log(error);
-  next();
-};
-
+module.exports = error;
