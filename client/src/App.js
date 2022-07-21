@@ -12,13 +12,14 @@ import Register from './pages/Auth/Register'
 import Chat from './pages/Chat'
 
 import './Style/adi.css'; // CSS
-import './Style/azis.css'; // CSS
+import './Style/HomeStyles.css'; // CSS
 import EmployeeProfile from "./pages/EmpProfile";
 import EmployeeEdit from "./pages/EmpEdit";
 import CompanyProfile from "./pages/ComProfile";
 import CompanyEdit from "./pages/ComEdit";
 import HiringEmployee from "./pages/Hire";
 import Home from "./pages/Home";
+
 
 function App() {
 	return (
@@ -37,6 +38,7 @@ function App() {
 						<Route path="co/edit" element={<CompanyEdit />} />
 						<Route path="hire" element={<HiringEmployee />} />
 						<Route path="Home" element={<Home />} />
+						<Route path="LandingPage" element={<LandingPage />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>

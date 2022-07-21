@@ -4,13 +4,13 @@ import {
   Row,
   Col,
   Button,
-  Image,
   Card,
-  Nav,
-  Navbar,
 } from "react-bootstrap";
-import profil from "../../files/profil.jpg";
-import { Bell, Envelope, GeoAlt } from "react-bootstrap-icons";
+import profil from "../../assets/img/profil.jpg";
+import { GeoAlt } from "react-bootstrap-icons";
+
+
+
 
 function App() {
   return (
