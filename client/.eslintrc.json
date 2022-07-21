@@ -13,14 +13,15 @@
 	},
 	"plugins": ["react", "prettier"],
 	"rules": {
-    "import/newline-after-import": "off",
-    "import/order": "off",
-    "no-console": "off",
-    "prettier/prettier": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/jsx-no-bind": "off",
-    "react/jsx-props-no-spreading": "off",
-    "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off"
+		"import/no-unresolved": "off",
+		"import/newline-after-import": "off",
+		"import/order": "off",
+		"no-console": "off",
+		"prettier/prettier": "off",
+		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+		"react/jsx-no-bind": "off",
+		"react/jsx-props-no-spreading": "off",
+		"react/prop-types": "off",
+		"react/react-in-jsx-scope": "off"
 	}
 }

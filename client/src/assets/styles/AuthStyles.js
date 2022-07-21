@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import '@fontsource/open-sans';
+import { createGlobalStyle } from "styled-components";
+import "@fontsource/open-sans";
 
 const Auth = createGlobalStyle`
   .full,
