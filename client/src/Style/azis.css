@@ -1,0 +1,36 @@
+.bg{
+    background-color: #5E50A1;
+    height: 290px;
+    color:white;
+  }
+  .profilpict{
+    border-radius: 50%;
+  }
+  
+  .navbar-profil{
+    border-radius: 50%;
+  }
+  
+  .footerlink{
+    color: white;
+  }
+  
+  #nav-dropdown{
+    border-left: 2px solid #5E50A1;
+  }
+  
+  .button-profil{
+    background: #5E50A1;
+    border: 2px solid  #5E50A1;
+  }
+  .background{
+    background-color: #5E50A1;
+  }
+  
+  .App{
+    background-color: #F6F7F8;
+  }
+  
+  .d-inline{
+    display:inline-block
+  }
