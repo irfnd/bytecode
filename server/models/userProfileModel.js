@@ -1,17 +1,63 @@
+const { sequelizeJoi, Joi: joi } = require("sequelize-joi");
+const Joi = joi.extend(require("joi-phone-number"));
+
 const userProfile = (sequelize, Sequelize) => {
+  sequelizeJoi(sequelize);
+
   const UserProfile = sequelize.define("user_profile", {
-    name: { type: Sequelize.TEXT, allowNull: false },
-    email: { type: Sequelize.TEXT, allowNull: false, unique: true },
-    phoneNumber: { type: Sequelize.TEXT, allowNull: false, unique: true },
-    type: { type: Sequelize.TEXT },
-    domicile: { type: Sequelize.TEXT },
-    position: { type: Sequelize.TEXT },
-    companyName: { type: Sequelize.TEXT },
-    shortDesc: { type: Sequelize.TEXT },
-    instagram: { type: Sequelize.TEXT },
-    linkedin: { type: Sequelize.TEXT },
-    github: { type: Sequelize.TEXT },
-    photo: { type: Sequelize.TEXT },
+    name: {
+      type: Sequelize.TEXT,
+      allowNull: false,
+      schema: Joi.string().trim().required(),
+    },
+    email: {
+      type: Sequelize.TEXT,
+      allowNull: false,
+      unique: true,
+      schema: Joi.string().trim().email().required(),
+    },
+    phoneNumber: {
+      type: Sequelize.TEXT,
+      allowNull: false,
+      unique: true,
+      schema: Joi.string().trim().phoneNumber({ defaultCountry: "ID", format: "e164" }).required(),
+    },
+    type: {
+      type: Sequelize.TEXT,
+      schema: Joi.string().trim().required(),
+    },
+    domicile: {
+      type: Sequelize.TEXT,
+      schema: Joi.string().trim(),
+    },
+    position: {
+      type: Sequelize.TEXT,
+      schema: Joi.string().trim(),
+    },
+    companyName: {
+      type: Sequelize.TEXT,
+      schema: Joi.string().trim(),
+    },
+    shortDesc: {
+      type: Sequelize.TEXT,
+      schema: Joi.string().trim(),
+    },
+    instagram: {
+      type: Sequelize.TEXT,
+      schema: Joi.string().trim(),
+    },
+    linkedin: {
+      type: Sequelize.TEXT,
+      schema: Joi.string().trim(),
+    },
+    github: {
+      type: Sequelize.TEXT,
+      schema: Joi.string().trim(),
+    },
+    photo: {
+      type: Sequelize.TEXT,
+      schema: Joi.string().trim(),
+    },
   });
 
   return UserProfile;

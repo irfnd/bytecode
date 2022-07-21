@@ -11,7 +11,7 @@ const app = express();
 const port = SERVER_PORT || 8000;
 
 const db = require("./models");
-const syncdb = false;
+const syncdb = true;
 
 const errorHandling = require("./middlewares/errorHandling");
 
