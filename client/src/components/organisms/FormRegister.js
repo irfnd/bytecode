@@ -11,7 +11,7 @@ function FormRegister () {
   return (
     <>
       <AuthStyles />
-        <Container>
+        <Container fluid>
           <Row>
             <Picture />
             <Col lg="6" className="custom d-flex justify-content-center align-items-center">

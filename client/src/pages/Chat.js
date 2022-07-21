@@ -1,16 +1,16 @@
 import React from 'react';
 import { Card, Container } from "react-bootstrap";
 
-import FormRegister from '../../components/organisms/FormRegister'
+import FormChat from '../components/organisms/FormChat'
 
-const login = () => {
+const chat = () => {
 
   return (
     <div>
       <Card>
         <Card.Body className="mt-0 mb-0">
-          <Container>
-            <FormRegister />
+          <Container fluid>
+              <FormChat />
           </Container>
         </Card.Body>
       </Card>
@@ -18,4 +18,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default chat;

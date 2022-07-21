@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LandingPage from './pages/Landing'
 import Login from './pages/Auth/Login'
 import Register from './pages/Auth/Register'
+import Chat from './pages/Chat'
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 						<Route index element = {<LandingPage />} />
 						<Route path = 'login' element = {<Login />} />
 						<Route path = 'register' element = {<Register />} />
+						<Route path = 'chat' element = {<Chat />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>
