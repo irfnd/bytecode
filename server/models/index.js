@@ -16,13 +16,26 @@ db.Sequelize = Sequelize;
 
 // Models Schema
 db.Users = require("./usersModel")(sequelize, Sequelize);
-db.Companies = require("./companiesModel")(sequelize, Sequelize);
 db.Tokens = require("./tokensModel")(sequelize, Sequelize);
+db.UserProfile = require("./userProfileModel")(sequelize, Sequelize);
+db.CompanyProfile = require("./companyProfileModel")(sequelize, Sequelize);
+db.Skills = require("./skillsModel")(sequelize, Sequelize);
+db.UserSkills = require("./userSkillsModel")(sequelize, Sequelize);
 
-// Models Relation
-db.Users.hasMany(db.Tokens);
-db.Companies.hasMany(db.Tokens);
+// Users Relations
+db.Users.hasMany(db.Tokens, { onDelete: "cascade" });
+db.Users.belongsToMany(db.Skills, { through: db.UserSkills, onDelete: "cascade" });
+db.Users.hasOne(db.UserProfile, { onDelete: "cascade" });
+db.Users.hasOne(db.CompanyProfile, { onDelete: "cascade" });
+
+// User + Company Profile Relations
+db.UserProfile.belongsTo(db.Users);
+db.CompanyProfile.belongsTo(db.Users);
+
+// Tokens Relations
 db.Tokens.belongsTo(db.Users);
-db.Tokens.belongsTo(db.Companies);
+
+// Skills Relations
+db.Skills.belongsToMany(db.Users, { through: db.UserSkills });
 
 module.exports = db;

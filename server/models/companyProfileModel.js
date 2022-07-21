@@ -1,10 +1,10 @@
 const { sequelizeJoi, Joi: joi } = require("sequelize-joi");
 const Joi = joi.extend(require("joi-phone-number"));
 
-const users = (sequelize, Sequelize) => {
+const companyProfile = (sequelize, Sequelize) => {
   sequelizeJoi(sequelize);
 
-  const Users = sequelize.define("users", {
+  const CompanyProfile = sequelize.define("company_profile", {
     name: {
       type: Sequelize.TEXT,
       allowNull: false,
@@ -23,18 +23,36 @@ const users = (sequelize, Sequelize) => {
       schema: Joi.string().trim().phoneNumber({ defaultCountry: "ID", format: "e164" }).required(),
     },
     type: {
-      type: Sequelize.ENUM("jobseeker", "recruiter", "company"),
-      defaultValue: "jobseeker",
+      type: Sequelize.TEXT,
       schema: Joi.string().trim().required(),
     },
-    password: {
+    specialized: {
       type: Sequelize.TEXT,
-      allowNull: false,
-      schema: Joi.string().trim().required(),
+      schema: Joi.string().trim(),
+    },
+    location: {
+      type: Sequelize.TEXT,
+      schema: Joi.string().trim(),
+    },
+    shortDesc: {
+      type: Sequelize.TEXT,
+      schema: Joi.string().trim(),
+    },
+    linkedin: {
+      type: Sequelize.TEXT,
+      schema: Joi.string().trim(),
+    },
+    instagram: {
+      type: Sequelize.TEXT,
+      schema: Joi.string().trim(),
+    },
+    photo: {
+      type: Sequelize.TEXT,
+      schema: Joi.string().trim(),
     },
   });
 
-  return Users;
+  return CompanyProfile;
 };
 
-module.exports = users;
+module.exports = companyProfile;

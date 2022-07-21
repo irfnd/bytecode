@@ -11,7 +11,7 @@ const app = express();
 const port = SERVER_PORT || 8000;
 
 const db = require("./models");
-const syncdb = false;
+const syncdb = true;
 
 const errorHandling = require("./middlewares/errorHandling");
 
@@ -27,7 +27,7 @@ require("./routes/index")(app);
 app.use(errorHandling);
 
 app.listen(port, () => {
-  console.log(`> Server running on http://${SERVER_HOST}:${port}`);
+  console.log(`\n> Server running on http://${SERVER_HOST}:${port}`);
   db.sequelize
     .sync({ force: syncdb })
     .then(() => console.log("> Connected to database\n"))
