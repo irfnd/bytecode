@@ -31,10 +31,10 @@ function App() {
 						<Route path = 'chat' element = {<Chat />} />
 						
           	<Route path="em" element={<EmployeeProfile />} />
-						<Route path="em/edit" element={<EmployeeEdit />} />
-						<Route path="co" element={<CompanyProfile />} />
-						<Route path="co/edit" element={<CompanyEdit />} />
-						<Route path="hire" element={<HiringEmployee />} />
+						<Route path="employed/edit" element={<EmployeeEdit />} />
+						<Route path="Profile" element={<CompanyProfile />} />
+						<Route path="company/edit" element={<CompanyEdit />} />
+						<Route path="hiring" element={<HiringEmployee />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>
