@@ -2,7 +2,7 @@ const { hashSync } = require("bcrypt");
 const { Users } = require("../models");
 
 // Admin Privilages
-exports.create = async (req, res, next) => {
+const create = async (req, res, next) => {
   const { password } = req.body;
   try {
     const newUser = { ...req.body, password: hashSync(password, 10) };
@@ -13,7 +13,7 @@ exports.create = async (req, res, next) => {
   }
 };
 
-exports.findAll = async (req, res, next) => {
+const findAll = async (req, res, next) => {
   try {
     const results = await Users.findAll();
     res.json(results);
@@ -22,7 +22,7 @@ exports.findAll = async (req, res, next) => {
   }
 };
 
-exports.findById = async (req, res, next) => {
+const findById = async (req, res, next) => {
   const { id } = req.params;
   try {
     const results = await Users.findByPk(id);
@@ -33,7 +33,7 @@ exports.findById = async (req, res, next) => {
   }
 };
 
-exports.update = async (req, res, next) => {
+const update = async (req, res, next) => {
   const { id } = req.params;
   const { password } = req.body;
   try {
@@ -46,7 +46,7 @@ exports.update = async (req, res, next) => {
   }
 };
 
-exports.delete = async (req, res, next) => {
+const deleteOne = async (req, res, next) => {
   const { id } = req.params;
   try {
     const results = await Users.destroy({ where: { id } });
@@ -55,4 +55,12 @@ exports.delete = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+module.exports = {
+  create,
+  findAll,
+  findById,
+  update,
+  deleteOne,
 };

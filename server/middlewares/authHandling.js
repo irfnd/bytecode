@@ -12,3 +12,13 @@ exports.userLogin = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.isCompany = async (req, res, next) => {
+  const { type } = req.decoded;
+  try {
+    if (type === "company") throw new Error("User authorized only!", { cause: "FORBIDDEN" });
+    next();
+  } catch (error) {
+    next(error);
+  }
+};

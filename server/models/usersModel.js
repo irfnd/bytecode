@@ -25,7 +25,7 @@ const users = (sequelize, Sequelize) => {
     type: {
       type: Sequelize.ENUM("jobseeker", "recruiter", "company"),
       defaultValue: "jobseeker",
-      schema: Joi.string().trim().required(),
+      schema: Joi.string().trim().valid("jobseeker", "recruiter", "company").required(),
     },
     password: {
       type: Sequelize.TEXT,

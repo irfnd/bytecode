@@ -2,11 +2,11 @@ require("dotenv").config();
 const { REFRESH_TOKEN_EXPIRE } = process.env;
 
 const { hashSync, compareSync } = require("bcrypt");
-const { Users, UserProfile, CompanyProfile, Tokens } = require("../models");
+const { Users, Companies, UserProfile, CompanyProfile, Tokens } = require("../models");
 const { generateAccessToken, generateRefreshToken, verifyRefreshToken } = require("../utils/TokenHandling");
 
 // Public Privilages
-exports.register = async (req, res, next) => {
+const register = async (req, res, next) => {
   const { type, password } = req.body;
   try {
     if (!type) throw new Error("User type required!", { cause: "BAD_REQUEST" });
@@ -17,7 +17,16 @@ exports.register = async (req, res, next) => {
     } else {
       const newUser = { ...req.body, password: hashSync(password, 10) };
       const results = await Users.create(newUser);
-      await CompanyProfile.create({ ...newUser, userId: results.id });
+      const profile = await CompanyProfile.create({ ...newUser, userId: results.id });
+      const getCompany = await Companies.findOne({ where: { name: profile.name } });
+      if (getCompany === null) {
+        await Companies.create({ name: profile.name, companyProfileId: profile.id });
+      } else {
+        await Companies.update(
+          { name: getCompany.name, companyProfileId: profile.id },
+          { where: { name: getCompany.name } }
+        );
+      }
     }
     res.clearCookie("refreshToken").json({ message: "Register successfully" });
   } catch (error) {
@@ -25,7 +34,7 @@ exports.register = async (req, res, next) => {
   }
 };
 
-exports.login = async (req, res, next) => {
+const login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await Users.findOne({ where: { email } });
@@ -44,7 +53,7 @@ exports.login = async (req, res, next) => {
   }
 };
 
-exports.refreshToken = async (req, res, next) => {
+const refreshToken = async (req, res, next) => {
   const { refreshToken } = req.cookies;
   try {
     if (!refreshToken) throw new Error("Token required!", { cause: "UNAUTHORIZED" });
@@ -62,4 +71,10 @@ exports.refreshToken = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+module.exports = {
+  register,
+  login,
+  refreshToken,
 };

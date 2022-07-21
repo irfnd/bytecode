@@ -1,12 +1,14 @@
 const { hashSync } = require("bcrypt");
-const { Users, UserProfile, CompanyProfile, Skills } = require("../models");
+const { Users, UserProfile, Companies, CompanyProfile, Skills } = require("../models");
 
 // User Privilages
-exports.getProfile = async (req, res, next) => {
+const getProfile = async (req, res, next) => {
   const { type, id } = req.decoded;
   try {
     if (type !== "company") {
-      const results = await Users.findByPk(id, { include: [UserProfile, { model: Skills, through: { attributes: [] } }] });
+      const results = await Users.findByPk(id, {
+        include: [UserProfile, { model: Skills, through: { attributes: [] } }, Companies],
+      });
       if (!results) throw new Error("User not found!", { cause: "NOT_FOUND" });
       res.json(results);
     } else {
@@ -20,21 +22,24 @@ exports.getProfile = async (req, res, next) => {
   }
 };
 
-exports.updateProfile = async (req, res, next) => {
+const updateProfile = async (req, res, next) => {
   const { type, id } = req.decoded;
   const { password } = req.body;
   try {
     if (type !== "company") {
       const newData = password ? { ...req.body, password: hashSync(password, 10) } : { ...req.body };
-      const resultsUser = await Users.update(newData, { where: { id } });
-      if (resultsUser < 1) throw new Error("User not registered!", { cause: "NOT_FOUND" });
+      await Users.update(newData, { where: { id } });
       await UserProfile.update(newData, { where: { userId: id } });
       res.json({ message: "Profile updated successfully", request: req.body });
     } else {
       const newData = password ? { ...req.body, password: hashSync(password, 10) } : { ...req.body };
-      const resultsCompany = await Users.update(newData, { where: { id } });
-      if (resultsCompany < 1) throw new Error("User not registered!", { cause: "NOT_FOUND" });
-      await CompanyProfile.update(newData, { where: { userId: id } });
+      await Users.update(newData, { where: { id } });
+      const getProfile = await CompanyProfile.update(newData, { where: { userId: id }, returning: true });
+      const dataProfile = getProfile[1][0];
+      await Companies.update(
+        { name: dataProfile.name, photo: dataProfile.photo },
+        { where: { companyProfileId: dataProfile.id } }
+      );
       res.json({ message: "Profile updated successfully", request: req.body });
     }
   } catch (error) {
@@ -42,7 +47,7 @@ exports.updateProfile = async (req, res, next) => {
   }
 };
 
-exports.deleteProfile = async (req, res, next) => {
+const deleteProfile = async (req, res, next) => {
   const { id } = req.decoded;
   try {
     const results = await Users.destroy({ where: { id } });
@@ -51,4 +56,10 @@ exports.deleteProfile = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+module.exports = {
+  getProfile,
+  updateProfile,
+  deleteProfile,
 };
