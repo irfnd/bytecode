@@ -24,6 +24,7 @@ db.UserSkills = require("./userSkillsModel")(sequelize, Sequelize);
 db.Companies = require("./companiesModel")(sequelize, Sequelize);
 db.WorkExp = require("./workExpModel")(sequelize, Sequelize);
 db.Portfolio = require("./portfolioModel")(sequelize, Sequelize);
+db.Notifications = require("./notificationModel")(sequelize, Sequelize);
 
 // Users Relations
 db.Users.hasMany(db.Tokens, { onDelete: "cascade" });
