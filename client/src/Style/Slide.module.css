@@ -1,0 +1,36 @@
+.content {
+	padding: 15px;
+}
+
+.images {
+	height: 100 !important;
+	width: 100% !important;
+}
+
+.banner_text {
+	position: absolute;
+	top: 50%;
+	left: 51%;
+	transform: translate(-50%, -50%);
+	width: 80%;
+}
+
+.banner_heading {
+	font-size: 40px;
+	font-weight: 700;
+	line-height: 70px;
+	color: var(--text-white);
+}
+
+.left_wave {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+}
+
+.right_wave {
+	position: absolute;
+	right: 0;
+	top: 0;
+}

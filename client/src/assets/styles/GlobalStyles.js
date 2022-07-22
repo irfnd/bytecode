@@ -1,7 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
-import '@fontsource/open-sans';
-import '@fortawesome/fontawesome-free'
-
+import { createGlobalStyle } from "styled-components";
+import "@fontsource/open-sans";
+import "@fortawesome/fontawesome-free";
 
 const GlobalStyles = createGlobalStyle`
 
