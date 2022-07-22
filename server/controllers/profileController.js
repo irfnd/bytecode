@@ -1,5 +1,5 @@
 const { hashSync } = require("bcrypt");
-const { Users, UserProfile, Companies, CompanyProfile, Skills } = require("../models");
+const { Users, UserProfile, Companies, CompanyProfile, Skills, Portfolio } = require("../models");
 
 // User Privilages
 const getProfile = async (req, res, next) => {
@@ -7,7 +7,7 @@ const getProfile = async (req, res, next) => {
   try {
     if (type !== "company") {
       const results = await Users.findByPk(id, {
-        include: [UserProfile, { model: Skills, through: { attributes: [] } }, Companies],
+        include: [UserProfile, { model: Skills, through: { attributes: [] } }, Companies, Portfolio],
       });
       if (!results) throw new Error("User not found!", { cause: "NOT_FOUND" });
       res.json(results);

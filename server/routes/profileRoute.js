@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { profile, skills, workExp } = require("../controllers");
+const { profile, skills, workExp, portfolio } = require("../controllers");
 const auth = require("../middlewares/authHandling");
 
 router
@@ -20,5 +20,13 @@ router
   .route("/work-exp/:id")
   .patch(auth.userLogin, auth.isCompany, workExp.updateByUser)
   .delete(auth.userLogin, auth.isCompany, workExp.deleteByUser);
+router
+  .route("/portfolio")
+  .get(auth.userLogin, auth.isCompany, portfolio.findByUser)
+  .post(auth.userLogin, auth.isCompany, portfolio.createByUser);
+router
+  .route("/portfolio/:id")
+  .patch(auth.userLogin, auth.isCompany, portfolio.updateByUser)
+  .delete(auth.userLogin, auth.isCompany, portfolio.deleteByUser);
 
 module.exports = router;

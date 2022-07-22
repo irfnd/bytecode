@@ -1,5 +1,4 @@
-const { sequelizeJoi, Joi: joi } = require("sequelize-joi");
-const Joi = joi.extend(require("joi-phone-number"));
+const { sequelizeJoi, Joi } = require("sequelize-joi");
 
 const companies = (sequelize, Sequelize) => {
   sequelizeJoi(sequelize);

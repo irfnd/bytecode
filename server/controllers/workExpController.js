@@ -1,8 +1,7 @@
-const moment = require("moment");
 const { Users, Companies, CompanyProfile, WorkExp } = require("../models");
 
 // Admin Privilages
-exports.create = async (req, res, next) => {
+const create = async (req, res, next) => {
   try {
     const results = await WorkExp.create(req.body);
     res.json(results);
@@ -11,7 +10,7 @@ exports.create = async (req, res, next) => {
   }
 };
 
-exports.findAll = async (req, res, next) => {
+const findAll = async (req, res, next) => {
   try {
     const results = await WorkExp.findAll();
     res.json(results);
@@ -20,7 +19,7 @@ exports.findAll = async (req, res, next) => {
   }
 };
 
-exports.findById = async (req, res, next) => {
+const findById = async (req, res, next) => {
   const { id } = req.params;
   try {
     const results = await WorkExp.findByPk(id);
@@ -31,7 +30,7 @@ exports.findById = async (req, res, next) => {
   }
 };
 
-exports.update = async (req, res, next) => {
+const update = async (req, res, next) => {
   const { id } = req.params;
   try {
     const results = await WorkExp.update(req.body, { where: { id }, returning: true });
@@ -42,7 +41,7 @@ exports.update = async (req, res, next) => {
   }
 };
 
-exports.delete = async (req, res, next) => {
+const deleteOne = async (req, res, next) => {
   const { id } = req.params;
   try {
     const results = await WorkExp.destroy({ where: { id } });
@@ -54,7 +53,7 @@ exports.delete = async (req, res, next) => {
 };
 
 // User Privilages
-exports.createByUser = async (req, res, next) => {
+const createByUser = async (req, res, next) => {
   const { id } = req.decoded;
   const { name } = req.body;
   try {
@@ -69,7 +68,7 @@ exports.createByUser = async (req, res, next) => {
   }
 };
 
-exports.findByUser = async (req, res, next) => {
+const findByUser = async (req, res, next) => {
   const { id } = req.decoded;
   try {
     const results = await Users.findOne({ include: [{ model: Companies }], where: { id } });
@@ -80,7 +79,7 @@ exports.findByUser = async (req, res, next) => {
   }
 };
 
-exports.updateByUser = async (req, res, next) => {
+const updateByUser = async (req, res, next) => {
   const { id: userId } = req.decoded;
   const { id: companyId } = req.params;
   const { name } = req.body;
@@ -95,7 +94,7 @@ exports.updateByUser = async (req, res, next) => {
   }
 };
 
-exports.deleteByUser = async (req, res, next) => {
+const deleteByUser = async (req, res, next) => {
   const { id: userId } = req.decoded;
   const { id: companyId } = req.params;
   try {
@@ -106,4 +105,16 @@ exports.deleteByUser = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+module.exports = {
+  create,
+  findAll,
+  findById,
+  update,
+  deleteOne,
+  createByUser,
+  findByUser,
+  updateByUser,
+  deleteByUser,
 };

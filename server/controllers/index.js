@@ -4,4 +4,5 @@ module.exports = {
   profile: require("./profileController"),
   skills: require("./skillsController"),
   workExp: require("./workExpController"),
+  portfolio: require("./portfolioController"),
 };
