@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Image, Button, FloatingLabel } from "react-bootstrap";
+import { Container, Row, Col, Image, Button, FloatingLabel, Navbar } from "react-bootstrap";
 
 // import brand from '../assets/brandLogo.png'; //
 // import bell from '../assets/bellLogo.png'; //
@@ -16,9 +16,13 @@ import p3 from "../assets/img/exPorto3.png";
 import p4 from "../assets/img/exPorto4.png";
 import compImage from "../assets/img/exCompLogo.png";
 
+import logo2 from "../assets/img/logo2.png";
+import Navbar1 from "../components/organisms/Navbar1";
+
 export default function EmpProfile() {
 	return (
 		<Container className="gradientBGPage">
+			<Row> <Navbar1 /> </Row>
 			<Row className="py-5">
 				<Col sm={1} />
 
@@ -175,6 +179,23 @@ export default function EmpProfile() {
 
 				<Col sm={1} />
 			</Row>
+			
+			<Row className="bg ">
+        <Col lg={10} className="mx-auto mt-5">
+					<Image src={logo2} height={50} className="mt-3 mb-3" />
+					<p className="mb-5">With supporting text below as a natural lead-in to additional content.</p>
+					<hr />
+					<Row>
+						<Navbar>
+							<p>2020 Pewworld. All right reserved</p>
+							<Navbar.Collapse className="footerlink justify-content-end">
+								<p className="mx-5">Telepon</p>
+								<p>Email</p>
+							</Navbar.Collapse>
+						</Navbar>
+					</Row>
+        </Col>
+    	</Row>
 		</Container>
 	);
 }

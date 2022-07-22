@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Image, Button, Container } from "react-bootstrap";
+import { Row, Col, Image, Button, Container, Navbar } from "react-bootstrap";
 
 import avatar from "../assets/img/exAvatar.png"; // Photo Profile Example
 
@@ -12,9 +12,13 @@ import instagram from "../assets/icons/instagramLogo.png"; //
 import phone from "../assets/icons/phoneLogo.png"; //
 import linkedin from "../assets/icons/linkedinLogo.png"; //
 
+import logo2 from "../assets/img/logo2.png";
+import Navbar1 from "../components/organisms/Navbar1";
+
 export default function ComProfile() {
 	return (
 		<Container className="solidBGPage pb-5">
+		<Row> <Navbar1 /> </Row>
 			<Row>
 				<Col />
 				<Col sm={10} className="compProfile">
@@ -115,6 +119,23 @@ export default function ComProfile() {
 				</Col>
 				<Col />
 			</Row>
+			
+			<Row className="bg ">
+        <Col lg={10} className="mx-auto mt-5">
+					<Image src={logo2} height={50} className="mt-3 mb-3" />
+					<p className="mb-5">With supporting text below as a natural lead-in to additional content.</p>
+					<hr />
+					<Row>
+						<Navbar>
+							<p>2020 Pewworld. All right reserved</p>
+							<Navbar.Collapse className="footerlink justify-content-end">
+								<p className="mx-5">Telepon</p>
+								<p>Email</p>
+							</Navbar.Collapse>
+						</Navbar>
+					</Row>
+        </Col>
+    	</Row>
 		</Container>
 	);
 }
