@@ -30,13 +30,13 @@ function App() {
 				<Routes>
 					<Route path='/'>
 						<Route index element = {<LandingPage />} />
-						<Route path='login' element = {<Login />} />
-						<Route path='register' element = {<Register />} />
-						<Route path='chat' element = {<Chat />} />
-          	<Route path="em" element={<EmployeeProfile />} />
-						<Route path="em/edit" element={<EmployeeEdit />} />
-						<Route path="co" element={<CompanyProfile />} />
-						<Route path="co/edit" element={<CompanyEdit />} />
+						<Route path="login" element = {<Login />} />
+						<Route path="register" element = {<Register />} />
+						<Route path="chat" element = {<Chat />} />
+          				<Route path="employed" element={<EmployeeProfile />} />
+						<Route path="employed/edit" element={<EmployeeEdit />} />
+						<Route path="company" element={<CompanyProfile />} />
+						<Route path="company/edit" element={<CompanyEdit />} />
 						<Route path="hire" element={<HiringEmployee />} />
 						<Route path="Home" element={<Home />} />
 						<Route path="LandingPage" element={<LandingPage />} />
