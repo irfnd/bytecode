@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { SERVER_HOST, SERVER_PORT } = process.env;
+const { SERVER_HOST, SERVER_PORT, CLIENT_HOST } = process.env;
 
 const express = require("express");
 const cors = require("cors");
@@ -19,7 +19,7 @@ const syncdb = false;
 
 const errorHandling = require("./middlewares/errorHandling");
 
-app.use(cors());
+app.use(cors({ origin: CLIENT_HOST }));
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());

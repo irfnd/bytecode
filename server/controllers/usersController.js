@@ -1,5 +1,7 @@
+const { Op } = require("sequelize");
 const { hashSync } = require("bcrypt");
-const { Users } = require("../models");
+const { Users, UserProfile, Skills } = require("../models");
+const { getPagination, getPagingData, getSort } = require("../utils/SearchPagination");
 
 // Admin Privilages
 const create = async (req, res, next) => {
@@ -57,10 +59,33 @@ const deleteOne = async (req, res, next) => {
   }
 };
 
+// Recuiters Privilages
+const findAllByRecuiter = async (req, res, next) => {
+  const { page, size, search, sort } = req.query;
+  const { limit, offset } = getPagination(page, size);
+  const sortType = getSort(sort, { Skills });
+  try {
+    const checkName = await Users.findOne({ where: { name: { [Op.iLike]: `%${search || null}%` } } });
+    const condition = search ? !!checkName : null;
+    const getUsers = await Users.findAndCountAll({
+      include: [UserProfile, { model: Skills, where: condition === false ? { name: { [Op.iLike]: `%${search}%` } } : null }],
+      where: condition ? { name: { [Op.iLike]: `%${search}%` }, type: "jobseeker" } : { type: "jobseeker" },
+      limit,
+      offset,
+      order: sortType,
+    });
+    const results = getPagingData(getUsers, page, limit);
+    res.json(results);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   create,
   findAll,
   findById,
   update,
   deleteOne,
+  findAllByRecuiter,
 };

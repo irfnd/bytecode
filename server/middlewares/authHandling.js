@@ -22,3 +22,13 @@ exports.isCompany = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.isRecruiter = async (req, res, next) => {
+  const { type } = req.decoded;
+  try {
+    if (type === "jobseeker") throw new Error("Recuiter & company authorized only!", { cause: "FORBIDDEN" });
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
