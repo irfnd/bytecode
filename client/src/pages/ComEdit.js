@@ -1,31 +1,37 @@
 import React from "react";
-import { Container, Row, Col, Image, Form, Button, Navbar } from "react-bootstrap";
+import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-import avatar from "../assets/img/exAvatar.png"; // Photo Profile Example
+import profil from "../assets/img/profil.jpg";
 
-// import brand from '../assets/brandLogo.png'; //
-// import bell from '../assets/bellLogo.png'; //
-import loc from "../assets/icons/locLogo.png"; //
-// import mail from '../assets/mailLogo.png'; //
+import edit from "../assets/icons/editGray.png";
+import loc from "../assets/icons/locLogo.png";
 
-import logo2 from "../assets/img/logo2.png";
-import Navbar1 from "../components/organisms/Navbar1";
+import Navbar1 from "../components/organisms/Navbar1Adi";
+import Footer from "../components/organisms/Footer";
 
 export default function CompEdit() {
 	return (
+		<>
+		<Navbar1 />
 		<Container className="gradientBGPage">
-		<Row> <Navbar1 /> </Row>
 			<Row className="py-5">
 				<Col sm={1} />
 
 				{/* LEFT SIDE BAR */}
 				<Col sm={3}>
 					{/* PROFILE */}
-					<Row className="whiteBg pt-4 pb-4 px-4">
+					<div className="whiteBg pt-4 pb-4 px-4">
 						<Row>
 							<Col />
 							<Col xs={6}>
-								<Image className="avatar pb-3" src={avatar} />
+								<Image className="circleImage pb-3" src={profil} />
+								<Row className="pb-4">
+									<Link to="/#editAvatarCompanyURL" className="logoEdit inlineIconText">
+										<Image src={edit} /> 
+										<span>Edit</span>
+									</Link>
+								</Row>
 							</Col>
 							<Col />
 						</Row>
@@ -33,17 +39,19 @@ export default function CompEdit() {
 						<div className="h2SideBarProfile pb-2">Financial Industry</div>
 
 						<Row className="pSideBarProfile pb-2">
-							<Image className="loc" src={loc} />
-							Purwokerto, Jawa Tengah
+							<Image className="loc" src={loc} /> Purwokerto, Jawa Tengah
 						</Row>
-					</Row>
+					</div>
 
 					{/* BUTTON FOR SAVE & CANCEL OF EDITING */}
 					<div className="profilSaveCancel">
 						<Row>
-							<Button className="Button doit mt-3 mb-2">Save</Button>
-
-							<Button className="Button cancel mb-2">Cancel</Button>
+							<Link to="/co">
+								<Button className="Button doit mt-3 mb-2">Save</Button>
+							</Link>
+							<Link to="/co">
+								<Button className="Button cancel mb-2">Cancel</Button>
+							</Link>
 						</Row>
 					</div>
 				</Col>
@@ -108,22 +116,8 @@ export default function CompEdit() {
 				<Col sm={1} />
 			</Row>
 			
-			<Row className="bg ">
-        <Col lg={10} className="mx-auto mt-5">
-					<Image src={logo2} height={50} className="mt-3 mb-3" />
-					<p className="mb-5">With supporting text below as a natural lead-in to additional content.</p>
-					<hr />
-					<Row>
-						<Navbar>
-							<p>2020 Pewworld. All right reserved</p>
-							<Navbar.Collapse className="footerlink justify-content-end">
-								<p className="mx-5">Telepon</p>
-								<p>Email</p>
-							</Navbar.Collapse>
-						</Navbar>
-					</Row>
-        </Col>
-    	</Row>
+			<Footer/>
 		</Container>
+		</>
 	);
 }

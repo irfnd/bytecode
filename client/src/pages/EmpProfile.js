@@ -1,28 +1,29 @@
 import React from "react";
-import { Container, Row, Col, Image, Button, Tabs, Tab, Navbar } from "react-bootstrap";
+import { Container, Row, Col, Image, Button, Tabs, Tab } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-// import brand from '../assets/brandLogo.png'; //
-// import bell from '../assets/bellLogo.png'; //
 import loc from "../assets/icons/locLogo.png"; //
 import mail from "../assets/icons/mailLogo.png"; //
 import instagram from "../assets/icons/instagramLogo.png"; //
 import github from "../assets/icons/githubLogo.png"; //
 import gitlab from "../assets/icons/gitlabLogo.png"; //
 
-import avatar from "../assets/img/exAvatar.png"; // Photo Profile Example
+// import avatar from "../assets/img/exAvatar.png"; // Photo Profile Example
+import profil from "../assets/img/profil.jpg";
 import p1 from "../assets/img/exPorto1.png";
 import p2 from "../assets/img/exPorto2.png";
 import p3 from "../assets/img/exPorto3.png";
 import p4 from "../assets/img/exPorto4.png";
 import compImage from "../assets/img/exCompLogo.png";
 
-import logo2 from "../assets/img/logo2.png";
-import Navbar1 from "../components/organisms/Navbar1";
+import Navbar1 from "../components/organisms/Navbar1Adi";
+import Footer from "../components/organisms/Footer";
 
 export default function EmpProfile() {
 	return (
+		<>
+		<Navbar1 />
 		<Container className="gradientBGPage">
-			<Row> <Navbar1 /> </Row>
 			<Row className="py-5">
 				<Col sm={1} />
 
@@ -34,7 +35,7 @@ export default function EmpProfile() {
 							<Row>
 								<Col />
 								<Col xs={6}>
-									<Image className="avatar pb-3" src={avatar} />
+									<Image className="circleImage pb-3" src={profil} />
 								</Col>
 								<Col />
 							</Row>
@@ -53,7 +54,19 @@ export default function EmpProfile() {
 								{/* nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum */}
 							</div>
 
-							<Button className="Button doit mt-3 mb-4">Hire</Button>
+							{/* BUTTON LINK */}
+							{/* IF COMPANY */}
+							<Link to="/hire">
+								<Button renderAS="button" className="Button doit mt-3 mb-4">
+									Hire
+								</Button>
+							</Link>
+							{/* IF JOBSEEKERS */}
+							<Link to="/em/edit">
+								<Button renderAS="button" className="Button doit mt-3 mb-4">
+									Edit profile
+								</Button>
+							</Link>
 
 							<div className="h1SideBarProfile mb-2">Skill</div>
 							<div className="mb-4 d-flex flex-wrap">
@@ -245,22 +258,8 @@ export default function EmpProfile() {
 				<Col sm={1} />
 			</Row>
 			
-			<Row className="bg ">
-        <Col lg={10} className="mx-auto mt-5">
-					<Image src={logo2} height={50} className="mt-3 mb-3" />
-					<p className="mb-5">With supporting text below as a natural lead-in to additional content.</p>
-					<hr />
-					<Row>
-						<Navbar>
-							<p>2020 Pewworld. All right reserved</p>
-							<Navbar.Collapse className="footerlink justify-content-end">
-								<p className="mx-5">Telepon</p>
-								<p>Email</p>
-							</Navbar.Collapse>
-						</Navbar>
-					</Row>
-        </Col>
-    	</Row>
+			<Footer/>
 		</Container>
+		</>
 	);
 }

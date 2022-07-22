@@ -22,6 +22,10 @@
 .whiteBg .avatar {
 	width: 100%;
 }
+.circleImage{
+	border-radius: 50%;
+	width: 100%;
+}
 .loc {
 	/* 'location logo' on side bar Profile*/
 	width: 13%;
@@ -208,8 +212,18 @@
 	align-content: center;
 	text-align: center;
 }
-.compProfile .avatar {
+.compProfile .circleImage {
 	margin-top: 5.3rem;
+}
+.logoEdit{
+	text-align: center;
+	text-decoration: none;
+	color: #9ea0a5;
+}
+.logoEdit:hover {
+	color: #9ea0a5;
+	background-color: #5e50a1;
+	border-radius: 5px;
 }
 .compProfEditBG {
 	margin-top: 10rem;
@@ -217,6 +231,9 @@
 	font-size: 14px;
 	text-align: right;
 	text-decoration: none;
+}
+.compProfEditBG:hover {
+	color: white;
 }
 .compProfile .titleComp {
 	font-size: 20px;

@@ -1,10 +1,9 @@
 import React from "react";
-import { Row, Col, Image, Button, Container, Navbar } from "react-bootstrap";
+import { Row, Col, Image, Button, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-import avatar from "../assets/img/exAvatar.png"; // Photo Profile Example
+import profil from "../assets/img/profil.jpg";
 
-// import brand from '../assets/brandLogo.png'; //
-// import bell from '../assets/bellLogo.png'; //
 import loc from "../assets/icons/locLogo.png"; //
 import edit from "../assets/icons/editLogo.png"; //
 import mail from "../assets/icons/mailLogo.png"; //
@@ -12,13 +11,15 @@ import instagram from "../assets/icons/instagramLogo.png"; //
 import phone from "../assets/icons/phoneLogo.png"; //
 import linkedin from "../assets/icons/linkedinLogo.png"; //
 
-import logo2 from "../assets/img/logo2.png";
-import Navbar1 from "../components/organisms/Navbar1";
+import Navbar1 from "../components/organisms/Navbar1Adi";
+import Footer from "../components/organisms/Footer";
 
 export default function ComProfile() {
 	return (
+		<>
+		<Navbar1 />
 		<Container className="solidBGPage pb-5">
-		<Row> <Navbar1 /> </Row>
+		
 			<Row>
 				<Col />
 				<Col sm={10} className="compProfile">
@@ -31,7 +32,7 @@ export default function ComProfile() {
 									<Row>
 										<Col />
 										<Col xs={6}>
-											<Image className="avatar pb-4" src={avatar} />
+											<Image className="circleImage pb-3" src={profil} />
 										</Col>
 										<Col />
 									</Row>
@@ -69,7 +70,9 @@ export default function ComProfile() {
 							<Col />
 							<Col sm={4}>
 								{/* AFTER DESCRIPTION - BUTTON TO EDIT PROFILE COMPANY */}
-								<Button className="Button doit mt-3 mb-4"> Edit profile </Button>
+								<Link to="/co/edit">
+									<Button className="Button doit mt-3 mb-4"> Edit profile </Button>
+								</Link>
 
 								{/* COMPANY CONTACT */}
 								<Row>
@@ -120,22 +123,8 @@ export default function ComProfile() {
 				<Col />
 			</Row>
 			
-			<Row className="bg ">
-        <Col lg={10} className="mx-auto mt-5">
-					<Image src={logo2} height={50} className="mt-3 mb-3" />
-					<p className="mb-5">With supporting text below as a natural lead-in to additional content.</p>
-					<hr />
-					<Row>
-						<Navbar>
-							<p>2020 Pewworld. All right reserved</p>
-							<Navbar.Collapse className="footerlink justify-content-end">
-								<p className="mx-5">Telepon</p>
-								<p>Email</p>
-							</Navbar.Collapse>
-						</Navbar>
-					</Row>
-        </Col>
-    	</Row>
+			<Footer />
 		</Container>
+		</>
 	);
 }

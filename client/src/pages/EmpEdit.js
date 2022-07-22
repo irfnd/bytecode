@@ -1,19 +1,19 @@
 import React from "react";
-import { Container, Row, Col, Image, Form, Button, Navbar } from "react-bootstrap";
+import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-// import brand from '../assets/brandLogo.png'; //
-// import bell from '../assets/bellLogo.png'; //
-import avatar from "../assets/img/exAvatar.png"; // Photo Profile Example
-import loc from "../assets/icons/locLogo.png"; //
-// import mail from '../assets/mailLogo.png'; //
+import edit from "../assets/icons/editGray.png";
+import loc from "../assets/icons/locLogo.png";
+import profil from "../assets/img/profil.jpg";
 
-import logo2 from "../assets/img/logo2.png";
-import Navbar1 from "../components/organisms/Navbar1";
+import Navbar1 from "../components/organisms/Navbar1Adi";
+import Footer from "../components/organisms/Footer";
 
 export default function EmpEdit() {
 	return (
+		<>
+		<Navbar1/>
 		<Container className="gradientBGPage">
-		<Row> <Navbar1 /> </Row>
 			<Row className="py-5">
 				<Col sm={1} />
 
@@ -25,7 +25,13 @@ export default function EmpEdit() {
 							<Row>
 								<Col />
 								<Col xs={6}>
-									<Image className="avatar pb-3" src={avatar} />
+									<Image className="circleImage pb-3" src={profil} />
+									<Row className="pb-4">
+										<Link to="/#editAvatarCompanyURL" className="logoEdit inlineIconText">
+											<Image src={edit} /> 
+											<span>Edit</span>
+										</Link>
+									</Row>
 								</Col>
 								<Col />
 							</Row>
@@ -44,9 +50,12 @@ export default function EmpEdit() {
 					{/* BUTTON FOR SAVE & CANCEL OF EDITING */}
 					<div className="profilSaveCancel">
 						<Row>
+						<Link to="/em">
 							<Button className="Button doit mt-3 mb-2">Save</Button>
-
-							<Button className="Button cancel mb-2">Cancel</Button>
+						</Link>
+						<Link to="/em">
+								<Button className="Button cancel mb-2">Cancel</Button>
+						</Link>
 						</Row>
 					</div>
 				</Col>
@@ -65,8 +74,8 @@ export default function EmpEdit() {
 									<Form.Label className="mb-1">Full name</Form.Label>
 									<Form.Control size="md" type="email" placeholder="Enter full name" />
 									{/* <Form.Text className="text-muted">
-                      We'll never share your email with anyone else.
-                    </Form.Text> */}
+											We'll never share your email with anyone else.
+										</Form.Text> */}
 								</Form.Group>
 
 								<Form.Group className="mb-4 pSideBarProfile" controlId="jobdesk">
@@ -209,8 +218,8 @@ export default function EmpEdit() {
 				<Col sm={1} />
 			</Row>
 			
-			<Row className="bg ">
-        <Col lg={10} className="mx-auto mt-5">
+			{/* <Row className="bg ">
+				<Col lg={10} className="mx-auto mt-5">
 					<Image src={logo2} height={50} className="mt-3 mb-3" />
 					<p className="mb-5">With supporting text below as a natural lead-in to additional content.</p>
 					<hr />
@@ -223,8 +232,10 @@ export default function EmpEdit() {
 							</Navbar.Collapse>
 						</Navbar>
 					</Row>
-        </Col>
-    	</Row>
+				</Col>
+			</Row> */}
+			<Footer/>
 		</Container>
+		</>
 	);
 }
