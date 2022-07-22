@@ -11,12 +11,16 @@ import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Chat from "./pages/Chat";
 
-import "./Style/adi.css"; // CSS
+
+import './Style/adi.css'; // CSS
+import './Style/HomeStyles.css'; // CSS
 import EmployeeProfile from "./pages/EmpProfile";
 import EmployeeEdit from "./pages/EmpEdit";
 import CompanyProfile from "./pages/ComProfile";
 import CompanyEdit from "./pages/ComEdit";
 import HiringEmployee from "./pages/Hire";
+import Home from "./pages/Home";
+
 
 function App() {
 	return (
@@ -24,17 +28,18 @@ function App() {
 			<GlobalStyles />
 			<BrowserRouter>
 				<Routes>
-					<Route path="/">
-						<Route index element={<LandingPage />} />
-						<Route path="login" element={<Login />} />
-						<Route path="register" element={<Register />} />
-						<Route path="chat" element={<Chat />} />
-
-						<Route path="em" element={<EmployeeProfile />} />
-						<Route path="employed/edit" element={<EmployeeEdit />} />
-						<Route path="Profile" element={<CompanyProfile />} />
-						<Route path="company/edit" element={<CompanyEdit />} />
-						<Route path="hiring" element={<HiringEmployee />} />
+					<Route path='/'>
+						<Route index element = {<LandingPage />} />
+						<Route path='login' element = {<Login />} />
+						<Route path='register' element = {<Register />} />
+						<Route path='chat' element = {<Chat />} />
+          	<Route path="em" element={<EmployeeProfile />} />
+						<Route path="em/edit" element={<EmployeeEdit />} />
+						<Route path="co" element={<CompanyProfile />} />
+						<Route path="co/edit" element={<CompanyEdit />} />
+						<Route path="hire" element={<HiringEmployee />} />
+						<Route path="Home" element={<Home />} />
+						<Route path="LandingPage" element={<LandingPage />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>
