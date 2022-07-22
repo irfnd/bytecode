@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Image, Button, FloatingLabel, Navbar } from "react-bootstrap";
+import { Container, Row, Col, Image, Button, Tabs, Tab, Navbar } from "react-bootstrap";
 
 // import brand from '../assets/brandLogo.png'; //
 // import bell from '../assets/bellLogo.png'; //
@@ -107,8 +107,73 @@ export default function EmpProfile() {
 				{/* TABS PORTOFOLIO & JOB EXPERIENCES */}
 				<Col sm={7}>
 					<Container className="whiteBg ms-3 pt-3 pb-5 px-4">
-						<div className="tabs">
-							{/* TAB PORTOFOLIO */}
+					
+					{/* TAB PORTOFOLIO */}
+					<Tabs
+						defaultActiveKey="tab1"
+						// id="uncontrolled-tab-example"
+						className="mb-3"
+					>
+						<Tab eventKey="tab1" title="Portofolio">
+							<div className="portoPage">
+								<Row>
+									<Col sm={4} className="mb-4 theTitle">
+										<Image src={p1} />
+										<div className="portoTitle">Portofolio App</div>
+									</Col>
+									<Col sm={4} className="mb-4 theTitle">
+										<Image src={p2} />
+										<div className="portoTitle">Portofolio App</div>
+									</Col>
+									<Col sm={4} className="mb-4 theTitle">
+										<Image src={p3} />
+										<div className="portoTitle">Portofolio App</div>
+									</Col>
+									<Col sm={4} className="mb-4 theTitle">
+										<Image src={p4} />
+										<div className="portoTitle">Portofolio App</div>
+									</Col>
+								</Row>
+							</div>
+						</Tab>
+
+						{/* TAB JOB EXPERIENCES */}
+						<Tab eventKey="tab2" title="Job Experiences">
+							<div className="jobsExpPage">
+								<Row className="mb-4">
+									<Col sm={2}>
+										<Image src={compImage} />
+									</Col>
+									<Col sm={10}>
+										<div className="theTitle">Engineer</div>
+										<div className="theComp">Tokopedia</div>
+										<div className="theDate mb-3">July 2019 - January 2020 6months</div>
+										<div className="theDesc mb-1">
+											Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+											labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+										</div>
+									</Col>
+								</Row>
+								<Row>
+									<Col sm={2}>
+										<Image src={compImage} />
+									</Col>
+									<Col sm={10}>
+										<div className="theTitle">Engineer 2</div>
+										<div className="theComp">Tokopedia 2</div>
+										<div className="theDate mb-3">July 2019 - January 2020 6months</div>
+										<div className="theDesc mb-1">
+											2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+											labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+										</div>
+									</Col>
+								</Row>
+							</div>
+						</Tab>
+					</Tabs>
+
+						{/* Nice sclicing Tabs, but broken, because didt code with using Linter */}
+						{/* <div className="tabs">
 							<input type="radio" className="tabs__radio" name="tabs-example" id="tab1" checked />
 							<FloatingLabel for="tab1" className="tabs__label">
 								Portofolio
@@ -136,7 +201,6 @@ export default function EmpProfile() {
 								</div>
 							</div>
 
-							{/* TAB JOB EXPERIENCES */}
 							<input type="radio" className="tabs__radio" name="tabs-example" id="tab2" />
 							<FloatingLabel for="tab2" className="tabs__label">
 								Job Experiences
@@ -173,7 +237,8 @@ export default function EmpProfile() {
 									</Row>
 								</div>
 							</div>
-						</div>
+						</div> */}
+						
 					</Container>
 				</Col>
 
