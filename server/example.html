@@ -1,128 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatty</title>
     <style>
-      body {
-        margin: 0;
-        padding-bottom: 3rem;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      }
+        *{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-      #form {
-        background: rgba(0, 0, 0, 0.15);
-        padding: 0.25rem;
-        display: flex;
-        height: 3rem;
-        box-sizing: border-box;
-        backdrop-filter: blur(10px);
-        width: 400px;
-      }
-      #input {
-        border: none;
-        padding: 0 1rem;
-        flex-grow: 1;
-        border-radius: 2rem;
-        margin: 0.25rem;
-      }
-      #input:focus {
-        outline: none;
-      }
-      #form > button {
-        background: #333;
-        border: none;
-        padding: 0 1rem;
-        margin: 0.25rem;
-        border-radius: 3px;
-        outline: none;
-        color: #fff;
-      }
+h2{
+    font-weight: 100;
+}
+nav{
+    text-align: center;
+    background-color: blueviolet;
+    padding: 10px;
+    color: white;
+}
 
-      #messages {
-        list-style-type: none;
-        margin: 0;
-        padding: 10%;
-        width: 500px;
-        display: flex;
-        flex-direction: column;
+.container{
+    max-width: 1000px;
+    margin: 100px auto 50px;
+    padding: 20px;
+}
 
-      }
-      #messages > li {
-        padding: 0.5rem 1rem;
-        border-radius: 15px 0px;
-        width: 230px;
-        float: left;
-        background-color: aquamarine;
-        justify-content: flex-start;
-      }
-      #messages > li:nth-child(odd) {
-        background: rgb(227, 181, 181);
-        border-radius: 0px 15px;
-        float: right;
-        justify-content: flex-end;
-       margin-left: 10vw;
-       margin-top: 2px;
-       margin-bottom: 2px;;
+.chatbox{
+    height: 500px;
+    list-style: none;
+    display: flex;
+    flex-flow: column;
+    background: #eee;
+    border-radius: 6px;
 
-      }
-      .box-chat{
-        width: 500px;
-        height: 500px;
-        overflow: visible;
-        border: 1px solid gray;
-      }
+    box-shadow: 1px 0px 10px #eee;
+}
+#messagelist{
+    flex: 1;
+    overflow-y: scroll;
+
+}
+
+#messagelist li{
+    background: white;
+    max-width: 200px;
+    padding: 10px;
+    margin: 10px;
+}
+
+#messagelist p:first-child{
+    color: purple;
+}
+
+
+form.Input{
+    display: flex;
+}
+
+
+form.Input input{
+    flex: 10;
+    padding: 14px 10px;
+    border: none;
+}
+form.Input button{
+    padding: 4px;
+    background: teal;
+    border: none;
+    flex: 1;
+    color: white;
+    cursor: pointer;
+}
+
+#users{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100px;
+    overflow-y: scroll;
+    flex-flow: row;
+    padding-top: 20px;
+}   
+
+#users li{
+    min-width: 100px;
+    max-height: 20px;
+    border-radius: 10px;
+    background: white;
+    text-align: center;
+    box-shadow: 0px 2px 10px #eee;
+    
+}
+
+
+.backdrop{
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    top: 0;
+    cursor: pointer;
+}
+.modal.disappear{
+    display: none;
+}
+.backdrop.disappear{
+    display: none;
+}
+
+.modal{
+    width: 60%;
+    max-width: 500px;
+    min-height: 200px;
+    background: white;
+    position: fixed;
+    z-index: 2000;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+}
+
+.modal input{
+    margin-top: 20px;
+    width: 100%;
+    border: none;
+    padding: 20px;
+    border: 1px solid #eee;
+}
+
+.modal button{
+    display: block;
+    margin-top: 30px;
+    padding: 14px;
+    background: teal;
+    border: none;
+    flex: 1;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    
+
+}
     </style>
-  </head>
-  <body>
-    <div class="container justify-content-center align-center">
-      <div class="rows justify-content-center ">
-        <div class="box-chat position-relative"">
-            <ul id="messages"></ul>
-        <form id="form" action="" class="position-absolute bottom-0 start-0">
-          <input id="input" autocomplete="off" />
-          <button>Send</button>
-        </form>
-        </div>
-        
-      </div>
+</head>
+
+<body>
+
+    <div class="backdrop">
+
     </div>
+    <form class="modal">
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
-    <script src="/socket.io/socket.io.js"></script>
+        <h1 id="title">Welcome</h1>
+        <br>
+        <p id="content">Enter Your User Name</p>
+        <br>
+
+        <input placeholder="Enter User Name" type="text">
+        <br>
+        <button>Submit</button>
+    </form>
+    <div class="container">
+        <div class="chatbox">
+            <ul id="messagelist"></ul>
+            <form class="Input">
+                <input type="text" placeholder="Type your message ...">
+                <button>Send</button>
+            </form>
+        </div>
+        <br>
+        <div class="activeusers">
+            <h2>Active Users</h2>
+            <ul id="users">
+
+            </ul>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
     <script>
-      var socket = io();
-      var form = document.getElementById("form");
-      var input = document.getElementById("input");
+        const messageform = document.querySelector(".chatbox form");
+const messageList = document.querySelector("#messagelist");
+const userList = document.querySelector("ul#users");
+const chatboxinput = document.querySelector(".chatbox input")
+const useraddform = document.querySelector(".modal")
+const backdrop = document.querySelector(".backdrop")
+const useraddinput = document.querySelector(".modal input");
+const socket = io("http://localhost:8000");
 
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        if (input.value) {
-          socket.emit("chat message", input.value);
-          input.value = "";
-        }
-      });
-      socket.on("chat message", function (msg) {
-        var item = document.createElement("li");
-        item.textContent = msg;
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
-      });
-      socket.on("room",(room, id) =>{
-        console.log(room)
-      } )
+
+
+let users = [];
+let messages = []
+
+
+console.log(messageList);
+
+socket.on("message", (message) => {
+    messages.push(message);
+    updateMessages()
+})
+
+
+socket.on('users', function (_users) {
+    users = _users
+    updateUsers()
+});
+
+
+messageform.addEventListener('submit', messageSubmitHandler)
+useraddform.addEventListener('submit', userAddHandler)
+
+function updateUsers() {
+    userList.textContent = ''
+    for (let i = 0; i < users.length; i++) {
+        var node = document.createElement("LI");
+        var textnode = document.createTextNode(users[i]);
+        node.appendChild(textnode);
+        userList.appendChild(node);
+    }
+}
+
+function updateMessages() {
+    messageList.textContent = ''
+    for (let i = 0; i < messages.length; i++) {
+        messageList.innerHTML += `<li>
+                     <p>${messages[i].user}</p>
+                     <p>${messages[i].message}</p>
+        
+                       </li>`
+    }
+}
+
+function messageSubmitHandler(e) {
+    e.preventDefault();
+
+    let message = chatboxinput.value;
+
+    socket.emit("message", message)
+
+    chatboxinput.value = ""
+
+
+}
+
+function userAddHandler(e) {
+    e.preventDefault();
+
+    let username = useraddinput.value;
+
+
+    if (!username) {
+        return alert("You must add a user name");
+    }
+    socket.emit("adduser", username)
+
+    useraddform.classList.add("disappear")
+    backdrop.classList.add("disappear")
+
+
+}
+
     </script>
-  </body>
+</body>
+
 </html>

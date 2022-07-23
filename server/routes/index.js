@@ -10,6 +10,6 @@ module.exports = (app) => {
   app.use("/work-exp", require("./workExpRoute"));
   app.use("/portfolio", require("./portfolioRoute"));
 
-  app.use("/search", require("./pagination"));
+
   app.use("/notification", require("./notificationRoute"));
 };
