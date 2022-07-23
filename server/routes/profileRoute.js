@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const upload = require("../middlewares/multerFirebase");
+const { upload } = require("../middlewares/multerFirebase");
 const { profile, skills, workExp, portfolio, uploadPhoto } = require("../controllers");
 const auth = require("../middlewares/authHandling");
 
@@ -24,11 +24,14 @@ router
 router
   .route("/portfolios")
   .get(auth.userLogin, auth.isCompany, portfolio.findByUser)
-  .post(auth.userLogin, auth.isCompany, upload("portfolio_", "users/portfolio", "photo"), portfolio.createByUser);
+  .post(auth.userLogin, auth.isCompany, upload("portfolio_", "users/portfolios", "photo"), portfolio.createByUser);
 router
   .route("/portfolios/:id")
   .patch(auth.userLogin, auth.isCompany, portfolio.updateByUser)
   .delete(auth.userLogin, auth.isCompany, portfolio.deleteByUser);
-router.route("/photo").post(auth.userLogin, upload("user_", "users", "photo"), uploadPhoto.postProfilePhoto);
+router
+  .route("/photo")
+  .post(auth.userLogin, upload("user_", "users", "photo"), uploadPhoto.postProfilePhoto)
+  .delete(auth.userLogin, uploadPhoto.deleteProfilePhoto);
 
 module.exports = router;

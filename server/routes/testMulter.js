@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const upload = require("../middlewares/multerFirebase");
+const { upload } = require("../middlewares/multerFirebase");
 
 router.route("/").post(upload("test", "images", "file"), (req, res, next) => {
   try {

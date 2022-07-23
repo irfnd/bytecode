@@ -11,7 +11,8 @@ const portfolio = (sequelize, Sequelize) => {
       defaultValue: "web",
       schema: Joi.string().trim().valid("mobile", "web").required(),
     },
-    photo: { type: Sequelize.TEXT, defaultValue: null, schema: Joi.string().trim() },
+    photo: { type: Sequelize.TEXT, defaultValue: null },
+    photoName: { type: Sequelize.TEXT, defaultValue: null },
   });
 
   return Portfolio;

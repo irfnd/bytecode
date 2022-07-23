@@ -1,4 +1,5 @@
 const { Users, Portfolio } = require("../models");
+const { deleteFile } = require("../middlewares/multerFirebase");
 
 // Admin Privilages
 const create = async (req, res, next) => {
@@ -58,7 +59,12 @@ const createByUser = async (req, res, next) => {
   try {
     const checkUser = await Users.findByPk(id);
     if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
-    const results = await Portfolio.create({ ...req.body, photo: req?.file?.publicUrl, userId: id });
+    const results = await Portfolio.create({
+      ...req.body,
+      photo: req?.file?.publicUrl,
+      photoName: req?.file?.fileRef?.metadata?.name,
+      userId: id,
+    });
     res.json(results);
   } catch (error) {
     next(error);
@@ -85,8 +91,11 @@ const updateByUser = async (req, res, next) => {
   try {
     const checkUser = await Users.findByPk(userId);
     if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
+    const getPhoto = await Portfolio.findByPk(portfolioId);
+    if (!getPhoto) throw new Error("Portfolio not found!", { cause: "NOT_FOUND" });
+    await deleteFile(getPhoto.photoName);
     const results = await Portfolio.update(
-      { ...req.body, photo: req?.file?.publicUrl, userId },
+      { ...req.body, photo: req?.file?.publicUrl, photoName: req?.file?.fileRef?.metadata?.name, userId },
       { where: { userId, id: portfolioId }, returning: true }
     );
     if (results[0] < 1) throw new Error("Portfolio not found!", { cause: "NOT_FOUND" });
@@ -102,6 +111,9 @@ const deleteByUser = async (req, res, next) => {
   try {
     const checkUser = await Users.findByPk(userId);
     if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
+    const getPhoto = await Portfolio.findByPk(portfolioId);
+    if (!getPhoto) throw new Error("Portfolio not found!", { cause: "NOT_FOUND" });
+    await deleteFile(getPhoto.photoName);
     await Portfolio.destroy({ where: { userId, id: portfolioId } });
     res.json({ message: "Portfolio deleted successfully", request: portfolioId });
   } catch (error) {

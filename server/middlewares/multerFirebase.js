@@ -28,4 +28,8 @@ const upload = (prefix, folder, field) => {
   }).single(field);
 };
 
-module.exports = upload;
+const deleteFile = (imageUrl) => {
+  return firebaseInstance.storage().bucket(BUCKET_NAME).file(imageUrl).delete();
+};
+
+module.exports = { upload, deleteFile };
