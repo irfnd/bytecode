@@ -5,4 +5,6 @@ module.exports = {
   skills: require("./skillsController"),
   workExp: require("./workExpController"),
   portfolio: require("./portfolioController"),
+  uploadPhoto: require("./uploadPhotoController"),
+  notification: require("./notificationController"),
 };

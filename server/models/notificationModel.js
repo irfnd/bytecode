@@ -1,16 +1,16 @@
 const { sequelizeJoi, Joi: joi } = require("sequelize-joi");
 const Joi = joi.extend(require("joi-phone-number"));
 
-const Notification = (sequelize, Sequelize) => {
+const notifications = (sequelize, Sequelize) => {
   sequelizeJoi(sequelize);
 
-  const Notification = sequelize.define("Notification", {
-    tujuanTentang: {
+  const Notifications = sequelize.define("notifications", {
+    to: {
       type: Sequelize.TEXT,
       allowNull: false,
       schema: Joi.string().required(),
     },
-    namaLengkap: {
+    name: {
       type: Sequelize.TEXT,
       allowNull: false,
       schema: Joi.string().required(),
@@ -27,7 +27,7 @@ const Notification = (sequelize, Sequelize) => {
     },
   });
 
-  return Notification;
+  return Notifications;
 };
 
-module.exports = Notification;
+module.exports = notifications;

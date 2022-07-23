@@ -18,7 +18,6 @@ const upload = (prefix, folder, field) => {
       firebaseInstance
     ),
     fileFilter: (req, file, cb) => {
-      console.log(file);
       if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
         cb(null, true);
       } else {

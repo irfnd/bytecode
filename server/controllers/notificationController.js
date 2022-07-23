@@ -12,7 +12,6 @@ const create = async (req, res, next) => {
 const findAll = async (req, res, next) => {
   try {
     const results = await Notifications.findAll();
-    if (!results) throw new Error("results not found!", { cause: "NOT_FOUND" });
     res.json(results);
   } catch (error) {
     next(error);

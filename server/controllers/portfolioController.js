@@ -56,7 +56,9 @@ const deleteOne = async (req, res, next) => {
 const createByUser = async (req, res, next) => {
   const { id } = req.decoded;
   try {
-    const results = await Portfolio.create({ ...req.body, userId: id });
+    const checkUser = await Users.findByPk(id);
+    if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
+    const results = await Portfolio.create({ ...req.body, photo: req?.file?.publicUrl, userId: id });
     res.json(results);
   } catch (error) {
     next(error);
@@ -66,6 +68,8 @@ const createByUser = async (req, res, next) => {
 const findByUser = async (req, res, next) => {
   const { id } = req.decoded;
   try {
+    const checkUser = await Users.findByPk(id);
+    if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
     const results = await Portfolio.findAll({
       include: [{ model: Users, attributes: [], where: { id } }],
     });
@@ -79,7 +83,12 @@ const updateByUser = async (req, res, next) => {
   const { id: userId } = req.decoded;
   const { id: portfolioId } = req.params;
   try {
-    const results = await Portfolio.update({ ...req.body, userId }, { where: { userId, id: portfolioId }, returning: true });
+    const checkUser = await Users.findByPk(userId);
+    if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
+    const results = await Portfolio.update(
+      { ...req.body, photo: req?.file?.publicUrl, userId },
+      { where: { userId, id: portfolioId }, returning: true }
+    );
     if (results[0] < 1) throw new Error("Portfolio not found!", { cause: "NOT_FOUND" });
     res.json(results[1][0]);
   } catch (error) {
@@ -91,6 +100,8 @@ const deleteByUser = async (req, res, next) => {
   const { id: userId } = req.decoded;
   const { id: portfolioId } = req.params;
   try {
+    const checkUser = await Users.findByPk(userId);
+    if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
     await Portfolio.destroy({ where: { userId, id: portfolioId } });
     res.json({ message: "Portfolio deleted successfully", request: portfolioId });
   } catch (error) {
