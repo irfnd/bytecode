@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 const port = SERVER_PORT || 8000;
-const http = require('http');
+const http = require("http");
 const server = http.createServer(app);
 const { Server, Socket } = require("socket.io");
 const io = new Server(server);
@@ -29,25 +29,24 @@ require("./routes/index")(app);
 
 app.use(errorHandling);
 
-
 // route example to render
-app.get('/chat', (req, res) => {
-  res.sendFile(__dirname + '/example.html');
+app.get("/chat", (req, res) => {
+  res.sendFile(__dirname + "/example.html");
 });
 
-io.on('connection', (socket) => {
-  socket.on('chat message', (msg) => {
+io.on("connection", (socket) => {
+  socket.on("chat message", (msg) => {
     console.log(msg);
   });
 });
+
 // This will emit the event to all connected sockets
-io.emit('some event', { someProperty: 'some value', otherProperty: 'other value' }); 
-io.on('connection', (socket) => {
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);
+io.emit("some event", { someProperty: "some value", otherProperty: "other value" });
+io.on("connection", (socket) => {
+  socket.on("chat message", (msg) => {
+    io.emit("chat message", msg);
   });
 });
-
 
 server.listen(port, () => {
   console.log(`\n> Server running on http://${SERVER_HOST}:${port}`);
