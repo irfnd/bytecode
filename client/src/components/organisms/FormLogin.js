@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Alert from "sweetalert2"
 
-import login from "../../Redux/actions/Auth"
+import { login } from "../../Redux/actions/Auth"
 
 import AuthStyles from "../../assets/styles/AuthStyles";
 
@@ -14,43 +14,28 @@ import Field from "../Atoms/Field";
 
 function FormLogin() {
 	const Navigate = useNavigate()
-	// const [loading, setLoading] = useState(false)
-	const [form, setForm] = useState({
-		email: '',
-		password: ''
-	})
-
-	const handleChange = (e) => {
-		const { name, value } = e.target
-		setForm({ ...form, [name]: value})
-	}
+	const [loading, setLoading] = useState(false)
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-
-		// setLoading(true)
-		login(form)
+		
+		setLoading(true)
+		login(email, password)
 		.then((res) => {
 			Cookies.set('token', res.token)
 			Alert.fire ({
 				icon: 'success',
-				tittle: 'Login!',
-				text: res.message
+				text: 'Login success!'
 			})
-			Navigate('home')
+			Navigate('/home')
 		})
 		.catch ((err) => {
 			Alert.fire ({
 				icon: 'error',
-				tittle: 'Error!',
-				text: err.response.data.message
-			})
-		})
-		.finally (() => {
-			// setLoading(false)
-			setForm({ 
-				email: '',
-				password: ''
+				text: `Incorrect password! ${err}`,
+
 			})
 		})
 	}
@@ -70,7 +55,7 @@ function FormLogin() {
 							<hr className="separator w-100 mb-0 mt-1" />
 							<Form className="w-100 mb-3 mt-3" 
 								method="post" 
-								encType="multipart/form-data" 
+								encType="multipart/form-data"
 								onSubmit={handleSubmit}>
 								<Field
 									label="Email" 
@@ -78,17 +63,14 @@ function FormLogin() {
 									type="email" 
 									name="email"
 									placeholder="Masukan alamat email"
-									value={form.email}
-									onChange={handleChange}
+									onChange={(e) => setEmail(e.target.value)}
 								/>
 								<Field 
-									label="Kata sandi" 
-									id="inputPass"
+									label="Kata sandi"
 									type="password" 
 									name="password"
 									placeholder="Masukan kata sandi"
-									value={form.password}
-									onChange={handleChange}
+									onChange={(e) => setPassword(e.target.value)}
 								/>
 								<div className="w-100 d-flex justify-content-end mb-3">
 									<Link to="/auth/forgot" className="forgot">
@@ -96,9 +78,12 @@ function FormLogin() {
 									</Link>
 								</div>
 
-								<Button variant="warning" className="w-100 btn-main pt-3 pb-3 mt-5 mb-0">
-									Masuk
-								</Button>
+								<Button
+									type="submit"
+									variant="warning" 
+									className="w-100 btn-main pt-3 pb-3 mt-5 mb-0"
+									isLoading={loading}
+								>Masuk</Button>
 							</Form>
 							<div className="w-100 d-flex flex-column">
 								<div className="w-100 d-flex justify-content-center align-items-center">

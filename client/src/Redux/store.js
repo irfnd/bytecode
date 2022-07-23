@@ -9,10 +9,10 @@ const persistConfig = {
     storage,
 }
 
-const persistReducer = persistReducer(persistConfig, reducers)
+const persistedReducer = persistReducer(persistConfig, reducers)
 const middleware = applyMiddleware(thunk)
 
-const store = createStore(persistReducer, middleware)
-const persistStore = persistStore(store)
+const store = createStore(persistedReducer, middleware)
+const persiststore = persistStore(store)
 
-export { store, persistStore }
+export { store, persiststore }

@@ -2,7 +2,7 @@ import axios from "axios"
 import Cookies from "js-cookie"
 
 const interceptor = axios.create({
-    baseURL: 'https://localhost:5000/'
+    baseURL: 'http://localhost:8120'
 })
 
 interceptor.interceptors.request.use(
@@ -14,6 +14,12 @@ interceptor.interceptors.request.use(
     },
     function (error) {
         return Promise.reject(error)
+    }
+)
+
+interceptor.interceptors.request.use(
+    function (res) {
+        return res
     }
 )
 
