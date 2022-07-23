@@ -1,7 +1,5 @@
 const { sequelizeJoi, Joi: joi } = require("sequelize-joi");
-const { joiPasswordExtendCore } = require("joi-password");
 const Joi = joi.extend(require("joi-phone-number"));
-const JoiPassword = Joi.extend(joiPasswordExtendCore);
 
 const users = (sequelize, Sequelize) => {
   sequelizeJoi(sequelize);
@@ -32,14 +30,7 @@ const users = (sequelize, Sequelize) => {
     password: {
       type: Sequelize.TEXT,
       allowNull: false,
-      schema: JoiPassword.string()
-        .min(8)
-        .minOfSpecialCharacters(1)
-        .minOfLowercase(1)
-        .minOfUppercase(1)
-        .minOfNumeric(1)
-        .noWhiteSpaces()
-        .required(),
+      schema: Joi.string().trim().required(),
     },
   });
 
