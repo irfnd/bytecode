@@ -15,7 +15,7 @@ const initial = {
 	email: '',
 	company: '',
 	position: '',
-	pHone: '',
+	phone: '',
 	password: '',
 	rePassword: ''
   };
@@ -26,7 +26,7 @@ function FormRegister() {
 	const [form, setForm] = useState(initial)
 	const [formRecruiter, setFormRecruiter] = useState(false)
 
-	const handleShowForm = () => {
+	/* const handleShowForm = () => {
 		setForm({
 			name: '',
 			email: '',
@@ -38,7 +38,7 @@ function FormRegister() {
 		})
 		setFormRecruiter(!formRecruiter)
 		window.scroll(0, 0)
-	}
+	} */
 
 	const {
 		name,
@@ -49,6 +49,12 @@ function FormRegister() {
 		password,
 		rePassword
 	} = form
+
+	const handleChange = (e) => {
+		// eslint-disable-next-line no-shadow
+		const { name, value } = e.target;
+		setForm({ ...form, [name]: value });
+	};
 
 	const handleSubmitJobSeeker = (e) => {
 		e.preventDefault()
@@ -85,7 +91,7 @@ function FormRegister() {
 				setForm({
 					name: '',
 					email: '',
-					pHone: '',
+					phone: '',
 					password: '',
 					rePassword: ''
 				})
@@ -131,7 +137,7 @@ function FormRegister() {
 					email: '',
 					company: '',
 					position: '',
-					pHone: '',
+					phone: '',
 					password: '',
 					rePassword: ''
 				})
@@ -154,24 +160,33 @@ function FormRegister() {
 							<hr className="separator w-100 mt-4" />
 							<Form className="w-100 mb-3 mt-3" method="post" encType="multipart/form-data"
 								onSubmit={handleSubmitJobSeeker}>
-								<Field id="name" label="Name" placeholder="Masukan nama panjang" />
-								<Field id="email" label="Email" placeholder="Masukan alamat email" />
-								<Field id="perusahaan" label="Perusahaan" placeholder="Masukan nama perusahaan" />
-								<Field id="jabatan" label="Jabatan" placeholder="Posisi di perusahaan anda" />
-								<Field id="phone" label="No handphone" placeholder="Masukan no hanphone" />
-								<Field id="pass" type="password" label="Kata sandi" placeholder="Masukan kata sandi" />
-								<Field
-									id="repass"
-									type="password"
-									label="Konfirmasi kata sandi"
-									placeholder="Masukan konfirmasi kata sandi"
-								/>
+								<Field id="name" label="Name" placeholder="Masukan nama panjang" 
+									value={form.name} onChange={handleChange} />
+								<Field id="email" label="Email" placeholder="Masukan alamat email" 
+									value={form.email} onChange={handleChange} />
+								<Field id="perusahaan" label="Perusahaan" placeholder="Masukan nama perusahaan" 
+									value={form.perusahaan} onChange={handleChange} />
+								<Field id="jabatan" label="Jabatan" placeholder="Posisi di perusahaan anda" 
+									value={form.jabatan} onChange={handleChange} />
+								<Field id="phone" label="No handphone" placeholder="Masukan no hanphone" 
+									value={form.phone} onChnage={handleChange} />
+								<Field id="pass" type="password" label="Kata sandi" placeholder="Masukan kata sandi" 
+									value={form.password} onChange={handleChange} />
+								<Field id="repass" type="password" label="Konfirmasi kata sandi" placeholder="Masukan konfirmasi kata sandi" 
+									value={form.rePassword} onChange={handleChange} />
 								<Button
 									type="submit"
 									variant="warning" 
 									className="w-100 btn-main pt-3 pb-3 mt-5 mb-0"
 									isLoading={loading}
 								>Daftar</Button>
+								<Button
+									variant="light" 
+									className="w-100 btn-main pt-3 pb-3 mt-2 mb-0"
+									onClick={handleSubmitRecruiter}
+									isLoading={loading}
+								>Daftar recruiter</Button>
+								
 							</Form>
 							<div className="w-100 d-flex flex-column">
 								<div className="w-100 d-flex justify-content-center align-items-center">

@@ -18,8 +18,8 @@ interceptor.interceptors.request.use(
 )
 
 interceptor.interceptors.request.use(
-    function (res) {
-        return res
+    function (config) {
+        return config
     }
 )
 
