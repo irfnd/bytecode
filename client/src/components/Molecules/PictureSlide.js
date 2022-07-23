@@ -19,7 +19,11 @@ function Picture() {
 				<div className="mask h-100 w-100">
 					<div className={styles.content}>
 						<div className={styles.images}>
-							<img src={peworld} alt="Peworld Hire" />
+							<img 
+								src={peworld} 
+								alt="Peworld Hire"
+								height={30} 
+							/>
 						</div>
 						<div className={styles.banner_text}>
 							<h1 className={styles.banner_heading}>Temukan developer berbakat & terbaik di berbagaibidang keahlian</h1>

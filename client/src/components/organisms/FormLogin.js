@@ -1,13 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import Alert from "sweetalert2"
+
+import login from "../../Redux/actions/Auth"
 
 import AuthStyles from "../../assets/styles/AuthStyles";
 
 import Picture from "../Molecules/PictureSlide";
 import Field from "../Atoms/Field";
 
+
 function FormLogin() {
+	const Navigate = useNavigate()
+	// const [loading, setLoading] = useState(false)
+	const [form, setForm] = useState({
+		email: '',
+		password: ''
+	})
+
+	const handleChange = (e) => {
+		const { name, value } = e.target
+		setForm({ ...form, [name]: value})
+	}
+
+	const handleSubmit = (e) => {
+		e.preventDefault()
+
+		// setLoading(true)
+		login(form)
+		.then((res) => {
+			Cookies.set('token', res.token)
+			Alert.fire ({
+				icon: 'success',
+				tittle: 'Login!',
+				text: res.message
+			})
+			Navigate('home')
+		})
+		.catch ((err) => {
+			Alert.fire ({
+				icon: 'error',
+				tittle: 'Error!',
+				text: err.response.data.message
+			})
+		})
+		.finally (() => {
+			// setLoading(false)
+			setForm({ 
+				email: '',
+				password: ''
+			})
+		})
+	}
+
 	return (
 		<>
 			<AuthStyles />
@@ -15,15 +62,34 @@ function FormLogin() {
 				<Row>
 					<Picture />
 					<Col lg="6" className="custom d-flex justify-content-center align-items-center">
-						<div className="col-10 d-flex flex-column justify-content-center p-0">
+						<div className="col-10 justify-content-center">
 							<h2 className="title">Halo, Pewpeople</h2>
 							<span className="secondary-color description mt-4 mb-4">
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod ipsum et dui rhoncus auctor.
 							</span>
 							<hr className="separator w-100 mb-0 mt-1" />
-							<Form className="w-100 mb-3 mt-3" method="post" encType="multipart/form-data" action="#">
-								<Field type="email" id="inputEmail" label="Email" placeholder="Masukan alamat email" />
-								<Field type="password" id="inputPassword" label="Kata sandi" placeholder="Masukan kata sandi" />
+							<Form className="w-100 mb-3 mt-3" 
+								method="post" 
+								encType="multipart/form-data" 
+								onSubmit={handleSubmit}>
+								<Field
+									label="Email" 
+									id="inputEmail" 
+									type="email" 
+									name="email"
+									placeholder="Masukan alamat email"
+									value={form.email}
+									onChange={handleChange}
+								/>
+								<Field 
+									label="Kata sandi" 
+									id="inputPass"
+									type="password" 
+									name="password"
+									placeholder="Masukan kata sandi"
+									value={form.password}
+									onChange={handleChange}
+								/>
 								<div className="w-100 d-flex justify-content-end mb-3">
 									<Link to="/auth/forgot" className="forgot">
 										Lupa kata sandi?
