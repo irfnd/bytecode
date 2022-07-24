@@ -4,7 +4,7 @@ const Joi = joi.extend(require("joi-phone-number"));
 const notifications = (sequelize, Sequelize) => {
   sequelizeJoi(sequelize);
 
-  const Notification = sequelize.define("Notification", {
+  const Notifications = sequelize.define("Notification", {
     purpose: {
       type: Sequelize.TEXT,
       allowNull: false,
