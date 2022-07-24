@@ -10,12 +10,12 @@ const notifications = (sequelize, Sequelize) => {
       allowNull: false,
       schema: Joi.string().required(),
     },
-    fullName: {
+    name: {
       type: Sequelize.TEXT,
       allowNull: false,
       schema: Joi.string().required(),
     },
-    email:{
+    email: {
       type: Sequelize.TEXT,
       allowNull: false,
       schema: Joi.string(),
@@ -30,9 +30,12 @@ const notifications = (sequelize, Sequelize) => {
       type: Sequelize.TEXT,
       schema: Joi.string().required(),
     },
+    isRead: { type: Sequelize.BOOLEAN, defaultValue: false },
+    fromUserId: { type: Sequelize.INTEGER, allowNull: false },
+    toUserId: { type: Sequelize.INTEGER, allowNull: false },
   });
 
-  return Notification;
+  return Notifications;
 };
 
 module.exports = notifications;
