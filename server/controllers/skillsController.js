@@ -57,6 +57,8 @@ const createByUser = async (req, res, next) => {
   const { id } = req.decoded;
   const { name } = req.body;
   try {
+    const checkUser = await Users.findByPk(id);
+    if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
     const [result, _] = await Skills.findOrCreate({ where: { name } });
     await UserSkills.create({ userId: id, skillId: result.id });
     res.json(result);
@@ -68,6 +70,8 @@ const createByUser = async (req, res, next) => {
 const findByUser = async (req, res, next) => {
   const { id } = req.decoded;
   try {
+    const checkUser = await Users.findByPk(id);
+    if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
     const results = await Skills.findAll({
       include: [{ model: Users, attributes: [], where: { id } }],
     });
@@ -81,6 +85,8 @@ const deleteByUser = async (req, res, next) => {
   const { id: userId } = req.decoded;
   const { id: skillId } = req.params;
   try {
+    const checkUser = await Users.findByPk(userId);
+    if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
     await UserSkills.destroy({ where: { userId, skillId } });
     res.json({ message: "Skill deleted successfully", request: skillId });
   } catch (error) {

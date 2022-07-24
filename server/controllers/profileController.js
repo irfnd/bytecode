@@ -5,6 +5,8 @@ const { Users, UserProfile, Companies, CompanyProfile, Skills, Portfolio } = req
 const getProfile = async (req, res, next) => {
   const { type, id } = req.decoded;
   try {
+    const checkUser = await Users.findByPk(id);
+    if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
     if (type !== "company") {
       const results = await Users.findByPk(id, {
         include: [UserProfile, { model: Skills, through: { attributes: [] } }, Companies, Portfolio],
@@ -26,6 +28,8 @@ const updateProfile = async (req, res, next) => {
   const { type, id } = req.decoded;
   const { password } = req.body;
   try {
+    const checkUser = await Users.findByPk(id);
+    if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
     if (type !== "company") {
       const newData = password ? { ...req.body, password: hashSync(password, 10) } : { ...req.body };
       await Users.update(newData, { where: { id } });

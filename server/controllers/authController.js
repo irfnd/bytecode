@@ -28,7 +28,7 @@ const register = async (req, res, next) => {
         );
       }
     }
-    res.clearCookie("refreshToken").json({ message: "Register successfully" });
+    res.json({ message: "Register successfully" });
   } catch (error) {
     next(error);
   }
@@ -55,6 +55,7 @@ const login = async (req, res, next) => {
 
 const refreshToken = async (req, res, next) => {
   const { refreshToken } = req.cookies;
+  console.log(refreshToken);
   try {
     if (!refreshToken) throw new Error("Token required!", { cause: "UNAUTHORIZED" });
     const checkToken = await Tokens.findOne({ where: { token: refreshToken } });
@@ -65,7 +66,6 @@ const refreshToken = async (req, res, next) => {
     const newRefreshToken = generateRefreshToken(payload);
     await Tokens.update({ token: newRefreshToken }, { where: { userId: payload.id, token: refreshToken } });
     res
-      .clearCookie("refreshToken")
       .cookie("refreshToken", newRefreshToken, { httpOnly: true, REFRESH_TOKEN_EXPIRE })
       .json({ ...payload, tokens: newAccessToken });
   } catch (error) {

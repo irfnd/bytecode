@@ -1,7 +1,7 @@
 const { sequelizeJoi, Joi: joi } = require("sequelize-joi");
 const Joi = joi.extend(require("joi-phone-number"));
 
-const Notification = (sequelize, Sequelize) => {
+const notifications = (sequelize, Sequelize) => {
   sequelizeJoi(sequelize);
 
   const Notification = sequelize.define("Notification", {
@@ -27,7 +27,7 @@ const Notification = (sequelize, Sequelize) => {
     },
   });
 
-  return Notification;
+  return Notifications;
 };
 
-module.exports = Notification;
+module.exports = notifications;
