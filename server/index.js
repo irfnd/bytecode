@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { SERVER_HOST, SERVER_PORT, CLIENT_HOST } = process.env;
+const { SERVER_HOST, SERVER_PORT, CLIENT_HOST, PORT } = process.env;
 
 const express = require("express");
 const cors = require("cors");
@@ -48,7 +48,7 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(port, () => {
+server.listen(port || 8000, () => {
   console.log(`\n> Server running on http://${SERVER_HOST}:${port}`);
   db.sequelize
     .sync({ force: syncdb })
