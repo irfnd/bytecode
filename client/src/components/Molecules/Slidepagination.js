@@ -1,7 +1,6 @@
 import React from "react";
 import { Pagination } from "react-bootstrap";
 
-
 function Slidepagination() {
 	return (
 		<div className="pagination justify-content-center mt-5 mb-5">

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import Alert from "sweetalert2"
+import Alert from "sweetalert2";
 
-import { registerRecruiter, registerJobSeeker } from "../../Redux/actions/Auth"
+import { registerRecruiter, registerJobSeeker } from "../../Redux/actions/Auth";
 
 import AuthStyles from "../../assets/styles/AuthStyles";
 
@@ -11,19 +11,19 @@ import Picture from "../Molecules/PictureSlide";
 import Field from "../Atoms/Field";
 
 const initial = {
-	name: '',
-	email: '',
-	company: '',
-	position: '',
-	phone: '',
-	password: '',
-	rePassword: ''
-  };
+	name: "",
+	email: "",
+	company: "",
+	position: "",
+	phone: "",
+	password: "",
+	rePassword: "",
+};
 
 function FormRegister() {
-	const Navigate = useNavigate()
-	const [loading, setLoading] = useState(false)
-	const [form, setForm] = useState(initial)
+	const Navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
+	const [form, setForm] = useState(initial);
 	// const [formRecruiter, setFormRecruiter] = useState(false)
 
 	/* const handleShowForm = () => {
@@ -40,15 +40,7 @@ function FormRegister() {
 		window.scroll(0, 0)
 	} */
 
-	const {
-		name,
-		email,
-		company,
-		position,
-		phone,
-		password,
-		rePassword
-	} = form
+	const { name, email, company, position, phone, password, rePassword } = form;
 
 	const handleChange = (e) => {
 		// const { name, value } = e.target;
@@ -56,13 +48,13 @@ function FormRegister() {
 	};
 
 	const handleSubmitJobSeeker = (e) => {
-		e.preventDefault()
-		if ( password !== rePassword ) {
-			Alert.fire ({
-				icon: 'error',
-				tittle: 'Incorrect!',
-				text: 'Incorrect Password'
-			})
+		e.preventDefault();
+		if (password !== rePassword) {
+			Alert.fire({
+				icon: "error",
+				tittle: "Incorrect!",
+				text: "Incorrect Password",
+			});
 		} else {
 			setLoading(true);
 			registerRecruiter({
@@ -71,40 +63,40 @@ function FormRegister() {
 				phone,
 				password,
 				rePassword,
-      		})
-			.then((res) => {
-				Navigate('login')
+			})
+				.then((res) => {
+					Navigate("login");
 
-				Alert.fire ({
-					icon: 'success',
-					text: `Register success ${res}`
+					Alert.fire({
+						icon: "success",
+						text: `Register success ${res}`,
+					});
 				})
-			})
-			.catch((err) => {
-				Alert.fire ({
-					icon: 'error',
-					text: `Error! ${err}`
+				.catch((err) => {
+					Alert.fire({
+						icon: "error",
+						text: `Error! ${err}`,
+					});
 				})
-			})
-			.finally(() => {
-				setForm({
-					name: '',
-					email: '',
-					phone: '',
-					password: '',
-					rePassword: ''
-				})
-			})
+				.finally(() => {
+					setForm({
+						name: "",
+						email: "",
+						phone: "",
+						password: "",
+						rePassword: "",
+					});
+				});
 		}
-	}
+	};
 	const handleSubmitRecruiter = async (e) => {
-		e.preventDefault()
-		if ( password !== rePassword ) {
-			Alert.fire ({
-				icon: 'error',
-				tittle: 'Incorrect!',
-				text: 'Incorrect Password'
-			})
+		e.preventDefault();
+		if (password !== rePassword) {
+			Alert.fire({
+				icon: "error",
+				tittle: "Incorrect!",
+				text: "Incorrect Password",
+			});
 		} else {
 			setLoading(true);
 			registerJobSeeker({
@@ -115,38 +107,38 @@ function FormRegister() {
 				phone,
 				password,
 				rePassword,
-      		})
-			.then((res) => {
-				Navigate('login')
+			})
+				.then((res) => {
+					Navigate("login");
 
-				Alert.fire ({
-					icon: 'success',
-					text: `Register success ${res}`
+					Alert.fire({
+						icon: "success",
+						text: `Register success ${res}`,
+					});
 				})
-			})
-			.catch((err) => {
-				Alert.fire ({
-					icon: 'error',
-					text: `Error! ${err}`
+				.catch((err) => {
+					Alert.fire({
+						icon: "error",
+						text: `Error! ${err}`,
+					});
 				})
-			})
-			.finally(() => {
-				setForm({
-					name: '',
-					email: '',
-					company: '',
-					position: '',
-					phone: '',
-					password: '',
-					rePassword: ''
-				})
-			})
+				.finally(() => {
+					setForm({
+						name: "",
+						email: "",
+						company: "",
+						position: "",
+						phone: "",
+						password: "",
+						rePassword: "",
+					});
+				});
 		}
-	}
+	};
 
 	return (
 		<>
-		<AuthStyles />
+			<AuthStyles />
 			<Container fluid>
 				<Row>
 					<Picture />
@@ -157,35 +149,54 @@ function FormRegister() {
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod ipsum et dui rhoncus auctor.
 							</span>
 							<hr className="separator w-100 mt-4" />
-							<Form className="w-100 mb-3 mt-3" method="post" encType="multipart/form-data"
-								onSubmit={handleSubmitJobSeeker}>
-								<Field id="name" label="Name" placeholder="Masukan nama panjang" 
-									onChange={handleChange} />
-								<Field id="email" label="Email" placeholder="Masukan alamat email" 
-									onChange={handleChange} />
-								<Field id="perusahaan" label="Perusahaan" placeholder="Masukan nama perusahaan" 
-									onChange={handleChange} />
-								<Field id="jabatan" label="Jabatan" placeholder="Posisi di perusahaan anda" 
-									onChange={handleChange} />
-								<Field id="phone" label="No handphone" placeholder="Masukan no hanphone" 
-									onChange={handleChange} />
-								<Field type="password" name="password" label="Kata sandi" placeholder="Masukan kata sandi" autocomplete="new-password"
-									onChange={handleChange} />
-								<Field type="password" name="rePassword" label="Konfirmasi kata sandi" placeholder="Masukan konfirmasi kata sandi" autocomplete="new-password"
-									onChange={handleChange} />
+							<Form
+								className="w-100 mb-3 mt-3"
+								method="post"
+								encType="multipart/form-data"
+								onSubmit={handleSubmitJobSeeker}
+							>
+								<Field id="name" label="Name" placeholder="Masukan nama panjang" onChange={handleChange} />
+								<Field id="email" label="Email" placeholder="Masukan alamat email" onChange={handleChange} />
+								<Field
+									id="perusahaan"
+									label="Perusahaan"
+									placeholder="Masukan nama perusahaan"
+									onChange={handleChange}
+								/>
+								<Field id="jabatan" label="Jabatan" placeholder="Posisi di perusahaan anda" onChange={handleChange} />
+								<Field id="phone" label="No handphone" placeholder="Masukan no hanphone" onChange={handleChange} />
+								<Field
+									type="password"
+									name="password"
+									label="Kata sandi"
+									placeholder="Masukan kata sandi"
+									autocomplete="new-password"
+									onChange={handleChange}
+								/>
+								<Field
+									type="password"
+									name="rePassword"
+									label="Konfirmasi kata sandi"
+									placeholder="Masukan konfirmasi kata sandi"
+									autocomplete="new-password"
+									onChange={handleChange}
+								/>
 								<Button
 									type="submit"
-									variant="warning" 
+									variant="warning"
 									className="w-100 btn-main pt-3 pb-3 mt-5 mb-0"
 									isloading={loading}
-								>Daftar</Button>
+								>
+									Daftar
+								</Button>
 								<Button
-									variant="light" 
+									variant="light"
 									className="w-100 btn-main pt-3 pb-3 mt-2 mb-0"
 									onClick={handleSubmitRecruiter}
 									isloading={loading}
-								>Daftar recruiter</Button>
-								
+								>
+									Daftar recruiter
+								</Button>
 							</Form>
 							<div className="w-100 d-flex flex-column">
 								<div className="w-100 d-flex justify-content-center align-items-center">

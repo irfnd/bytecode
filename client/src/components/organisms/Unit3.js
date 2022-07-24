@@ -30,7 +30,7 @@ function Unit3() {
 								<CheckCircleFill className="check d-inline" /> <p className="d-inline">PHP</p>
 							</span>
 						</Row>
-                        <Row className="mb-2">
+						<Row className="mb-2">
 							<span>
 								<CheckCircleFill className="check d-inline" /> <p className="d-inline">javaScript</p>
 							</span>
@@ -52,7 +52,7 @@ function Unit3() {
 								<CheckCircleFill className="check d-inline" /> <p className="d-inline">Ruby</p>
 							</span>
 						</Row>
-                        <Row className="mb-2">
+						<Row className="mb-2">
 							<span>
 								<CheckCircleFill className="check d-inline" /> <p className="d-inline">+10 Bahasa Lainnya</p>
 							</span>

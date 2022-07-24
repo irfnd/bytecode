@@ -13,10 +13,13 @@
 	},
 	"plugins": ["react", "prettier"],
 	"rules": {
+		"default-param-last": "off",
+		"func-names": "off",
 		"import/no-unresolved": "off",
 		"import/newline-after-import": "off",
 		"import/order": "off",
 		"no-console": "off",
+		"no-param-reassign": "off",
 		"prettier/prettier": "off",
 		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
 		"react/jsx-no-bind": "off",

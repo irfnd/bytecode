@@ -15,10 +15,10 @@ function Unit1() {
 			<Col lg={5} className=" mx-auto">
 				<div className="mx-auto">
 					<div className="imagelayer1">
-						<Image className="pict-unit1 navbar-brand mx-auto " src={pict} alt="" width={500} height={500}/>
+						<Image className="pict-unit1 navbar-brand mx-auto " src={pict} alt="" width={500} height={500} />
 						<div className="imagelayer2" />
-					<Image className="layer navbar-brand mx-auto " src={layer} alt="" width={80} height={126} />
-					<div className="imagelayer3" />
+						<Image className="layer navbar-brand mx-auto " src={layer} alt="" width={80} height={126} />
+						<div className="imagelayer3" />
 					</div>
 				</div>
 			</Col>

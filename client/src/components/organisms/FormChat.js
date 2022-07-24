@@ -56,15 +56,10 @@ function FormChat() {
 								) : (
 									<div>
 										<Row>
-											<Col lg='4'>
-												<img
-													src={user}
-													width={40}
-													height={40}
-													alt="Test"
-												/>
+											<Col lg="4">
+												<img src={user} width={40} height={40} alt="Test" />
 											</Col>
-											<Col lg='8'>
+											<Col lg="8">
 												<h5>Jonas adam</h5>
 											</Col>
 										</Row>

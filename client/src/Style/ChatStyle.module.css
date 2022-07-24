@@ -23,11 +23,11 @@
 }
 
 .chat_header h5 {
-    margin-left: -5px;
-    padding-top: 9px;
-    font-weight: 600;
-    font-size: 18px;
-    color: var(--text-black);
+	margin-left: -5px;
+	padding-top: 9px;
+	font-weight: 600;
+	font-size: 18px;
+	color: var(--text-black);
 }
 
 .sender {

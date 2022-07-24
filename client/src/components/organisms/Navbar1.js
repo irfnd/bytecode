@@ -1,6 +1,6 @@
 import React from "react";
-import {Link} from "react-router-dom"
-import { Container, Nav, Navbar, Popover, OverlayTrigger,Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Container, Nav, Navbar, Popover, OverlayTrigger, Image } from "react-bootstrap";
 import logo from "../../assets/img/logo.png";
 import profil from "../../assets/img/profil.jpg";
 import { Bell, Envelope } from "react-bootstrap-icons";
@@ -24,13 +24,18 @@ function Navbar1() {
 							</Popover>
 						}
 					>
-					<Bell />
+						<Bell />
 					</OverlayTrigger>
 					<Envelope className="mx-2 justify-content-center" />
 					<Link to="/employed">
-						<img className="navbar-profil justify-content-center ms-2 mt-0" src={profil} alt="" width={25} height={25} />
+						<img
+							className="navbar-profil justify-content-center ms-2 mt-0"
+							src={profil}
+							alt=""
+							width={25}
+							height={25}
+						/>
 					</Link>
-					
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>

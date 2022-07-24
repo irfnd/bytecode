@@ -1,7 +1,7 @@
-import { combineReducers } from "redux"
-import JobSeeker from "./JobSeeker"
-import recruiter from "./Recruiter"
+import { combineReducers } from "redux";
+import JobSeeker from "./JobSeeker";
+import recruiter from "./Recruiter";
 
-const rootReducer = combineReducers ({JobSeeker,recruiter})
+const rootReducer = combineReducers({ JobSeeker, recruiter });
 
-export default rootReducer
+export default rootReducer;

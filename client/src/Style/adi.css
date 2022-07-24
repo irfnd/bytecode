@@ -22,7 +22,7 @@
 .whiteBg .avatar {
 	width: 100%;
 }
-.circleImage{
+.circleImage {
 	border-radius: 50%;
 	width: 100%;
 }
@@ -215,7 +215,7 @@
 .compProfile .circleImage {
 	margin-top: 5.3rem;
 }
-.logoEdit{
+.logoEdit {
 	text-align: center;
 	text-decoration: none;
 	color: #9ea0a5;

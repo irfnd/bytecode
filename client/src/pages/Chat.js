@@ -1,9 +1,9 @@
 import React from "react";
 import { Card, Container } from "react-bootstrap";
 
-import NavBar from "../components/organisms/Navbar1"
+import NavBar from "../components/organisms/Navbar1";
 import FormChat from "../components/organisms/FormChat";
-import Footer from "../components/organisms/FooterAdi"
+import Footer from "../components/organisms/FooterAdi";
 
 const chat = () => {
 	return (
