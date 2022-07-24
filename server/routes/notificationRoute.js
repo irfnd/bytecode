@@ -1,7 +1,8 @@
 const router = require("express").Router();
-const { notification } = require("../controllers");
+const { notifications } = require("../controllers");
+const auth = require("../middlewares/authHandling");
 
-router.route("/").post(notification.create).get(notification.findAll);
-router.route("/:id").delete(notification.deleteOne).get(notification.findById);
+router.route("/").get(auth.userLogin, notifications.findByUser).post(auth.userLogin, notifications.createByUser);
+router.route("/:id").patch(auth.userLogin, notifications.updateByUser);
 
 module.exports = router;

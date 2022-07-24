@@ -1,4 +1,4 @@
-const { Notifications } = require("../models");
+const { Notifications, Users } = require("../models");
 
 const create = async (req, res, next) => {
   try {
@@ -42,9 +42,50 @@ const deleteOne = async (req, res, next) => {
   }
 };
 
+const createByUser = async (req, res, next) => {
+  const { id: fromUserId } = req.decoded;
+  const { toUserId } = req.body;
+  try {
+    const checkUser = await Users.findByPk(fromUserId);
+    if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
+    const results = await Notifications.create({ ...req.body, fromUserId, toUserId });
+    res.json(results);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const findByUser = async (req, res, next) => {
+  const { id: toUserId } = req.decoded;
+  try {
+    const checkUser = await Users.findByPk(toUserId);
+    if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
+    const results = await Notifications.findAll({ where: { toUserId } });
+    res.json(results);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateByUser = async (req, res, next) => {
+  const { id: toUserId } = req.decoded;
+  const { id } = req.params;
+  try {
+    const checkUser = await Users.findByPk(toUserId);
+    if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
+    await Notifications.update({ isRead: true }, { where: { toUserId, id } });
+    res.json({ message: "Skill deleted successfully", request: id });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   create,
   findAll,
   findById,
   deleteOne,
+  createByUser,
+  findByUser,
+  updateByUser,
 };

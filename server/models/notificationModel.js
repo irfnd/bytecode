@@ -10,21 +10,28 @@ const notifications = (sequelize, Sequelize) => {
       allowNull: false,
       schema: Joi.string().required(),
     },
-    fullName: {
+    name: {
       type: Sequelize.TEXT,
       allowNull: false,
       schema: Joi.string().required(),
     },
+    email: {
+      type: Sequelize.TEXT,
+      allowNull: false,
+      schema: Joi.string().trim().email().required(),
+    },
     phoneNumber: {
       type: Sequelize.TEXT,
       allowNull: false,
-      unique: false,
       schema: Joi.string().trim().phoneNumber({ defaultCountry: "ID", format: "e164" }).required(),
     },
     description: {
       type: Sequelize.TEXT,
       schema: Joi.string().required(),
     },
+    isRead: { type: Sequelize.BOOLEAN, defaultValue: false },
+    fromUserId: { type: Sequelize.INTEGER, allowNull: false },
+    toUserId: { type: Sequelize.INTEGER, allowNull: false },
   });
 
   return Notifications;

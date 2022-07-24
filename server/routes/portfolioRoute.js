@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const { portfolio } = require("../controllers");
+const { portfolios } = require("../controllers");
 
-router.route("/").get(portfolio.findAll).post(portfolio.create);
-router.route("/:id").get(portfolio.findById).patch(portfolio.update).delete(portfolio.deleteOne);
+router.route("/").get(portfolios.findAll).post(portfolios.create);
+router.route("/:id").get(portfolios.findById).patch(portfolios.update).delete(portfolios.deleteOne);
 
 module.exports = router;

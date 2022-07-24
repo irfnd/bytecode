@@ -10,12 +10,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const http = require("http");
 const server = http.createServer(app);
-const io = require("socket.io")(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
+const io = require("socket.io")(server, { cors: { origin: "*", methods: ["GET", "POST"] } });
 
 const db = require("./models");
 const syncdb = false;
@@ -28,8 +23,8 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-require("./routes/index")(app);
 
+require("./routes/index")(app);
 app.use(errorHandling);
 
 // app.get("/chat", (req, res) => {
