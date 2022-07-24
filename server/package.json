@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index",
-    "start": "node index"
+    "start": "node index",
+    "lint": "eslint .",
+    "lint:fix": "eslint ./**/*.js --fix",
+    "format": "prettier --write ./**/*.{js,json,md} --config ./.prettierrc.json"
   },
   "keywords": [],
   "author": "Bytecode",
