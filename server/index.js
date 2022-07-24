@@ -15,11 +15,11 @@ const { Server, Socket } = require("socket.io");
 const io = new Server(server);
 
 const db = require("./models");
-const syncdb = false;
+const syncdb = true;
 
 const errorHandling = require("./middlewares/errorHandling");
 
-app.use(cors({ origin: CLIENT_HOST }));
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
