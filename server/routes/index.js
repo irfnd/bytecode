@@ -12,5 +12,5 @@ module.exports = (app) => {
 
   app.use("/notification", require("./notificationRoute"));
 
-  // app.use("/test-multer", require("./testMulter"));
+  app.use("/test-multer", require("./testMulter"));
 };

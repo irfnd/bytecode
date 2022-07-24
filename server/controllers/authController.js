@@ -55,7 +55,6 @@ const login = async (req, res, next) => {
 
 const refreshToken = async (req, res, next) => {
   const { refreshToken } = req.cookies;
-  console.log(refreshToken);
   try {
     if (!refreshToken) throw new Error("Token required!", { cause: "UNAUTHORIZED" });
     const checkToken = await Tokens.findOne({ where: { token: refreshToken } });

@@ -19,7 +19,7 @@ const io = require("socket.io")(server, {
 });
 
 const db = require("./models");
-const syncdb = true;
+const syncdb = false;
 
 const errorHandling = require("./middlewares/errorHandling");
 
