@@ -1,20 +1,17 @@
-import React from "react";
-import { Card, Container } from "react-bootstrap";
+import { Row } from "react-bootstrap";
+import AuthStyles from "../../assets/styles/AuthStyles";
 
+import Picture from "../../components/Molecules/PictureSlide";
 import FormRegister from "../../components/organisms/FormRegister";
 
-const login = () => {
+export default function Register() {
 	return (
-		<div>
-			<Card>
-				<Card.Body className="mt-0 mb-0">
-					<Container>
-						<FormRegister />
-					</Container>
-				</Card.Body>
-			</Card>
+		<div className="m-0 bg-white-smoke">
+			<Row className="m-0">
+				<AuthStyles />
+				<Picture />
+				<FormRegister />
+			</Row>
 		</div>
 	);
-};
-
-export default login;
+}

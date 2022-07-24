@@ -2,20 +2,19 @@ import React from "react";
 import { Form } from "react-bootstrap";
 
 function Field(props) {
-	const {
-		placeholder: Placeholder,
-		label: Label,
-		type: Type,
-		id: Id,
-		name: Name,
-		value: Value,
-		onChange: OnChange,
-	} = props;
+	const { name, label, type, placeholder, register, errors } = props;
 
 	return (
-		<Form.Group className="mb-3">
-			<Form.Label>{Label}</Form.Label>
-			<Form.Control id={Id} name={Name} type={Type} placeholder={Placeholder} value={Value} onChange={OnChange} />
+		<Form.Group className="mb-4" name={name}>
+			<Form.Label className="text-silver">{label}</Form.Label>
+			<Form.Control
+				size="lg"
+				className="fs-16 rounded"
+				{...{ name, label, type: type || "text", placeholder }}
+				{...register(name)}
+				isInvalid={!!errors[name]}
+			/>
+			<Form.Control.Feedback type="invalid">{errors[name] && errors[name].message}</Form.Control.Feedback>
 		</Form.Group>
 	);
 }

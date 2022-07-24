@@ -21,16 +21,3 @@
 	line-height: 70px;
 	color: var(--text-white);
 }
-
-.left_wave {
-	position: absolute;
-	left: 0;
-	top: 0;
-	bottom: 0;
-}
-
-.right_wave {
-	position: absolute;
-	right: 0;
-	top: 0;
-}

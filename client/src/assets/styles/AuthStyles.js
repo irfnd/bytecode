@@ -2,10 +2,6 @@ import { createGlobalStyle } from "styled-components";
 import "@fontsource/open-sans";
 
 const Auth = createGlobalStyle`
-  .full,
-  .custom {
-    min-height: 120vh;
-  }
   .title {
     font-family: sans-serif;
     font-weight: 700;
@@ -29,7 +25,6 @@ const Auth = createGlobalStyle`
     color: #999999;
   }
   .forgot {
-    font-family: 'Airbnb Cereal App Medium';
     color: #999999;
     font-weight: 500;
     font-size: 14px;
@@ -39,7 +34,6 @@ const Auth = createGlobalStyle`
     color: #888888;
   }
   .alternative {
-    font-family: 'Airbnb Cereal App Medium';
     color: #999999;
     font-weight: 500;
     font-size: 14px;
@@ -100,9 +94,7 @@ const Auth = createGlobalStyle`
     font-weight: 500;
   }
   .btn-main:hover {
-    background-color: #fbb017;
     color: #f6f7f8;
-    border: 1px solid #F0F8FF;
   }
 
   @media screen and (max-width: 767px) {
