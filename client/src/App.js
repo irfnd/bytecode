@@ -38,8 +38,8 @@ function App() {
 						<Route path="company" element={<CompanyProfile />} />
 						<Route path="company/edit" element={<CompanyEdit />} />
 						<Route path="hire" element={<HiringEmployee />} />
-						<Route path="Home" element={<Home />} />
-						<Route path="LandingPage" element={<LandingPage />} />
+						<Route path="home" element={<Home />} />
+						<Route path="landing" element={<LandingPage />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>
