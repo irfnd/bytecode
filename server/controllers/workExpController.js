@@ -55,13 +55,14 @@ const deleteOne = async (req, res, next) => {
 // User Privilages
 const createByUser = async (req, res, next) => {
   const { id } = req.decoded;
-  const { name } = req.body;
+  const { name, endDate } = req.body;
   try {
-    const results = await Users.findOne({ where: { id } });
-    if (!results) throw new Error("User not found!", { cause: "NOT_FOUND" });
+    const checkUser = await Users.findByPk(id);
+    if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
+    const setEndDate = endDate !== "" ? endDate : null;
     const getProfile = await CompanyProfile.findOne({ where: { name } });
     const newCompany = await Companies.create({ name, companyProfileId: getProfile?.id });
-    await WorkExp.create({ ...req.body, userId: id, companyId: newCompany.id });
+    await WorkExp.create({ ...req.body, endDate: setEndDate, userId: id, companyId: newCompany.id });
     res.json(newCompany);
   } catch (error) {
     next(error);
@@ -82,12 +83,16 @@ const findByUser = async (req, res, next) => {
 const updateByUser = async (req, res, next) => {
   const { id: userId } = req.decoded;
   const { id: companyId } = req.params;
-  const { name } = req.body;
+  const { name, endDate } = req.body;
   try {
-    const results = await Users.findOne({ where: { id: userId } });
-    if (!results) throw new Error("User not found!", { cause: "NOT_FOUND" });
+    const checkUser = await Users.findByPk(userId);
+    if (!checkUser) throw new Error("User not found!", { cause: "NOT_FOUND" });
+    const setEndDate = endDate !== "" ? endDate : null;
     const getCompany = await Companies.update({ name }, { where: { id: companyId } });
-    await WorkExp.update({ ...req.body, name: getCompany.name, companyId: getCompany.id }, { where: { userId, companyId } });
+    await WorkExp.update(
+      { ...req.body, endDate: setEndDate, name: getCompany.name, companyId: getCompany.id },
+      { where: { userId, companyId } }
+    );
     res.json({ message: "Work experience updated successfully", request: req.body });
   } catch (error) {
     next(error);

@@ -11,7 +11,11 @@ const companies = (sequelize, Sequelize) => {
     },
     photo: {
       type: Sequelize.TEXT,
-      schema: Joi.string().trim(),
+      defaultValue: null,
+    },
+    photoName: {
+      type: Sequelize.TEXT,
+      defaultValue: null,
     },
   });
 

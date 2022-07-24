@@ -8,7 +8,9 @@ module.exports = (app) => {
   app.use("/users", require("./usersRoute"));
   app.use("/skills", require("./skillsRoute"));
   app.use("/work-exp", require("./workExpRoute"));
-  app.use("/portfolio", require("./portfolioRoute"));
+  app.use("/portfolios", require("./portfolioRoute"));
 
   app.use("/notification", require("./notificationRoute"));
+
+  app.use("/test-multer", require("./testMulter"));
 };

@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const Notification = require("../controllers/notificationController");
+const { notification } = require("../controllers");
 
-router.route("/").post(Notification.create).get(Notification.findAll);
-router.route("/:id").delete(Notification.deleteOne).get(Notification.findById);
+router.route("/").post(notification.create).get(notification.findAll);
+router.route("/:id").delete(notification.deleteOne).get(notification.findById);
 
 module.exports = router;

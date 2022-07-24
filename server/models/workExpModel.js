@@ -6,8 +6,8 @@ const workExp = (sequelize, Sequelize) => {
   const WorkExp = sequelize.define("work_experience", {
     position: { type: Sequelize.TEXT, allowNull: false, schema: Joi.string().trim().required() },
     currentWork: { type: Sequelize.BOOLEAN, defaultValue: false },
-    startDate: { type: Sequelize.DATEONLY, allowNull: false, schema: Joi.date().required() },
-    endDate: { type: Sequelize.DATEONLY, schema: Joi.date() },
+    startDate: { type: Sequelize.DATEONLY, allowNull: false, schema: Joi.string().required() },
+    endDate: { type: Sequelize.DATEONLY },
     shortDesc: { type: Sequelize.TEXT, schema: Joi.string().trim() },
   });
 
