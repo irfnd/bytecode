@@ -37,8 +37,6 @@ db.Notifications = require("./notificationModel")(sequelize, Sequelize);
 
 // notifications related
 
-db.Notifications.hasMany(db.Companies);
-db.Notifications.hasMany(db.Users);
 
 // Users Relations
 db.Users.hasMany(db.Tokens, { onDelete: "cascade" });

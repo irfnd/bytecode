@@ -15,6 +15,11 @@ const notifications = (sequelize, Sequelize) => {
       allowNull: false,
       schema: Joi.string().required(),
     },
+    email:{
+      type: Sequelize.TEXT,
+      allowNull: false,
+      schema: Joi.string(),
+    },
     phoneNumber: {
       type: Sequelize.TEXT,
       allowNull: false,
@@ -27,7 +32,7 @@ const notifications = (sequelize, Sequelize) => {
     },
   });
 
-  return Notifications;
+  return Notification;
 };
 
 module.exports = notifications;
