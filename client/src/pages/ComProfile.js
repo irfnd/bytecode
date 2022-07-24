@@ -70,7 +70,7 @@ export default function ComProfile() {
 								<Col />
 								<Col sm={4}>
 									{/* AFTER DESCRIPTION - BUTTON TO EDIT PROFILE COMPANY */}
-									<Link to="/co/edit">
+									<Link to="/company/edit">
 										<Button className="Button doit mt-3 mb-4"> Edit profile </Button>
 									</Link>
 

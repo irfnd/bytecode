@@ -24,7 +24,7 @@ function FormRegister() {
 	const Navigate = useNavigate()
 	const [loading, setLoading] = useState(false)
 	const [form, setForm] = useState(initial)
-	const [formRecruiter, setFormRecruiter] = useState(false)
+	// const [formRecruiter, setFormRecruiter] = useState(false)
 
 	/* const handleShowForm = () => {
 		setForm({

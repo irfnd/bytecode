@@ -51,10 +51,10 @@ export default function EmpEdit() {
 						{/* BUTTON FOR SAVE & CANCEL OF EDITING */}
 						<div className="profilSaveCancel">
 							<Row>
-							<Link to="/em">
+							<Link to="/employed">
 								<Button className="Button doit mt-3 mb-2">Save</Button>
 							</Link>
-							<Link to="/em">
+							<Link to="/employed">
 									<Button className="Button cancel mb-2">Cancel</Button>
 							</Link>
 							</Row>

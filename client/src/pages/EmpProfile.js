@@ -64,7 +64,7 @@ export default function EmpProfile() {
 									</Button>
 								</Link>
 								{/* IF JOBSEEKERS */}
-								<Link to="/em/edit">
+								<Link to="/employed/edit">
 									<Button renderAS="button" className="Button doit mt-3 mb-4">
 										Edit profile
 									</Button>
