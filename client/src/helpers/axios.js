@@ -2,7 +2,7 @@ import axios from "axios"
 import Cookies from "js-cookie"
 
 const interceptor = axios.create({
-    baseURL: 'http://localhost:8120'
+    baseURL: process.env.BACKEND_URL
 })
 
 interceptor.interceptors.request.use(

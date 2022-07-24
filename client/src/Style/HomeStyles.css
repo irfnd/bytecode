@@ -160,6 +160,8 @@
 .layer2{
   position: relative;
   width: 100%;
+  opacity: 0.9px;
+  z-index: 0;
 }
 
 .item-last{

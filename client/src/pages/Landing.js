@@ -36,6 +36,7 @@ function App() {
 								<h2>Lorem ipsum dolor sit amet</h2>
 							</Col>
 							<Col lg={3} className="mx-auto">
+								
 								<Button className="mx-auto " variant="light" size="lg">
 									Mulai Dari Sekarang
 								</Button>
