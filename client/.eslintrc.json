@@ -13,14 +13,18 @@
 	},
 	"plugins": ["react", "prettier"],
 	"rules": {
-		"no-console": "off",
-		"import/order": "off",
+		"default-param-last": "off",
+		"func-names": "off",
+		"import/no-unresolved": "off",
 		"import/newline-after-import": "off",
+		"import/order": "off",
+		"no-console": "off",
+		"no-param-reassign": "off",
 		"prettier/prettier": "off",
-		"react/react-in-jsx-scope": "off",
 		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-		"react/jsx-props-no-spreading": "off",
 		"react/jsx-no-bind": "off",
-		"react/forbid-prop-types": "off"
+		"react/jsx-props-no-spreading": "off",
+		"react/prop-types": "off",
+		"react/react-in-jsx-scope": "off"
 	}
 }
