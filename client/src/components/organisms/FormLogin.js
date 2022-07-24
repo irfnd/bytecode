@@ -20,22 +20,31 @@ function FormLogin() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		setLoading(true);
-		login(email, password)
-			.then((res) => {
-				Cookies.set("token", res.token);
-				Alert.fire({
-					icon: "success",
-					text: "Login success!",
-				});
-				Navigate("/home");
-			})
-			.catch((err) => {
-				Alert.fire({
-					icon: "error",
-					text: `Incorrect password! ${err}`,
-				});
+		if (!email || !password ) {
+			Alert.fire({
+				icon: "Error",
+				text: "All field must be filled!",
 			});
+		} else {
+			setLoading(true);
+			login(email, password)
+				.then((res) => {
+					Cookies.set("token", res.token);
+					Alert.fire({
+						icon: "success",
+						text: "Login success!",
+					});
+					Navigate("/home");
+				})
+				.catch((err) => {
+					Alert.fire({
+						icon: "error",
+						text: `Incorrect password! ${err}`,
+					});
+				});
+		}
+
+		
 	};
 
 	return (
@@ -59,6 +68,7 @@ function FormLogin() {
 									name="email"
 									placeholder="Masukan alamat email"
 									onChange={(e) => setEmail(e.target.value)}
+									required
 								/>
 								<Field
 									label="Kata sandi"
@@ -66,6 +76,7 @@ function FormLogin() {
 									name="password"
 									placeholder="Masukan kata sandi"
 									onChange={(e) => setPassword(e.target.value)}
+									required
 								/>
 								<div className="w-100 d-flex justify-content-end mb-3">
 									<Link to="/auth/forgot" className="forgot">
