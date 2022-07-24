@@ -22,10 +22,12 @@
 	margin-bottom: -20px;
 }
 
-.chat_title h5 {
-	font-weight: 600;
-	font-size: 20px;
-	color: var(--text-black);
+.chat_header h5 {
+    margin-left: -5px;
+    padding-top: 9px;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--text-black);
 }
 
 .sender {

@@ -55,8 +55,19 @@ function FormChat() {
 									<div>not message</div>
 								) : (
 									<div>
-										<img src={user} className="img-cover rounded-circle" width={40} height={40} alt="Test" />
-										<h5>Jonas adam</h5>
+										<Row>
+											<Col lg='4'>
+												<img
+													src={user}
+													width={40}
+													height={40}
+													alt="Test"
+												/>
+											</Col>
+											<Col lg='8'>
+												<h5>Jonas adam</h5>
+											</Col>
+										</Row>
 									</div>
 								)}
 							</div>
