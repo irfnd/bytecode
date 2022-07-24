@@ -11,8 +11,12 @@ const app = express();
 const port = SERVER_PORT || 8000;
 const http = require("http");
 const server = http.createServer(app);
-const { Server, Socket } = require("socket.io");
-const io = new Server(server);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
 
 const db = require("./models");
 const syncdb = true;
@@ -29,23 +33,38 @@ require("./routes/index")(app);
 
 app.use(errorHandling);
 
-// route example to render
-app.get("/chat", (req, res) => {
-  res.sendFile(__dirname + "/example.html");
+
+
+app.get('/chat', (req, res) => {
+  res.sendFile(__dirname + '/example.html');
 });
 
-io.on("connection", (socket) => {
-  socket.on("chat message", (msg) => {
-    console.log(msg);
-  });
-});
 
-// This will emit the event to all connected sockets
-io.emit("some event", { someProperty: "some value", otherProperty: "other value" });
-io.on("connection", (socket) => {
-  socket.on("chat message", (msg) => {
-    io.emit("chat message", msg);
-  });
+io.on('connection', (socket) => {
+  console.log('connected to', socket.id)
+  const room = 'MYROOM'
+
+  socket.on("adduser", (username) => {
+      socket.user = username;
+      users.push(username)
+      console.log("latest users", users)
+      io.sockets.emit("users", users)
+  })
+  socket.on("message", (message) => {
+      io.sockets.emit("message", {
+          user: socket.user,
+          message: message,
+      })
+  })
+  socket.on("disconnect", () => {
+      console.log("deleting ", socket.user)
+
+      if (socket.user) {
+          users.splice(users.indexOf(socket.user), 1);
+      }
+      io.sockets.emit("users", users)
+      console.log('remaining users: ', users)
+  })
 });
 
 server.listen(port || 8000, () => {

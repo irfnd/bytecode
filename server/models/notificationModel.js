@@ -4,13 +4,13 @@ const Joi = joi.extend(require("joi-phone-number"));
 const notifications = (sequelize, Sequelize) => {
   sequelizeJoi(sequelize);
 
-  const Notifications = sequelize.define("notifications", {
-    to: {
+  const Notification = sequelize.define("Notification", {
+    purpose: {
       type: Sequelize.TEXT,
       allowNull: false,
       schema: Joi.string().required(),
     },
-    name: {
+    fullName: {
       type: Sequelize.TEXT,
       allowNull: false,
       schema: Joi.string().required(),
@@ -18,7 +18,7 @@ const notifications = (sequelize, Sequelize) => {
     phoneNumber: {
       type: Sequelize.TEXT,
       allowNull: false,
-      unique: true,
+      unique: false,
       schema: Joi.string().trim().phoneNumber({ defaultCountry: "ID", format: "e164" }).required(),
     },
     description: {
