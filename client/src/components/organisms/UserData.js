@@ -9,7 +9,7 @@ import {
 import profil from "../../assets/img/profil.jpg";
 import { GeoAlt } from "react-bootstrap-icons";
 
-
+import {Link} from "react-router-dom"
 
 
 function App() {
@@ -50,9 +50,9 @@ function App() {
               </Col>
               <Col lg={2} className="justify-content-center mx-auto">
                 <Row className="">
-                  <Button variant="btn button-profil mt-5 text-light">
+                  <Link to="/employed" ><Button variant="btn button-profil mt-5 text-light">
                     Lihat Profil
-                  </Button>
+                  </Button></Link>
                 </Row>
               </Col>
             </Row>
@@ -87,9 +87,9 @@ function App() {
               </Col>
               <Col lg={2} className="justify-content-center mx-auto">
                 <Row className="">
-                  <Button variant="btn button-profil mt-5 text-light">
+                  <Link to="/employed" ><Button variant="btn button-profil mt-5 text-light">
                     Lihat Profil
-                  </Button>
+                  </Button></Link>
                 </Row>
               </Col>
             </Row>
@@ -124,9 +124,9 @@ function App() {
               </Col>
               <Col lg={2} className="justify-content-center mx-auto">
                 <Row className="">
-                  <Button variant="btn button-profil mt-5 text-light">
+                  <Link to="/employed" ><Button variant="btn button-profil mt-5 text-light">
                     Lihat Profil
-                  </Button>
+                  </Button></Link>
                 </Row>
               </Col>
             </Row>
@@ -161,9 +161,9 @@ function App() {
               </Col>
               <Col lg={2} className="justify-content-center mx-auto">
                 <Row className="">
-                  <Button variant="btn button-profil mt-5 text-light">
+                <Link to="/employed" ><Button variant="btn button-profil mt-5 text-light">
                     Lihat Profil
-                  </Button>
+                  </Button></Link>
                 </Row>
               </Col>
             </Row>

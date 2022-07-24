@@ -22,11 +22,11 @@ function Navbar2() {
                   navbarScroll
                 />
                 
-                  <Link to="register">
+                  <Link to="/register">
                     <Button variant="outline-primary button-daftar mx-2">
                     Daftar</Button>
                   </Link>
-                  <Link to="login">
+                  <Link to="/login">
                     <Button variant="outline-primary button-daftar mx-2">
                     Login</Button>
                   </Link>
