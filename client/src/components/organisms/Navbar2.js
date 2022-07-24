@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Nav, Navbar, Button } from "react-bootstrap";
 import logo from "../../assets/img/logo.png";
-
+import { Link } from "react-router-dom"
 
 function Navbar2() {
 	return (
@@ -21,12 +21,15 @@ function Navbar2() {
                   style={{ maxHeight: "0px" }}
                   navbarScroll
                 />
-                <Button variant="outline-primary button-daftar mx-2">
-                  Daftar
-                </Button>
-                <Button variant="outline-primary button-masuk mx-2">
-                  Masuk
-                </Button>
+                
+                  <Link to="register">
+                    <Button variant="outline-primary button-daftar mx-2">
+                    Daftar</Button>
+                  </Link>
+                  <Link to="login">
+                    <Button variant="outline-primary button-daftar mx-2">
+                    Login</Button>
+                  </Link>
               </Navbar.Collapse>
               {/* </Col> */}
             </Container>
