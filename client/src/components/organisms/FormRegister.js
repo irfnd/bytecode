@@ -51,9 +51,8 @@ function FormRegister() {
 	} = form
 
 	const handleChange = (e) => {
-		// eslint-disable-next-line no-shadow
-		const { name, value } = e.target;
-		setForm({ ...form, [name]: value });
+		// const { name, value } = e.target;
+		setForm({ ...form, [e.target.id]: e.target.value });
 	};
 
 	const handleSubmitJobSeeker = (e) => {
@@ -161,30 +160,30 @@ function FormRegister() {
 							<Form className="w-100 mb-3 mt-3" method="post" encType="multipart/form-data"
 								onSubmit={handleSubmitJobSeeker}>
 								<Field id="name" label="Name" placeholder="Masukan nama panjang" 
-									value={form.name} onChange={handleChange} />
+									onChange={handleChange} />
 								<Field id="email" label="Email" placeholder="Masukan alamat email" 
-									value={form.email} onChange={handleChange} />
+									onChange={handleChange} />
 								<Field id="perusahaan" label="Perusahaan" placeholder="Masukan nama perusahaan" 
-									value={form.perusahaan} onChange={handleChange} />
+									onChange={handleChange} />
 								<Field id="jabatan" label="Jabatan" placeholder="Posisi di perusahaan anda" 
-									value={form.jabatan} onChange={handleChange} />
+									onChange={handleChange} />
 								<Field id="phone" label="No handphone" placeholder="Masukan no hanphone" 
-									value={form.phone} onChnage={handleChange} />
-								<Field id="pass" type="password" label="Kata sandi" placeholder="Masukan kata sandi" 
-									value={form.password} onChange={handleChange} />
-								<Field id="repass" type="password" label="Konfirmasi kata sandi" placeholder="Masukan konfirmasi kata sandi" 
-									value={form.rePassword} onChange={handleChange} />
+									onChange={handleChange} />
+								<Field type="password" name="password" label="Kata sandi" placeholder="Masukan kata sandi" autocomplete="new-password"
+									onChange={handleChange} />
+								<Field type="password" name="rePassword" label="Konfirmasi kata sandi" placeholder="Masukan konfirmasi kata sandi" autocomplete="new-password"
+									onChange={handleChange} />
 								<Button
 									type="submit"
 									variant="warning" 
 									className="w-100 btn-main pt-3 pb-3 mt-5 mb-0"
-									isLoading={loading}
+									isloading={loading}
 								>Daftar</Button>
 								<Button
 									variant="light" 
 									className="w-100 btn-main pt-3 pb-3 mt-2 mb-0"
 									onClick={handleSubmitRecruiter}
-									isLoading={loading}
+									isloading={loading}
 								>Daftar recruiter</Button>
 								
 							</Form>
