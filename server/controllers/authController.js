@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { REFRESH_TOKEN_EXPIRE } = process.env;
+const { ACCESS_TOKEN_EXPIRE } = process.env;
 
 const { hashSync, compareSync } = require("bcrypt");
 const { Users, Companies, UserProfile, CompanyProfile, Tokens } = require("../models");
@@ -43,11 +43,8 @@ const login = async (req, res, next) => {
     if (!passwordMatch) throw new Error("Invalid password!", { cause: "UNAUTHORIZED" });
     const payload = { id: user.id, name: user.name, email: user.email, type: user.type };
     const accessToken = generateAccessToken(payload);
-    const refreshToken = generateRefreshToken(payload);
-    await Tokens.create({ userId: payload.id, token: refreshToken });
-    res
-      .cookie("refreshToken", refreshToken, { httpOnly: true, REFRESH_TOKEN_EXPIRE })
-      .json({ ...payload, token: accessToken });
+    await Tokens.create({ userId: payload.id, token: accessToken });
+    res.cookie("token", accessToken, { httpOnly: true, ACCESS_TOKEN_EXPIRE }).json({ ...payload, token: accessToken });
   } catch (error) {
     next(error);
   }
@@ -63,10 +60,9 @@ const refreshToken = async (req, res, next) => {
     const decoded = await verifyRefreshToken(refreshToken);
     const payload = { id: decoded.id, name: decoded.name, email: decoded.email, type: decoded.type };
     const newAccessToken = generateAccessToken(payload);
-    const newRefreshToken = generateRefreshToken(payload);
-    await Tokens.update({ token: newRefreshToken }, { where: { userId: payload.id, token: refreshToken } });
+    await Tokens.update({ token: newAccessToken }, { where: { userId: payload.id, token: newAccessToken } });
     res
-      .cookie("refreshToken", newRefreshToken, { httpOnly: true, REFRESH_TOKEN_EXPIRE })
+      .cookie("token", newAccessToken, { httpOnly: true, ACCESS_TOKEN_EXPIRE })
       .json({ ...payload, tokens: newAccessToken });
   } catch (error) {
     next(error);
