@@ -49,7 +49,15 @@ function FormRegister() {
 
 	const handleSubmitJobSeeker = (e) => {
 		e.preventDefault();
-		if (password !== rePassword) {
+
+		const field = !form.name || !form.email || !form.company || !form.position || !form.phone || !form.password || !form.rePassword
+		if ( field ) {
+			Alert.fire({
+				icon: "Error",
+				text: "All field must be filled!",
+			});
+
+		} else if (password !== rePassword) {
 			Alert.fire({
 				icon: "error",
 				tittle: "Incorrect!",
@@ -91,7 +99,15 @@ function FormRegister() {
 	};
 	const handleSubmitRecruiter = async (e) => {
 		e.preventDefault();
-		if (password !== rePassword) {
+
+		const field = !form.name || !form.email || !form.company || !form.position || !form.phone || !form.password || !form.rePassword
+		if ( field ) {
+			Alert.fire({
+				icon: "Error",
+				text: "All field must be filled!",
+			});
+
+		} else if (password !== rePassword) {
 			Alert.fire({
 				icon: "error",
 				tittle: "Incorrect!",
