@@ -40,7 +40,7 @@ function FormRegister() {
 		window.scroll(0, 0)
 	} */
 
-	const { name, email, company, position, phone, password, rePassword } = form;
+	// const { name, email, company, position, phone, password, rePassword } = form;
 
 	/* const handleChange = (e) => {
 		// const { name, value } = e.target;
@@ -57,7 +57,7 @@ function FormRegister() {
 				text: "All field must be filled!",
 			});
 
-		} else if (password !== rePassword) {
+		} else if (form.password !== form.rePassword) {
 			Alert.fire({
 				icon: "error",
 				tittle: "Incorrect!",
@@ -65,13 +65,7 @@ function FormRegister() {
 			});
 		} else {
 			setLoading(true);
-			registerRecruiter({
-				name,
-				email,
-				phone,
-				password,
-				rePassword,
-			})
+			registerJobSeeker(form)
 				.then((res) => {
 					Navigate("login");
 
@@ -107,7 +101,7 @@ function FormRegister() {
 				text: "All field must be filled!",
 			});
 
-		} else if (password !== rePassword) {
+		} else if (form.password !== form.rePassword) {
 			Alert.fire({
 				icon: "error",
 				tittle: "Incorrect!",
@@ -115,15 +109,7 @@ function FormRegister() {
 			});
 		} else {
 			setLoading(true);
-			registerJobSeeker({
-				name,
-				email,
-				company,
-				position,
-				phone,
-				password,
-				rePassword,
-			})
+			registerRecruiter(form)
 				.then((res) => {
 					Navigate("login");
 
