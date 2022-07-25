@@ -17,9 +17,7 @@ function FormLogin() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-
+	const handleSubmit = (value) => {
 		if (!email || !password ) {
 			Alert.fire({
 				icon: "Error",
@@ -27,7 +25,10 @@ function FormLogin() {
 			});
 		} else {
 			setLoading(true);
-			login(email, password)
+			login({
+				email: value?.email ?? email, 
+				password: value?.password ?? password,
+			})
 				.then((res) => {
 					Cookies.set("token", res.token);
 					Alert.fire({
@@ -43,9 +44,7 @@ function FormLogin() {
 					});
 				});
 		}
-
-		
-	};
+	}
 
 	return (
 		<>
@@ -60,7 +59,8 @@ function FormLogin() {
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod ipsum et dui rhoncus auctor.
 							</span>
 							<hr className="separator w-100 mb-0 mt-1" />
-							<Form className="w-100 mb-3 mt-3" method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
+							<Form className="w-100 mb-3 mt-3" method="post" encType="multipart/form-data" 
+							onSubmit={(e) => e.preventDefault()}>
 								<Field
 									label="Email"
 									id="inputEmail"
@@ -90,6 +90,7 @@ function FormLogin() {
 									variant="warning"
 									className="w-100 btn-main pt-3 pb-3 mt-5 mb-0"
 									isLoading={loading}
+									onClick={handleSubmit}
 								>
 									Masuk
 								</Button>
