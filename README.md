@@ -41,3 +41,10 @@ Run react app
 npm start
 ```
 Open [```http://localhost:8000```](http://localhost:8000) on your postman / insomnia / thunder client
+
+
+Dokumentasi
+- deskripsi project
+- teknologi project fe & be
+- sql export
+- how to running
