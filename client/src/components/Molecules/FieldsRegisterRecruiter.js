@@ -1,6 +1,6 @@
 import Field from "../Atoms/Field";
 
-export default function FormRegisterJobseeker(props) {
+export default function FieldsRegisterJobseeker(props) {
 	const { register, errors } = props;
 
 	return (
@@ -29,6 +29,24 @@ export default function FormRegisterJobseeker(props) {
 					name: "phoneNumber",
 					label: "No. Handphone",
 					placeholder: "Masukan No. Handphone",
+					register,
+					errors,
+				}}
+			/>
+			<Field
+				{...{
+					name: "company",
+					label: "Perusahaan",
+					placeholder: "Masukan Nama Perusahaan Anda",
+					register,
+					errors,
+				}}
+			/>
+			<Field
+				{...{
+					name: "position",
+					label: "Jabatan",
+					placeholder: "Masukan Posisi di Perusahaan Anda",
 					register,
 					errors,
 				}}

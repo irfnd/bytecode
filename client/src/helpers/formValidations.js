@@ -43,3 +43,8 @@ export const registerRecruiter = yup.object({
 		.required("Harap masukan konfirmasi kata sandi!")
 		.oneOf([yup.ref("password"), null], "Password tidak sama!"),
 });
+
+export const login = yup.object({
+	email: yup.string().trim().email("Masukan email yang valid!").required("Harap masukan alamat email!"),
+	password: yup.string().trim().required("Harap masukan kata sandi!"),
+});

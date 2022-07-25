@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const interceptor = axios.create({
-	baseURL: `${process.env.REACT_APP_BACKEND_URL}`
+	baseURL: `${process.env.REACT_APP_BACKEND_URL}`,
 });
 
 interceptor.interceptors.request.use(

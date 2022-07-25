@@ -1,114 +1,92 @@
-import React, { useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Cookies from "js-cookie";
-import Alert from "sweetalert2";
 
 import { login } from "../../Redux/actions/Auth";
 
-import AuthStyles from "../../assets/styles/AuthStyles";
+import { Col, Form, Button, Spinner } from "react-bootstrap";
+import Alert from "sweetalert2";
 
-import Picture from "../Molecules/PictureSlide";
-import Field from "../Atoms/Field";
+import FieldsLogin from "../Molecules/FieldsLogin";
+import { login as loginSchema } from "../../helpers/formValidations";
 
-function FormLogin() {
-	const Navigate = useNavigate();
-	const [loading, setLoading] = useState(false);
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+export default function FormLogin() {
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
+	const formOption = { resolver: yupResolver(loginSchema) };
+	const { register, handleSubmit, formState } = useForm(formOption);
+	const { errors } = formState;
+	const navigate = useNavigate();
 
-		if (!email || !password ) {
-			Alert.fire({
-				icon: "Error",
-				text: "All field must be filled!",
-			});
-		} else {
-			setLoading(true);
-			login(email, password)
-				.then((res) => {
-					Cookies.set("token", res.token);
-					Alert.fire({
-						icon: "success",
-						text: "Login success!",
-					});
-					Navigate("/home");
-				})
-				.catch((err) => {
-					Alert.fire({
-						icon: "error",
-						text: `Incorrect password! ${err}`,
-					});
+	const onSubmit = (data) => {
+		setIsSubmitting(true);
+		login(data)
+			.then((res) => {
+				setIsSubmitting(false);
+				console.log(res);
+				Cookies.set("token", res.token);
+				Alert.fire({
+					icon: "success",
+					text: res.message,
 				});
-		}
-
-		
+				navigate("/");
+			})
+			.catch((err) => {
+				setIsSubmitting(false);
+				console.log(err);
+				Alert.fire({
+					icon: "error",
+					text: err,
+				});
+			});
 	};
 
 	return (
-		<>
-			<AuthStyles />
-			<Container fluid>
-				<Row>
-					<Picture />
-					<Col lg="6" className="custom d-flex justify-content-center align-items-center">
-						<div className="col-10 justify-content-center">
-							<h2 className="title">Halo, Pewpeople</h2>
-							<span className="secondary-color description mt-4 mb-4">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod ipsum et dui rhoncus auctor.
-							</span>
-							<hr className="separator w-100 mb-0 mt-1" />
-							<Form className="w-100 mb-3 mt-3" method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
-								<Field
-									label="Email"
-									id="inputEmail"
-									type="email"
-									name="email"
-									placeholder="Masukan alamat email"
-									onChange={(e) => setEmail(e.target.value)}
-									required
-								/>
-								<Field
-									label="Kata sandi"
-									type="password"
-									name="password"
-									placeholder="Masukan kata sandi"
-									onChange={(e) => setPassword(e.target.value)}
-									required
-								/>
-								<div className="w-100 d-flex justify-content-end mb-3">
-									<Link to="/auth/forgot" className="forgot">
-										Lupa kata sandi?
-									</Link>
-								</div>
+		<Col lg="6" className="offset-6 d-flex vh-100 justify-content-center align-items-center">
+			<div className="col-10 d-flex flex-column justify-content-center py-5">
+				<h2 className="title">Halo, Pewpeople</h2>
+				<span className="secondary-color description mt-4">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod ipsum et dui rhoncus auctor.
+				</span>
+				<hr className="separator w-100 mt-4" />
+				<Form className="w-100 mb-3 mt-3" onSubmit={handleSubmit(onSubmit)}>
+					<FieldsLogin {...{ register, errors }} />
 
-								<Button
-									type="submit"
-									variant="warning"
-									className="w-100 btn-main pt-3 pb-3 mt-5 mb-0"
-									isLoading={loading}
-								>
-									Masuk
-								</Button>
-							</Form>
-							<div className="w-100 d-flex flex-column">
-								<div className="w-100 d-flex justify-content-center align-items-center">
-									<span className="alternative">
-										Anda belum punya akun?
-										<Link to="/register" className="main-color clicked text-decoration-none">
-											Daftar disini
-										</Link>
-									</span>
-								</div>
-							</div>
-						</div>
-					</Col>
-				</Row>
-			</Container>
-		</>
+					<div className="w-100 d-flex justify-content-end mb-3">
+						<Link to="/auth/forgot" className="forgot">
+							Lupa kata sandi?
+						</Link>
+					</div>
+
+					<Button
+						type="submit"
+						variant="warning"
+						size="lg"
+						className="w-100 mt-4 mb-2 text-white"
+						disabled={isSubmitting}
+					>
+						{isSubmitting ? (
+							<>
+								<Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> Loading
+							</>
+						) : (
+							"Daftar"
+						)}
+					</Button>
+				</Form>
+				<div className="w-100 d-flex flex-column">
+					<div className="w-100 d-flex justify-content-center align-items-center">
+						<span className="alternative">
+							Anda belum punya akun?
+							<Link to="/register" className="main-color clicked text-decoration-none">
+								Daftar disini
+							</Link>
+						</span>
+					</div>
+				</div>
+			</div>
+		</Col>
 	);
 }
-
-export default FormLogin;
