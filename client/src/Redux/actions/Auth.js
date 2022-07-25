@@ -18,7 +18,7 @@ export const login = (data) => {
 export const registerRecruiter = (data) => {
 	return new Promise((resolve, reject) => {
 		axios
-			.post(`${process.env.REACT_APP_BACKEND_URL}/recruiter`, data)
+			.post(`${process.env.REACT_APP_BACKEND_URL}/register`, data)
 			.then((res) => {
 				resolve(res.data);
 			})
@@ -31,7 +31,7 @@ export const registerRecruiter = (data) => {
 export const registerJobSeeker = (data) => {
 	return new Promise((resolve, reject) => {
 		axios
-			.post(`${process.env.REACT_APP_BACKEND_URL}/jobseeker`, data)
+			.post(`${process.env.REACT_APP_BACKEND_URL}/register`, data)
 			.then((res) => {
 				resolve(res.data);
 			})
