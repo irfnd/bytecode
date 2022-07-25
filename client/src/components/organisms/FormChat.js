@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import InputEmoji from "react-input-emoji";
+import { io } from "socket.io-client";
 
 import styles from "../../Style/ChatStyle.module.css";
 
@@ -8,7 +9,12 @@ import send from "../../assets/icons/send.png";
 import user from "../../assets/icons/user.png";
 
 function FormChat() {
+	const socket = io("http://localhost:8000/");
 	const [message, setMessage] = useState("");
+
+
+
+
 	const empety = false;
 
 	return (
@@ -20,7 +26,6 @@ function FormChat() {
 							<div className={styles.chat_title}>
 								<h5>Chat</h5>
 							</div>
-
 							<hr />
 							{empety ? (
 								<div
@@ -32,7 +37,7 @@ function FormChat() {
 								</div>
 							) : (
 								<div className="overflow-auto">
-									<Row className="w-100 d-flex align-items-center">
+									<Row className="w-100 d-flex align-items-center inbox__people">
 										<Col lg="3" className="md-4">
 											<div className="d-flex justify-content-center ms-1">
 												<img src={user} className="img-cover rounded-circle" alt="Test" />

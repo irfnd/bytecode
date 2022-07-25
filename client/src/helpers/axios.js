@@ -2,12 +2,13 @@ import axios from "axios"
 import Cookies from "js-cookie"
 
 const interceptor = axios.create({
-    baseURL: 'http://localhost:8120'
+    baseURL: 'http://localhost:8000'
 })
 
 interceptor.interceptors.request.use(
     function (config) {
-        config.headers = {
+        const Config = config;
+        Config.headers = {
             Authorization: `Bearer ${Cookies.get('token')}`
         }
         return config

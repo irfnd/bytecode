@@ -5,6 +5,10 @@ import profil from "../../assets/img/profil.jpg";
 import { Bell, Envelope } from "react-bootstrap-icons";
 
 function Navbar1() {
+
+
+
+
 	return (
 		<Navbar bg="white" expand="lg">
 			<Container>

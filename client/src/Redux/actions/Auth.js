@@ -34,6 +34,7 @@ export const registerJobSeeker = (data) => {
             resolve(res.data)
         })
         .catch((err) => {
+            console(err)
             reject(err)
         })
     })

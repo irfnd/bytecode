@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState} from "react";
 import { Container, Row, Col, Form, Image, Button } from "react-bootstrap";
 // import { Link } from "react-router-dom";
 
@@ -8,8 +8,53 @@ import loc from "../assets/icons/locLogo.png"; //
 
 import Navbar1 from "../components/organisms/Navbar1Adi";
 import Footer from "../components/organisms/FooterAdi";
+import axios from "axios";
+import Alert from "sweetalert2"
 
 export default function Hire() {
+	const options = [
+		{value: '', text: '-Project Select-'},
+		{value: '1', text: 'ProjectOne'},
+		{value: '2', text: 'ProjectTwo'},
+		{value: '3', text: 'ProjectThree'},
+	  ];
+
+	const [purpose, setpurpose] = useState(options[0].value);
+	const [fullName, setfullName] = useState('');
+	const [email, setEmail] = useState('');
+	const [phoneNumber, setPhoneNumber] = useState('');
+	const [description, setDescription] = useState('');
+
+	
+	  const handleChange = event => {
+		setpurpose(event.target.value);
+	  };
+	
+	const handleSubmitJobSeeker = async(e)=>{
+		e.preventDefault()
+		try {
+			await axios.post('http://localhost:8000/notification',{
+				purpose,
+				fullName,
+				email,
+				phoneNumber,
+				description  
+			}).then(()=>{
+				Alert.fire ({
+					icon: 'success',
+					text: `perfect message sent`
+				})
+			})
+		} catch (error) {
+			console.log(error);
+		}
+
+	}
+
+
+	
+
+
 	return (
 		<>
 		<Navbar1 />
@@ -68,26 +113,24 @@ export default function Hire() {
 						</div>
 
 						{/* Form for Company to hiring Jobseeker */}
-						<Form>
+						<Form  onSubmit={handleSubmitJobSeeker}>
 							<Form.Group className="mb-3 pSideBarProfile" controlId="purpose">
 								<Form.Label>Purpose of this message</Form.Label>
-								<Form.Select size="md" aria-label="Default select example" style={{ color: "gray" }}>
-									<option>Project Select</option>
-									<option style={{ color: "black" }} value="1">
-										ProjectOne
+								<Form.Select value={purpose} onChange={handleChange} size="md" aria-label="Default select example" style={{ color: "gray" }}>
+								{options.map(option => (
+									<option key={option.value} value={option.value} style={{ color: "black" }}>
+										{option.text}
 									</option>
-									<option style={{ color: "black" }} value="2">
-										ProjectTwo
-									</option>
-									<option style={{ color: "black" }} value="3">
-										ProjectThree
-									</option>
+									))}
 								</Form.Select>
 							</Form.Group>
 
 							<Form.Group className="mb-4 pSideBarProfile" controlId="fullname">
 								<Form.Label className="mb-1">Full name</Form.Label>
-								<Form.Control size="md" type="text" placeholder="Input full name" />
+								<Form.Control size="md" type="text" placeholder="Input full name" 
+								value={fullName}
+								onChange={(event) => setfullName(event.target.value)}
+								/>
 								{/* <Form.Text className="text-muted">
 										We'll never share your email with anyone else.
 									</Form.Text> */}
@@ -95,20 +138,26 @@ export default function Hire() {
 
 							<Form.Group className="mb-4 pSideBarProfile" controlId="email">
 								<Form.Label className="mb-1">email</Form.Label>
-								<Form.Control size="md" type="text" placeholder="Input email" />
+								<Form.Control size="md" type="text" placeholder="Input email" 
+								value={email}
+								onChange={(event) => setEmail(event.target.value)}/>
 							</Form.Group>
 
 							<Form.Group className="mb-4 pSideBarProfile" controlId="phone">
 								<Form.Label className="mb-1">Handphone number</Form.Label>
-								<Form.Control size="md" type="number" placeholder="Input handphone number" />
+								<Form.Control size="md" type="number" placeholder="Input handphone number"
+								value={phoneNumber}
+								onChange={(event) => setPhoneNumber(event.target.value)}/>
 							</Form.Group>
 
 							<Form.Group className="mb-4 pSideBarProfile" controlId="description">
 								<Form.Label className="mb-1">Description</Form.Label>
-								<Form.Control as="textarea" rows={6} size="md" placeholder="Description" />
+								<Form.Control as="textarea" rows={6} size="md" placeholder="Description"
+								value={description}
+								onChange={(event) => setDescription(event.target.value)}/>
 							</Form.Group>
 
-							<Button className="Button doit my-4">Hire</Button>
+							<Button className="Button doit my-4" type="submit">Hire</Button>
 						</Form>
 					</Col>
 
