@@ -1,11 +1,13 @@
 import axios from "../../helpers/axios";
 
-export const login = ({email, password}) => {
+export const login = (data) => {
 	return new Promise((resolve, reject) => {
 		axios
-			.post(`login`, {email, password})
+			.post(`${process.env.REACT_APP_BACKEND_URL}/login`, data)
 			.then((res) => {
-				resolve(res);
+				document.cookie = `token=${res.data.token}; path=/`;
+        		document.cookie = `idUser=${res.data.data}; path=/`;
+				resolve(res.data);
 			})
 			.catch((err) => {
 				reject(err);
