@@ -40,16 +40,24 @@ function FormRegister() {
 		window.scroll(0, 0)
 	} */
 
-	const { name, email, company, position, phone, password, rePassword } = form;
+	// const { name, email, company, position, phone, password, rePassword } = form;
 
-	const handleChange = (e) => {
+	/* const handleChange = (e) => {
 		// const { name, value } = e.target;
 		setForm({ ...form, [e.target.id]: e.target.value });
-	};
+	}; */
 
 	const handleSubmitJobSeeker = (e) => {
 		e.preventDefault();
-		if (password !== rePassword) {
+
+		const field = !form.name || !form.email || !form.company || !form.position || !form.phone || !form.password || !form.rePassword
+		if ( field ) {
+			Alert.fire({
+				icon: "Error",
+				text: "All field must be filled!",
+			});
+
+		} else if (form.password !== form.rePassword) {
 			Alert.fire({
 				icon: "error",
 				tittle: "Incorrect!",
@@ -57,13 +65,7 @@ function FormRegister() {
 			});
 		} else {
 			setLoading(true);
-			registerRecruiter({
-				name,
-				email,
-				phone,
-				password,
-				rePassword,
-			})
+			registerJobSeeker(form)
 				.then((res) => {
 					Navigate("login");
 
@@ -91,7 +93,15 @@ function FormRegister() {
 	};
 	const handleSubmitRecruiter = async (e) => {
 		e.preventDefault();
-		if (password !== rePassword) {
+
+		const field = !form.name || !form.email || !form.company || !form.position || !form.phone || !form.password || !form.rePassword
+		if ( field ) {
+			Alert.fire({
+				icon: "Error",
+				text: "All field must be filled!",
+			});
+
+		} else if (form.password !== form.rePassword) {
 			Alert.fire({
 				icon: "error",
 				tittle: "Incorrect!",
@@ -99,15 +109,7 @@ function FormRegister() {
 			});
 		} else {
 			setLoading(true);
-			registerJobSeeker({
-				name,
-				email,
-				company,
-				position,
-				phone,
-				password,
-				rePassword,
-			})
+			registerRecruiter(form)
 				.then((res) => {
 					Navigate("login");
 
@@ -155,23 +157,23 @@ function FormRegister() {
 								encType="multipart/form-data"
 								onSubmit={handleSubmitJobSeeker}
 							>
-								<Field id="name" label="Name" placeholder="Masukan nama panjang" onChange={handleChange} />
-								<Field id="email" label="Email" placeholder="Masukan alamat email" onChange={handleChange} />
-								<Field
-									id="perusahaan"
-									label="Perusahaan"
-									placeholder="Masukan nama perusahaan"
-									onChange={handleChange}
-								/>
-								<Field id="jabatan" label="Jabatan" placeholder="Posisi di perusahaan anda" onChange={handleChange} />
-								<Field id="phone" label="No handphone" placeholder="Masukan no hanphone" onChange={handleChange} />
+								<Field id="name" label="Name" placeholder="Masukan nama panjang" 
+									onChange={(e) => setForm({ ...form, name: e.target.value })} />
+								<Field id="email" label="Email" placeholder="Masukan alamat email" 
+									onChange={(e) => setForm({ ...form, email: e.target.value })} />
+								<Field id="perusahaan" label="Perusahaan" placeholder="Masukan nama perusahaan"
+									onChange={(e) => setForm({ ...form, company: e.target.value })} />
+								<Field id="jabatan" label="Jabatan" placeholder="Posisi di perusahaan anda" 
+									onChange={(e) => setForm({ ...form, position: e.target.value })} />
+								<Field id="phone" label="No handphone" placeholder="Masukan no hanphone" 
+									onChange={(e) => setForm({ ...form, phone: e.target.value })} />
 								<Field
 									type="password"
 									name="password"
 									label="Kata sandi"
 									placeholder="Masukan kata sandi"
 									autocomplete="new-password"
-									onChange={handleChange}
+									onChange={(e) => setForm({ ...form, password: e.target.value })}
 								/>
 								<Field
 									type="password"
@@ -179,7 +181,7 @@ function FormRegister() {
 									label="Konfirmasi kata sandi"
 									placeholder="Masukan konfirmasi kata sandi"
 									autocomplete="new-password"
-									onChange={handleChange}
+									onChange={(e) => setForm({ ...form, rePassword: e.target.value })}
 								/>
 								<Button
 									type="submit"

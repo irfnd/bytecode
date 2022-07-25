@@ -14,20 +14,23 @@ import Field from "../Atoms/Field";
 function FormLogin() {
 	const Navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	// const [email, setEmail] = useState("");
+	// const [password, setPassword] = useState("");
+	const [form, setForm] = useState({
+		email: '',
+		password: ''
+	  });
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		if (!email || !password ) {
+		if (!form.email || !form.password ) {
 			Alert.fire({
 				icon: "Error",
 				text: "All field must be filled!",
 			});
 		} else {
 			setLoading(true);
-			login(email, password)
+			login(form)
 				.then((res) => {
 					Cookies.set("token", res.token);
 					Alert.fire({
@@ -43,9 +46,7 @@ function FormLogin() {
 					});
 				});
 		}
-
-		
-	};
+	}
 
 	return (
 		<>
@@ -60,14 +61,15 @@ function FormLogin() {
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod ipsum et dui rhoncus auctor.
 							</span>
 							<hr className="separator w-100 mb-0 mt-1" />
-							<Form className="w-100 mb-3 mt-3" method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
+							<Form className="w-100 mb-3 mt-3" method="post" encType="multipart/form-data" 
+							onSubmit={handleSubmit}>
 								<Field
 									label="Email"
 									id="inputEmail"
 									type="email"
 									name="email"
 									placeholder="Masukan alamat email"
-									onChange={(e) => setEmail(e.target.value)}
+									onChange={(e) => setForm({ ...form, email: e.target.value })}
 									required
 								/>
 								<Field
@@ -76,7 +78,7 @@ function FormLogin() {
 									name="password"
 									placeholder="Masukan kata sandi"
 									autocomplete="current-password"
-									onChange={(e) => setPassword(e.target.value)}
+									onChange={(e) => setForm({ ...form, password: e.target.value })}
 									required
 								/>
 								<div className="w-100 d-flex justify-content-end mb-3">
@@ -89,8 +91,7 @@ function FormLogin() {
 									type="submit"
 									variant="warning"
 									className="w-100 btn-main pt-3 pb-3 mt-5 mb-0"
-									isLoading={loading}
-								>
+									isLoading={loading}								>
 									Masuk
 								</Button>
 							</Form>
