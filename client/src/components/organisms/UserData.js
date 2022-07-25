@@ -1,68 +1,102 @@
 import React from "react";
-import { Container, Row, Col, Button, Card, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Row, Col, Button, Card, Form,  Navbar, } from "react-bootstrap";
 // import profil from "../../assets/img/profil.jpg";
 import { GeoAlt, Search } from "react-bootstrap-icons";
 import userdata from "./userdummy";
 import { Link } from "react-router-dom";
+
+import axios from "axios";
 
 // import axios from "axios";
 const Datacard = function () {
 	// const [listUsers, setListUsers] = React.useState([]);
 	// const [filterValue, setFilterValue]=React.useState("");
 	const [data, setData] = React.useState(userdata);
+	// const [currentPage,setCurrentPage]=React.useState(1)
+	// const [postperPage,setPostperPage]=React.useState(10)
 
-
-	// React.useEffect(() => {
-	// 	axios.get(`${process.env.REACT_APP_API_URL}/users`).then((res) => {
-	// 		setListUsers(res?.data?.data ?? []);
-	// 	});
-	// }, []);
-
-	const filterSearch = (category) => {
-		const result = userdata.filter((item) => {
-			return item.username.toLowerCase().includes(category);
+	React.useEffect(() => {
+		axios.get("http://localhost:8000/jobseeker").then((res) => {
+			setData(res.data);
 		});
-		setData(result)
+	});
+
+	const filterSearch = (skill) => {
+		axios.get(`http://localhost:8000/jobseeker?search=${skill}`).then((res) => {
+			setData(res.data);
+		});
 	};
 
-	console.log(userdata)
+	// const lastindexpost=currentPage*postperPage;
+	// const firstpost=lastindexpost-postperPage;
+	
+
+	// const filterSearch = (category) => {
+	// 	const result = userdata.filter((item) => {
+	// 		return item.username.toLowerCase().includes(category);
+	// 	});
+	// 	setData(result);
+	// };
+
+	const sortOption = ["username", "skill", "location", "freelance", "fulltime"];
+	const [sortValue, setSortValue] = React.useState("");
+
+	const handleSort = (value) => {
+		
+		setSortValue(value);
+
+		axios.get(`http://localhost:8000/jobseeker?username?_sort=${value}&_order=asc`).then((res) => {
+			setData(res.data);
+		});
+	};
 
 	return (
 		<>
-			<Col lg={9} className="mx-auto  bg-light">
-				<Navbar bg="white shadow-lg" expand="lg" placeholder="Search">
-					<Form className=" outline-none">
-						<Form.Control
-							type="search"
-							placeholder="Search"
-							className="bg-transparent border-0 mx-3"
-							aria-label="Search"
-							// value={filterValue}
-							// onChange={(e)=>setSearchData(e)}
-							onChange={(e) => {
-								filterSearch(e.target.value);
-							}}
-						/>
-					</Form>
-					<Navbar.Collapse id="navbarScroll">
-						<Nav className="mx-auto my-2 my-lg-0" style={{ maxHeight: "100px" }} navbarScroll />
-						<Search className="mx-3" />
-						<NavDropdown title="Sort" id="nav-dropdown" className="mx-2">
-							<NavDropdown.Item eventKey="4.1">filter</NavDropdown.Item>
-							<NavDropdown.Item eventKey="4.2">filter</NavDropdown.Item>
-							<NavDropdown.Item eventKey="4.3">filter</NavDropdown.Item>
-						</NavDropdown>
-						<Button variant="outline-primary button-masuk mx-2">Search</Button>
-					</Navbar.Collapse>
-				</Navbar>
-			</Col>
+			<div className="mb-5">
+				<Col lg={9} className="mx-auto mb-5 bg-light">
+					<Navbar bg="white shadow-lg" expand="lg" placeholder="Search">
+						<Form className="col-9 border-0">
+							<Form.Control
+								type="search"
+								placeholder="Search by any skills"
+								className="border-0 bg-transparent mx-3 d-inline searcbar position-relative "
+								aria-label="Search"
+								onChange={(e) => {
+									filterSearch(e.target.value);
+								}}
+							/>
+						</Form>
+						<Navbar.Collapse className="justify-content-end">
+						<div>
+							<Search className="d-inline " />
+						</div>
+						<div className="d-inline vr mx-3" />
+						<Form.Select
+							aria-label="Sort"
+							className="bg-transparrant border-0 d-inline "
+							onChange={handleSort}
+							value={sortValue}
+						>
+							{sortOption.map((item) => (
+								<option value={item} key={item}>
+									{item}
+								</option>
+							))}
+						</Form.Select>
+						<Button variant="outline-primary button-masuk mx-3 d-inline"
 
-			<Col lg={9} className=" mx-auto shadow-lg ">
-				<Card>
-					<Card.Body>
-						<Container>
-							{data.map((item) => (
-								<div key={item.id}>
+						>Search</Button>
+					</Navbar.Collapse>
+					</Navbar>
+				</Col>
+			</div>
+
+			<div>
+				<Col lg={9} className=" mx-auto shadow-lg ">
+					<Card>
+						<Card.Body>
+							<Container>
+								{data.map((item) => (
 									<Row>
 										<Col lg={9}>
 											<Row>
@@ -78,9 +112,9 @@ const Datacard = function () {
 															<p className="d-inline">{item?.lokasi}</p>
 														</span>
 													</Row>
-													<div className="mt-3">
+													<div className="">
 														{item?.skills.map((e) => {
-															return <Button variant="warning mx-1"><p>{e?.name}</p></Button>;
+															return <Button variant="warning sm mx-2">{e?.name}</Button>;
 														})}
 													</div>
 												</Col>
@@ -93,14 +127,14 @@ const Datacard = function () {
 												</Link>
 											</Row>
 										</Col>
-										<div className="hr mt-3" />
+										<div className="hr mt-3 " />
 									</Row>
-								</div>
-							))}
-						</Container>
-					</Card.Body>
-				</Card>
-			</Col>
+								))}
+							</Container>
+						</Card.Body>
+					</Card>
+				</Col>
+			</div>
 		</>
 	);
 };
