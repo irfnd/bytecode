@@ -1,9 +1,9 @@
 import axios from "../../helpers/axios";
 
-export const login = ({ email, password }) => {
+export const login = ({email, password}) => {
 	return new Promise((resolve, reject) => {
 		axios
-			.post(`login`, { email, password })
+			.post(`/login`, {email, password})
 			.then((res) => {
 				resolve(res);
 			})
@@ -16,7 +16,7 @@ export const login = ({ email, password }) => {
 export const registerRecruiter = (data) => {
 	return new Promise((resolve, reject) => {
 		axios
-			.post("recruiter", data)
+			.post("/recruiter", data)
 			.then((res) => {
 				resolve(res.data);
 			})
@@ -29,7 +29,7 @@ export const registerRecruiter = (data) => {
 export const registerJobSeeker = (data) => {
 	return new Promise((resolve, reject) => {
 		axios
-			.post("jobseeker", data)
+			.post("/jobseeker", data)
 			.then((res) => {
 				resolve(res.data);
 			})

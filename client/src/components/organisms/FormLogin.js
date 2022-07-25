@@ -75,6 +75,7 @@ function FormLogin() {
 									type="password"
 									name="password"
 									placeholder="Masukan kata sandi"
+									autocomplete="current-password"
 									onChange={(e) => setPassword(e.target.value)}
 									required
 								/>
