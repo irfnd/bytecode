@@ -1,13 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Cookies from "js-cookie";
-
-import { login } from "../../Redux/actions/Auth";
+import { useDispatch } from "react-redux";
+import { AuthActions } from "../../Redux/slices/authSlice";
+import { MessageActions } from "../../Redux/slices/messageSlice";
 
 import { Col, Form, Button, Spinner } from "react-bootstrap";
-import Alert from "sweetalert2";
 
 import FieldsLogin from "../Molecules/FieldsLogin";
 import { login as loginSchema } from "../../helpers/formValidations";
@@ -19,27 +18,22 @@ export default function FormLogin() {
 	const { register, handleSubmit, formState } = useForm(formOption);
 	const { errors } = formState;
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(MessageActions.clearMessage());
+	}, [dispatch]);
 
 	const onSubmit = (data) => {
 		setIsSubmitting(true);
-		login(data)
-			.then((res) => {
+		dispatch(AuthActions.login(data))
+			.unwrap()
+			.then(() => {
 				setIsSubmitting(false);
-				console.log(res);
-				Cookies.set("token", res.token);
-				Alert.fire({
-					icon: "success",
-					text: res.message,
-				});
 				navigate("/");
 			})
-			.catch((err) => {
+			.catch(() => {
 				setIsSubmitting(false);
-				console.log(err);
-				Alert.fire({
-					icon: "error",
-					text: err,
-				});
 			});
 	};
 

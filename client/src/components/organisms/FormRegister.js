@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { register as registerUser } from "../../Redux/actions/Auth";
+import { useDispatch } from "react-redux";
+import { AuthActions } from "../../Redux/slices/authSlice";
+import { MessageActions } from "../../Redux/slices/messageSlice";
 
 import { Col, Form, Button, Spinner } from "react-bootstrap";
-import Alert from "sweetalert2";
 
 import FieldsRegisterJobseeker from "../Molecules/FieldsRegisterJobseeker";
 import FieldsRegisterRecruiter from "../Molecules/FieldsRegisterRecruiter";
@@ -19,28 +20,24 @@ function FormRegister() {
 	const { register, handleSubmit, formState, reset } = useForm(formOption);
 	const { errors } = formState;
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(MessageActions.clearMessage());
+	}, [dispatch]);
 
 	const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 	const onSubmit = (data) => {
-		setIsSubmitting(true);
 		const { rePassword, ...newData } = data;
-		registerUser(newData)
-			.then((res) => {
-				console.log(res);
+		setIsSubmitting(true);
+		dispatch(AuthActions.register(newData))
+			.unwrap()
+			.then(() => {
 				setIsSubmitting(false);
-				Alert.fire({
-					icon: "success",
-					text: res.message,
-				});
 				navigate("/login");
 			})
-			.catch((err) => {
-				console.log(err);
+			.catch(() => {
 				setIsSubmitting(false);
-				Alert.fire({
-					icon: "error",
-					text: err,
-				});
 			});
 	};
 
