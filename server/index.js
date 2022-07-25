@@ -33,36 +33,9 @@ require("./routes/index")(app);
 
 app.use(errorHandling);
 
-// app.get("/chat", (req, res) => {
-//   res.sendFile(__dirname + "/example.html");
-// });
-
-// io.on("connection", (socket) => {
-//   console.log("connected to", socket.id);
-//   const room = "MYROOM";
-
-//   socket.on("adduser", (username) => {
-//     socket.user = username;
-//     users.push(username);
-//     console.log("latest users", users);
-//     io.sockets.emit("users", users);
-//   });
-//   socket.on("message", (message) => {
-//     io.sockets.emit("message", {
-//       user: socket.user,
-//       message: message,
-//     });
-//   });
-//   socket.on("disconnect", () => {
-//     console.log("deleting ", socket.user);
-
-//     if (socket.user) {
-//       users.splice(users.indexOf(socket.user), 1);
-//     }
-//     io.sockets.emit("users", users);
-//     console.log("remaining users: ", users);
-//   });
-// });
+io.on("connection", (socket) => {
+  socket.on('socket on by : ', socket.id)
+});
 
 server.listen(port, () => {
   console.log(`\n> Server running on http://${SERVER_HOST}:${port}`);

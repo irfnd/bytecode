@@ -32,7 +32,7 @@ const notifications = (sequelize, Sequelize) => {
     },
   });
 
-  return Notification;
+  return Notifications;
 };
 
 module.exports = notifications;
