@@ -1,0 +1,22 @@
+{
+  "env": {
+    "commonjs": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended", "standard", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "rules": {
+    "camelcase": "off",
+    "no-console": "off",
+    "no-unused-vars": "off",
+    "n/no-path-concat": "off",
+    "import/newline-after-import": "off",
+    "global-require": "off",
+    "no-return-assign": "off",
+    "prettier/prettier": "off"
+  }
+}
