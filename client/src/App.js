@@ -9,7 +9,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import LandingPage from "./pages/Landing";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
-import Chat from "./pages/Chat";
 
 
 import './Style/adi.css'; // CSS
@@ -20,6 +19,7 @@ import CompanyProfile from "./pages/ComProfile";
 import CompanyEdit from "./pages/ComEdit";
 import HiringEmployee from "./pages/Hire";
 import Home from "./pages/Home";
+import Chat from "./pages/Chat";
 
 
 function App() {

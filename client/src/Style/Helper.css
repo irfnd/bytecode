@@ -1,99 +1,18 @@
-.chat {
-	background-color: #e2e5ed;
-	margin-top: auto;
-	margin-bottom: auto;
-	margin-left: auto;
-}
-
-.chat_right {
-	margin: 50px 0 50px 0;
-	background-color: #ffffff;
-	border-radius: 10px;
+.App {
+	width: 100vw;
 	height: 100vh;
-	overflow: hidden;
-	position: relative;
+	background: #fff;
+	color: #212121;
+	font-family: "Open Sans", sans-serif;
+	display: grid;
+	place-items: center;
 }
-.chat_left {
-	margin: 50px 0 50px 0;
-	background-color: #ffffff;
-	border-radius: 10px;
-	height: 100vh;
-	border: 10px;
+body {
+	margin: 0%;
+	padding: 0%;
 }
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
 
-.chat_title {
-	display: flex;
-	align-items: center;
-	height: 70px;
-	margin-left: 20px;
-	margin-bottom: -20px;
-}
-
-.chat_title h5 {
-	font-weight: 600;
-	font-size: 20px;
-	color: var(--text-black);
-}
-
-.sender {
-	font-weight: 600;
-	font-size: 18px;
-	color: #1f2a36;
-}
-
-.chat_header {
-	display: flex;
-	align-items: center;
-	height: 70px;
-	margin-left: 20px;
-	margin-bottom: -20px;
-	gap: 15px;
-}
-
-.chat_header h5 {
-	font-weight: 600;
-	font-size: 18px;
-	color: var(--text-black);
-}
-
-.chat_nochat {
-	font-weight: 600;
-	font-size: 20px;
-	color: var(--text-silver);
-}
-
-.ballon_right {
-	background-color: #e2e5ed;
-	padding: 5px;
-	max-width: 250px;
-	color: #1f2a36;
-	border-top-right-radius: 15px;
-	border-bottom-left-radius: 20px;
-	border-bottom-right-radius: 20px;
-	margin-left: 15px;
-}
-.chat_input {
-	border-radius: 23px;
-	border: 1px solid var(--text-light-gray);
-	background-color: var(--text-white);
-	outline: none;
-	box-shadow: none;
-}
-
-.chat_input:focus {
-	outline: none;
-}
-
-.button {
-	background-color: #5e50a1;
-	border-radius: 50%;
-	width: 40px;
-	height: 40px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border: 0;
-}
 .joinChatContainer {
 	display: flex;
 	flex-direction: column;
@@ -197,6 +116,8 @@
 
 #you {
 	justify-content: flex-start;
+	border-radius: 20px;
+	padding: 2%;
 }
 
 #you .message-content {
@@ -214,7 +135,7 @@
 
 #other .message-content {
 	justify-content: flex-end;
-	background-color: cornflowerblue;
+	background-color: lightslategrey;
 }
 
 #other .message-meta {
@@ -269,58 +190,4 @@
 }
 .hide {
 	opacity: 0 !important;
-}
-
-.formredirect {
-	width: 600px;
-	margin-top: 20vh;
-	margin-left: 1vw;
-}
-.formredirect input {
-	border: 1px solid gray;
-	width: 400px;
-	margin: 3%;
-	margin-left: 10vw;
-}
-.btnredirect {
-	border: 1px solid #5e50a1;
-	background-color: #5e50a1;
-	height: 7vh;
-	border-radius: 10px;
-	width: 400px;
-	margin: 3%;
-	margin-left: 10vw;
-}
-.btnredirect:hover {
-	border: 1px solid #e2e5ed;
-	background-color: #e2e5ed;
-}
-.containerchat {
-	width: 80vw;
-}
-.formaction {
-	background-color: #5e50a1;
-	height: 80px;
-	position: absolute;
-	left: 0;
-	width: 100%;
-	bottom: 0;
-	display: flex;
-	justify-content: center;
-	padding: 2%;
-}
-.formaction input {
-	height: 50px;
-	width: 40vw;
-	border-radius: 10px;
-	border: none;
-	margin: 2px;
-}
-.formaction button {
-	height: 50px;
-	width: 7vw;
-	border-radius: 10px;
-	border: none;
-	margin: 2px;
-	background-color: #e2e5ed;
 }
