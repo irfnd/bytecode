@@ -34,9 +34,6 @@ require("./routes/index")(app);
 app.use(errorHandling);
 
 io.on("connection", (socket) => {
-<<<<<<< HEAD
-  socket.on("socket on by : ", socket.id);
-=======
   console.log(`User Connected: ${socket.id}`);
 
   socket.on("join_room", (data) => {
@@ -51,7 +48,6 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("User Disconnected", socket.id);
   });
->>>>>>> e4030bb4ab27fc848d416e49f279e9a037bd76d4
 });
 
 server.listen(port, () => {
