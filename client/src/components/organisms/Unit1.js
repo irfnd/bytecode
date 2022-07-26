@@ -7,12 +7,16 @@ import layer from "../../assets/img/layer.png";
 function Unit1() {
 	return (
 		<>
-			<Col lg={5} className="flex-center-vertical">
-				<h2 className="">Talenta terbaik negri untuk perubahan revolusi 4.0</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod ipsum et dui rhoncus auctor.</p>
-				<Button variant="outline-primary ">Start Now</Button>
+			<Col lg={6} className="d-flex flex-column justify-content-center">
+				<h2 className="display-4 fw-semibold mb-4">Talenta Terbaik Negeri Untuk Menyongsong Revolusi Industri 4.0</h2>
+				<p className="fs-20 mb-4">
+					Penyedia talenta berbakat dari berbagai bidang industri untuk memenuhi kebutuhan industri anda
+				</p>
+				<Button variant="outline-primary" className="w-50 py-3 fw-semibold">
+					Mulai Dari Sekarang
+				</Button>
 			</Col>
-			<Col lg={5} className=" mx-auto">
+			<Col lg={6} className="d-flex justify-content-center align-items-center">
 				<div className="mx-auto">
 					<div className="imagelayer1">
 						<Image className="pict-unit1 navbar-brand mx-auto " src={pict} alt="" width={500} height={500} />

@@ -31,7 +31,7 @@ function App() {
 						<Route path="login" element={<Login />} />
 						<Route path="register" element={<Register />} />
 						<Route path="chat" element={<Chat />} />
-						<Route path="employed" element={<EmployeeProfile />} />
+						<Route path="employed/:userId" element={<EmployeeProfile />} />
 						<Route path="employed/edit" element={<EmployeeEdit />} />
 						<Route path="company" element={<CompanyProfile />} />
 						<Route path="company/edit" element={<CompanyEdit />} />

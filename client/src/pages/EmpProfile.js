@@ -1,265 +1,158 @@
-import React from "react";
+import { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { JobseekerActions } from "../Redux/slices/jobseekerSlice";
+import moment from "moment";
+
 import { Container, Row, Col, Image, Button, Tabs, Tab } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { GeoAlt, Envelope } from "react-bootstrap-icons";
 
-import loc from "../assets/icons/locLogo.png"; //
-import mail from "../assets/icons/mailLogo.png"; //
-import instagram from "../assets/icons/instagramLogo.png"; //
-import github from "../assets/icons/githubLogo.png"; //
-import gitlab from "../assets/icons/gitlabLogo.png"; //
-
-// import avatar from "../assets/img/exAvatar.png"; // Photo Profile Example
 import profil from "../assets/img/profil.jpg";
-import p1 from "../assets/img/exPorto1.png";
-import p2 from "../assets/img/exPorto2.png";
-import p3 from "../assets/img/exPorto3.png";
-import p4 from "../assets/img/exPorto4.png";
-import compImage from "../assets/img/exCompLogo.png";
 
-// Azis code navbar and footer to Adi code
-import Navbar1 from "../components/organisms/Navbar1Adi";
+import Navbar1 from "../components/organisms/Navbar1";
 import Footer from "../components/organisms/FooterAdi";
 
 export default function EmpProfile() {
+	const { userId } = useParams();
+	const { user } = useSelector((state) => state.auth);
+	const { jobseekers } = useSelector((state) => state.jobseeker);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (userId === user?.id) dispatch(JobseekerActions.getProfile());
+	}, [dispatch, userId]);
+
+	const getMonth = (startDate, endDate) => {
+		const start = moment(startDate.split("-"));
+		const end = endDate ? moment(endDate.split("-")) : moment();
+		return ` (${end.diff(start, "months")} Bulan)`;
+	};
+
 	return (
-		<>
-			<Navbar1 />
-			<div className="gradientBGPage">
-				<Container>
-					<Row className="py-5">
-						<Col sm={1} />
-
-						{/* LEFT SIDE BAR */}
-						<Col sm={3}>
-							{/* PROFILE */}
-							<Row>
-								<div className="whiteBg pt-4 pb-5 px-4">
-									<Row>
-										<Col />
-										<Col xs={6}>
-											<Image className="circleImage pb-3" src={profil} />
-										</Col>
-										<Col />
-									</Row>
-									<div className="h1SideBarProfile pb-1">Louis Tomlinson</div>
-									<div className="h2SideBarProfile pb-2">Web Developer</div>
-
-									<Row className="pSideBarProfile pb-2">
-										<Image className="loc" src={loc} />
-										Purwokerto, Jawa Tengah
-									</Row>
-
-									<div className="pSideBarProfile pb-3">Freelancer</div>
-									<div className="pSideBarProfile text pb-3">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-										et dolore magna aliqua. Ut enim ad minim veniam, quis
-										{/* nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum */}
-									</div>
-
-									{/* BUTTON LINK */}
-									{/* IF COMPANY */}
-									<Link to="/hire">
-										<Button renderAS="button" className="Button doit mt-3 mb-4">
-											Hire
-										</Button>
-									</Link>
-									{/* IF JOBSEEKERS */}
-									<Link to="/employed/edit">
-										<Button renderAS="button" className="Button doit mt-3 mb-4">
-											Edit profile
-										</Button>
-									</Link>
-
-									<div className="h1SideBarProfile mb-2">Skill</div>
-									<div className="mb-4 d-flex flex-wrap">
-										<div className="theTag">javascript</div>
-										<div className="theTag">python</div>
-										<div className="theTag">java</div>
-										<div className="theTag">C++</div>
-										<div className="theTag">php</div>
-										<div className="theTag">Golang</div>
-									</div>
-
-									<div className="pSideBarProfile">
-										<Row className="pSideBarProfile mb-2">
-											<Col sm={2}>
-												<Image className="icon" src={mail} />
-											</Col>
-											<Col>
-												<a href="#1">Email</a>
+		jobseekers && (
+			<>
+				<Navbar1 />
+				<div className="gradientBGPage">
+					<Container>
+						<Row className="py-5">
+							<Col sm={3}>
+								<Row className="m-0">
+									<div className="whiteBg pt-4 pb-5 px-4">
+										<Row className="d-flex justify-content-center m-0 w-100">
+											<Col sm={8}>
+												<Image className="mb-4" roundedCircle fluid src={jobseekers?.user_profile?.photo || profil} />
 											</Col>
 										</Row>
-										<Row className="pSideBarProfile mb-2">
-											<Col sm={2}>
-												<Image className="icon" src={instagram} />
-											</Col>
-											<Col>
-												<a href="#2">Instagram</a>
-											</Col>
-										</Row>
-										<Row className="pSideBarProfile mb-2">
-											<Col sm={2}>
-												<Image className="icon" src={github} />
-											</Col>
-											<Col>
-												<a href="#3">Github</a>
-											</Col>
-										</Row>
-										<Row className="pSideBarProfile mb-2">
-											<Col sm={2}>
-												<Image className="icon" src={gitlab} />
-											</Col>
-											<Col>
-												<a href="#4">Gitlab</a>
-											</Col>
-										</Row>
-									</div>
-								</div>
-							</Row>
-						</Col>
+										<div className="h1SideBarProfile mb-2">{jobseekers?.user_profile?.name}</div>
+										<div className="h2SideBarProfile fs-16 mb-2">{jobseekers?.user_profile?.position}</div>
 
-						{/* RIGHT SIDE BAR */}
-						{/* TABS PORTOFOLIO & JOB EXPERIENCES */}
-						<Col sm={7}>
-							<Container className="whiteBg ms-3 pt-3 pb-5 px-4">
-								{/* TAB PORTOFOLIO */}
-								<Tabs
-									defaultActiveKey="tab1"
-									// id="uncontrolled-tab-example"
-									className="mb-3"
-								>
-									<Tab eventKey="tab1" title="Portofolio">
-										<div className="portoPage">
-											<Row>
-												<Col sm={4} className="mb-4 theTitle">
-													<Image src={p1} />
-													<div className="portoTitle">Portofolio App</div>
-												</Col>
-												<Col sm={4} className="mb-4 theTitle">
-													<Image src={p2} />
-													<div className="portoTitle">Portofolio App</div>
-												</Col>
-												<Col sm={4} className="mb-4 theTitle">
-													<Image src={p3} />
-													<div className="portoTitle">Portofolio App</div>
-												</Col>
-												<Col sm={4} className="mb-4 theTitle">
-													<Image src={p4} />
-													<div className="portoTitle">Portofolio App</div>
-												</Col>
-											</Row>
+										<div className="pSideBarProfile d-flex align-items-center fs-16 mb-2">
+											<GeoAlt className="me-2" />
+											{jobseekers?.user_profile?.domicile}
 										</div>
-									</Tab>
+										<div className="pSideBarProfile fs-16">{jobseekers?.user_profile?.shortDesc}</div>
 
-									{/* TAB JOB EXPERIENCES */}
-									<Tab eventKey="tab2" title="Job Experiences">
-										<div className="jobsExpPage">
-											<Row className="mb-4">
-												<Col sm={2}>
-													<Image src={compImage} />
-												</Col>
-												<Col sm={10}>
-													<div className="theTitle">Engineer</div>
-													<div className="theComp">Tokopedia</div>
-													<div className="theDate mb-3">July 2019 - January 2020 6months</div>
-													<div className="theDesc mb-1">
-														Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-														labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+										{user?.type === jobseekers?.type ? (
+											<Link to="/employed/edit">
+												<Button className="Button doit mt-3 mb-4">Edit profile</Button>
+											</Link>
+										) : (
+											<Link to="/hire">
+												<Button className="Button doit mt-3 mb-4">Hire</Button>
+											</Link>
+										)}
+
+										<div className="h1SideBarProfile mb-2">Skill</div>
+										<div className="mb-4 d-flex flex-wrap">
+											{jobseekers?.skills ? (
+												jobseekers?.skills.map((skill) => (
+													<div key={skill.id} className="theTag">
+														{skill.name}
 													</div>
-												</Col>
-											</Row>
-											<Row>
-												<Col sm={2}>
-													<Image src={compImage} />
-												</Col>
-												<Col sm={10}>
-													<div className="theTitle">Engineer 2</div>
-													<div className="theComp">Tokopedia 2</div>
-													<div className="theDate mb-3">July 2019 - January 2020 6months</div>
-													<div className="theDesc mb-1">
-														2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-														ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-													</div>
-												</Col>
-											</Row>
+												))
+											) : (
+												<div className="theTag">No Skills</div>
+											)}
 										</div>
-									</Tab>
-								</Tabs>
 
-								{/* Nice sclicing Tabs, but broken, because didt code with using Linter */}
-								{/* <div className="tabs">
-								<input type="radio" className="tabs__radio" name="tabs-example" id="tab1" checked />
-								<FloatingLabel for="tab1" className="tabs__label">
-									Portofolio
-								</FloatingLabel>
-								<div className="tabs__content">
-									<div className="portoPage">
-										<Row>
-											<Col sm={4} className="mb-4 theTitle">
-												<Image src={p1} />
-												<div className="portoTitle">Portofolio App</div>
+										<Row className="pSideBarProfile mb-2">
+											<Col className="d-flex align-items-center">
+												<Envelope className="me-2" size={16} />
+												<span className="fs-14">{jobseekers?.email}</span>
 											</Col>
-											<Col sm={4} className="mb-4 theTitle">
-												<Image src={p2} />
-												<div className="portoTitle">Portofolio App</div>
-											</Col>
-											<Col sm={4} className="mb-4 theTitle">
-												<Image src={p3} />
-												<div className="portoTitle">Portofolio App</div>
-											</Col>
-											<Col sm={4} className="mb-4 theTitle">
-												<Image src={p4} />
-												<div className="portoTitle">Portofolio App</div>
-											</Col>
+											{jobseekers?.instagram && (
+												<Col>
+													<span>{jobseekers?.instagram}</span>
+												</Col>
+											)}
+											{jobseekers?.github && (
+												<Col>
+													<span>{jobseekers?.github}</span>
+												</Col>
+											)}
 										</Row>
 									</div>
-								</div>
+								</Row>
+							</Col>
 
-								<input type="radio" className="tabs__radio" name="tabs-example" id="tab2" />
-								<FloatingLabel for="tab2" className="tabs__label">
-									Job Experiences
-								</FloatingLabel>
-								<div className="tabs__content">
-									<div className="jobsExpPage">
-										<Row className="mb-4">
-											<Col sm={2}>
-												<Image src={compImage} />
-											</Col>
-											<Col sm={10}>
-												<div className="theTitle">Engineer</div>
-												<div className="theComp">Tokopedia</div>
-												<div className="theDate mb-3">July 2019 - January 2020 6months</div>
-												<div className="theDesc mb-1">
-													Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-													labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-												</div>
-											</Col>
-										</Row>
-										<Row>
-											<Col sm={2}>
-												<Image src={compImage} />
-											</Col>
-											<Col sm={10}>
-												<div className="theTitle">Engineer 2</div>
-												<div className="theComp">Tokopedia 2</div>
-												<div className="theDate mb-3">July 2019 - January 2020 6months</div>
-												<div className="theDesc mb-1">
-													2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-													labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-												</div>
-											</Col>
-										</Row>
-									</div>
-								</div>
-							</div> */}
-							</Container>
-						</Col>
+							<Col>
+								<Container className="whiteBg pt-3 pb-5 px-4">
+									<Tabs defaultActiveKey="tab1" className="mb-3">
+										<Tab eventKey="tab1" title="Portofolio">
+											<div className="portoPage">
+												<Row>
+													{jobseekers?.portfolios?.length > 0 ? (
+														jobseekers?.portfolios.map((portfolio) => (
+															<Col sm={4} className="mb-4 theTitle">
+																<Image src={portfolio.photo} />
+																<div className="portoTitle">{portfolio.name}</div>
+															</Col>
+														))
+													) : (
+														<Col className="text-center py-3">
+															<h4 className="text-silver m-0">Belum ada portofolio</h4>
+														</Col>
+													)}
+												</Row>
+											</div>
+										</Tab>
 
-						<Col sm={1} />
-					</Row>
-				</Container>
-			</div>
-			<Footer />
-		</>
+										<Tab eventKey="tab2" title="Job Experiences">
+											<div className="jobsExpPage">
+												{jobseekers?.companies?.length > 0 ? (
+													jobseekers?.companies.map((workExp) => (
+														<Row className="mb-4 border-bottom">
+															<Col sm={2}>
+																<Image src={workExp.photo} />
+															</Col>
+															<Col sm={10}>
+																<div className="theTitle">{workExp.work_experience.position}</div>
+																<div className="theComp mb-1">{workExp.name}</div>
+																<div className="theDate mb-1">
+																	{workExp.work_experience.startDate} - {workExp.work_experience.endDate || "Sekarang"}
+																	{getMonth(workExp.work_experience.startDate, workExp.work_experience.endDate)}
+																</div>
+																<div className="theDesc mb-4">{workExp.work_experience.shortDesc}</div>
+															</Col>
+														</Row>
+													))
+												) : (
+													<Row>
+														<Col className="text-center py-3">
+															<h4 className="text-silver m-0">Belum ada pengalaman kerja</h4>
+														</Col>
+													</Row>
+												)}
+											</div>
+										</Tab>
+									</Tabs>
+								</Container>
+							</Col>
+						</Row>
+					</Container>
+				</div>
+				<Footer />
+			</>
+		)
 	);
 }

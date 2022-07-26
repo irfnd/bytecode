@@ -4,7 +4,7 @@ import logo2 from "../../assets/img/logo2.png";
 
 function Footer() {
 	return (
-		<Row className="bg ">
+		<Row className="bg m-0">
 			<Col lg={10} className="mx-auto mt-5">
 				<Image src={logo2} height={50} className="mt-3 mb-3" />
 				<p className="mb-5">With supporting text below as a natural lead-in to additional content.</p>

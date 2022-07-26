@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Col, Container, Row, Image } from "react-bootstrap";
 
 import Navbar2 from "../components/organisms/Navbar2";
@@ -10,13 +9,12 @@ import Comments from "../components/organisms/Comments";
 
 import layer2 from "../assets/img/layer2.png";
 
-function App() {
+export default function App() {
 	return (
 		<div className="LandingPage">
-			<Container fluid>
-				<Navbar2 />
-				<br /> <br /> <br />
-				<Row className="item mx-auto col-10 ">
+			<Navbar2 />
+			<Container>
+				<Row className="item">
 					<Unit1 />
 				</Row>
 				<Row className="item  mx-auto col-10  ">
@@ -36,18 +34,14 @@ function App() {
 								<h2>Lorem ipsum dolor sit amet</h2>
 							</Col>
 							<Col lg={3} className="mx-auto">
-								<Button className="mx-auto " variant="light" size="lg">
-									Mulai Dari Sekarang
-								</Button>
+								<Button>Mulai Dari Sekarang</Button>
 							</Col>
 						</Row>
 						<Image className="layer2 navbar-brand mx-auto " src={layer2} alt="" height={227} />
 					</div>
 				</Row>
-				<Footer />
 			</Container>
+			<Footer />
 		</div>
 	);
 }
-
-export default App;

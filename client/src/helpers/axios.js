@@ -6,19 +6,26 @@ const interceptor = axios.create({
 });
 
 interceptor.interceptors.request.use(
-	function (config) {
-		config.headers = {
+	(request) => {
+		request.headers = {
 			Authorization: `Bearer ${Cookies.get("token")}`,
 		};
-		return config;
+		return request;
 	},
-	function (error) {
+	(error) => {
 		return Promise.reject(error);
 	}
 );
 
-interceptor.interceptors.request.use(function (config) {
-	return config;
-});
+interceptor.interceptors.response.use(
+	(response) => response,
+	(error) => {
+		if (error.response.status === 403) {
+			Cookies.remove("token");
+			window.location.href = "/login";
+		}
+		return Promise.reject(error);
+	}
+);
 
 export default interceptor;

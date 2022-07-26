@@ -1,225 +1,236 @@
-import React from "react";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { ProfileActions } from "../Redux/slices/profileSlice";
+
 import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { GeoAlt } from "react-bootstrap-icons";
 
 import edit from "../assets/icons/editGray.png";
-import loc from "../assets/icons/locLogo.png";
 import profil from "../assets/img/profil.jpg";
 
 import Navbar1 from "../components/organisms/Navbar1Adi";
 import Footer from "../components/organisms/FooterAdi";
 
 export default function EmpEdit() {
+	const { isLoggedIn, user } = useSelector((state) => state.auth);
+	const { profile } = useSelector((state) => state.profile);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!isLoggedIn) navigate("/login");
+		dispatch(ProfileActions.getProfile());
+	}, [dispatch]);
+
 	return (
-		<>
-			<Navbar1 />
-			<div className="gradientBGPage">
-				<Container>
-					<Row className="py-5">
-						<Col sm={1} />
+		profile && (
+			<>
+				<Navbar1 />
+				<div className="gradientBGPage">
+					<Container>
+						<Row className="py-5">
+							<Col sm={1} />
 
-						{/* LEFT SIDE BAR */}
-						<Col sm={3}>
-							{/* PROFILE */}
-							<Row>
-								<div className="whiteBg py-4 px-4">
-									<Row>
-										<Col />
-										<Col xs={6}>
-											<Image className="circleImage pb-3" src={profil} />
-											<Row className="pb-4">
-												<Link to="/#editAvatarCompanyURL" className="logoEdit inlineIconText">
-													<Image src={edit} />
-													<span>Edit</span>
-												</Link>
-											</Row>
-										</Col>
-										<Col />
-									</Row>
-									<div className="h1SideBarProfile pb-1">Louis Tomlinson</div>
-									<div className="h2SideBarProfile pb-2">Web Developer</div>
-
-									<Row className="pSideBarProfile pb-2">
-										<Image className="loc" src={loc} />
-										Purwokerto, Jawa Tengah
-									</Row>
-
-									<div className="pSideBarProfile">Freelancer</div>
-								</div>
-							</Row>
-
-							{/* BUTTON FOR SAVE & CANCEL OF EDITING */}
-							<div className="profilSaveCancel">
+							{/* LEFT SIDE BAR */}
+							<Col sm={3}>
+								{/* PROFILE */}
 								<Row>
-									<Link to="/employed">
-										<Button className="Button doit mt-3 mb-2">Save</Button>
-									</Link>
-									<Link to="/employed">
-										<Button className="Button cancel mb-2">Cancel</Button>
-									</Link>
+									<div className="whiteBg py-4 px-4">
+										<Row>
+											<Col />
+											<Col xs={6}>
+												<Image className="circleImage pb-3" src={profile?.user_profile?.photo || profil} />
+												<Row className="pb-4">
+													<Link to="/#editAvatarCompanyURL" className="logoEdit inlineIconText">
+														<Image src={edit} />
+														<span>Edit</span>
+													</Link>
+												</Row>
+											</Col>
+											<Col />
+										</Row>
+										<div className="h1SideBarProfile pb-1">{profile?.user_profile?.name}</div>
+										<div className="h2SideBarProfile pb-2">{profile?.user_profile?.position}</div>
+
+										<div className="pSideBarProfile d-flex align-items-center fs-16 mb-2">
+											<GeoAlt className="me-2" />
+											{profile?.user_profile?.domicile}
+										</div>
+
+										<div className="pSideBarProfile">{profile?.user_profile?.shortDesc}</div>
+									</div>
 								</Row>
-							</div>
-						</Col>
 
-						{/* RIGHT SIDE BAR */}
-						<Col sm={7}>
-							{/* JOBSEEKER EDIT PROFILE FORM 1 */}
-							<div className="whiteBg ms-3 mb-3 pb-4">
-								<Container className="ps-4 pe-4">
-									<div className="titleEditProfile pt-4">Profile</div>
-								</Container>
-								<hr />
-								<Container className="ps-4 pe-4">
-									<Form>
-										<Form.Group className="mb-4 pSideBarProfile" controlId="fullname">
-											<Form.Label className="mb-1">Full name</Form.Label>
-											<Form.Control size="md" type="email" placeholder="Enter full name" />
-											{/* <Form.Text className="text-muted">
-												We'll never share your email with anyone else.
-											</Form.Text> */}
-										</Form.Group>
+								{/* BUTTON FOR SAVE & CANCEL OF EDITING */}
+								<div className="profilSaveCancel">
+									<Row>
+										<Link to="/employed">
+											<Button className="Button doit mt-3 mb-2">Save</Button>
+										</Link>
+										<Link to={`/employed/${user?.id}`}>
+											<Button className="Button cancel mb-2">Cancel</Button>
+										</Link>
+									</Row>
+								</div>
+							</Col>
 
-										<Form.Group className="mb-4 pSideBarProfile" controlId="jobdesk">
-											<Form.Label className="mb-1">Job desk</Form.Label>
-											<Form.Control size="md" type="text" placeholder="Enter job desk" />
-										</Form.Group>
+							{/* RIGHT SIDE BAR */}
+							<Col sm={7}>
+								{/* JOBSEEKER EDIT PROFILE FORM 1 */}
+								<div className="whiteBg ms-3 mb-3 pb-4">
+									<Container className="ps-4 pe-4">
+										<div className="titleEditProfile pt-4">Profile</div>
+									</Container>
+									<hr />
+									<Container className="ps-4 pe-4">
+										<Form>
+											<Form.Group className="mb-4 pSideBarProfile" controlId="fullname">
+												<Form.Label className="mb-1">Full name</Form.Label>
+												<Form.Control size="md" type="email" placeholder="Enter full name" />
+											</Form.Group>
 
-										<Form.Group className="mb-4 pSideBarProfile" controlId="domicile">
-											<Form.Label className="mb-1">Domicile</Form.Label>
-											<Form.Control size="md" type="text" placeholder="Enter domicile" />
-										</Form.Group>
+											<Form.Group className="mb-4 pSideBarProfile" controlId="jobdesk">
+												<Form.Label className="mb-1">Job desk</Form.Label>
+												<Form.Control size="md" type="text" placeholder="Enter job desk" />
+											</Form.Group>
 
-										<Form.Group className="mb-4 pSideBarProfile" controlId="workplace">
-											<Form.Label className="mb-1">Work Place</Form.Label>
-											<Form.Control size="md" type="text" placeholder="Work place" />
-										</Form.Group>
+											<Form.Group className="mb-4 pSideBarProfile" controlId="domicile">
+												<Form.Label className="mb-1">Domicile</Form.Label>
+												<Form.Control size="md" type="text" placeholder="Enter domicile" />
+											</Form.Group>
 
-										<Form.Group className="mb-4 pSideBarProfile" controlId="description">
-											<Form.Label className="mb-1">Description</Form.Label>
-											<Form.Control as="textarea" rows={5} size="md" placeholder="Enter description" />
-										</Form.Group>
-									</Form>
-								</Container>
-							</div>
+											<Form.Group className="mb-4 pSideBarProfile" controlId="workplace">
+												<Form.Label className="mb-1">Work Place</Form.Label>
+												<Form.Control size="md" type="text" placeholder="Work place" />
+											</Form.Group>
 
-							{/* JOBSEEKER EDIT PROFILE FORM 2 */}
-							<div className="whiteBg ms-3 mb-3 pb-4">
-								<Container className="ps-4 pe-4">
-									<div className="titleEditProfile pt-4">Skills</div>
-								</Container>
-								<hr />
-								<Container className="ps-4 pe-4">
-									<Form>
-										<Row>
-											<Col sm={10}>
-												<Form.Group className="mb-3 pSideBarProfile" controlId="skill">
-													<Form.Control size="lg" type="text" placeholder="Enter skill" />
-												</Form.Group>
-											</Col>
-											<Col sm={2}>
-												<Button className="Button skillbutton" variant="primary" type="submit">
-													Save
-												</Button>
-											</Col>
-										</Row>
-									</Form>
-								</Container>
-							</div>
+											<Form.Group className="mb-4 pSideBarProfile" controlId="description">
+												<Form.Label className="mb-1">Description</Form.Label>
+												<Form.Control as="textarea" rows={5} size="md" placeholder="Enter description" />
+											</Form.Group>
+										</Form>
+									</Container>
+								</div>
 
-							{/* JOBSEEKER EDIT PROFILE FORM 3 */}
-							<div className="whiteBg ms-3 mb-3 pb-4">
-								<Container className="ps-4 pe-4">
-									<div className="titleEditProfile pt-4">Job Experiences</div>
-								</Container>
-								<hr />
-								<Container className="ps-4 pe-4">
-									<Form>
-										<Form.Group className="mb-4 pSideBarProfile" controlId="position">
-											<Form.Label className="mb-1">Position</Form.Label>
-											<Form.Control size="md" type="text" placeholder="Web developer, Mobile app developer" />
-										</Form.Group>
+								{/* JOBSEEKER EDIT PROFILE FORM 2 */}
+								<div className="whiteBg ms-3 mb-3 pb-4">
+									<Container className="ps-4 pe-4">
+										<div className="titleEditProfile pt-4">Skills</div>
+									</Container>
+									<hr />
+									<Container className="ps-4 pe-4">
+										<Form>
+											<Row>
+												<Col sm={10}>
+													<Form.Group className="mb-3 pSideBarProfile" controlId="skill">
+														<Form.Control size="lg" type="text" placeholder="Enter skill" />
+													</Form.Group>
+												</Col>
+												<Col sm={2}>
+													<Button className="Button skillbutton" variant="primary" type="submit">
+														Save
+													</Button>
+												</Col>
+											</Row>
+										</Form>
+									</Container>
+								</div>
 
-										<Row>
-											<Col>
-												<Form.Group className="mb-4 pSideBarProfile" controlId="company">
-													<Form.Label className="mb-1">Company name</Form.Label>
-													<Form.Control size="md" type="text" placeholder="PT. Company Corp" />
-												</Form.Group>
-											</Col>
-											<Col>
-												<Form.Group className="mb-4 pSideBarProfile" controlId="domicile">
-													<Form.Label className="mb-1">Month/Year</Form.Label>
-													<Form.Control size="md" type="text" placeholder="July 2022" />
-												</Form.Group>
-											</Col>
-										</Row>
+								{/* JOBSEEKER EDIT PROFILE FORM 3 */}
+								<div className="whiteBg ms-3 mb-3 pb-4">
+									<Container className="ps-4 pe-4">
+										<div className="titleEditProfile pt-4">Job Experiences</div>
+									</Container>
+									<hr />
+									<Container className="ps-4 pe-4">
+										<Form>
+											<Form.Group className="mb-4 pSideBarProfile" controlId="position">
+												<Form.Label className="mb-1">Position</Form.Label>
+												<Form.Control size="md" type="text" placeholder="Web developer, Mobile app developer" />
+											</Form.Group>
 
-										<Form.Group className="mb-4 pSideBarProfile" controlId="workplace">
-											<Form.Label className="mb-1">Description</Form.Label>
-											<Form.Control as="textarea" rows={4} size="md" placeholder="Description your jobs" />
-										</Form.Group>
+											<Row>
+												<Col>
+													<Form.Group className="mb-4 pSideBarProfile" controlId="company">
+														<Form.Label className="mb-1">Company name</Form.Label>
+														<Form.Control size="md" type="text" placeholder="PT. Company Corp" />
+													</Form.Group>
+												</Col>
+												<Col>
+													<Form.Group className="mb-4 pSideBarProfile" controlId="domicile">
+														<Form.Label className="mb-1">Month/Year</Form.Label>
+														<Form.Control size="md" type="text" placeholder="July 2022" />
+													</Form.Group>
+												</Col>
+											</Row>
 
-										<Button
-											className="Button skillbutton"
-											variant="primary"
-											// type="submit"
-											// onClick={()}
-										>
-											Add Job Experiences
-										</Button>
-									</Form>
-								</Container>
-							</div>
+											<Form.Group className="mb-4 pSideBarProfile" controlId="workplace">
+												<Form.Label className="mb-1">Description</Form.Label>
+												<Form.Control as="textarea" rows={4} size="md" placeholder="Description your jobs" />
+											</Form.Group>
 
-							{/* JOBSEEKER EDIT PROFILE FORM 4 */}
-							<div className="whiteBg ms-3 mb-3 pb-4">
-								<Container className="ps-4 pe-4">
-									<div className="titleEditProfile pt-4">Portofolio</div>
-								</Container>
-								<hr />
-								<Container className="ps-4 pe-4">
-									<Form>
-										<Form.Group className="mb-3 pSideBarProfile" controlId="appsname">
-											<Form.Label>Apps name</Form.Label>
-											<Form.Control size="md" type="text" placeholder="Enter apps" />
-										</Form.Group>
+											<Button
+												className="Button skillbutton"
+												variant="primary"
+												// type="submit"
+												// onClick={()}
+											>
+												Add Job Experiences
+											</Button>
+										</Form>
+									</Container>
+								</div>
 
-										<Form.Group className="mb-3 pSideBarProfile" controlId="linkrepository">
-											<Form.Label>Link repository</Form.Label>
-											<Form.Control size="md" type="text" placeholder="Enter link repository" />
-										</Form.Group>
+								{/* JOBSEEKER EDIT PROFILE FORM 4 */}
+								<div className="whiteBg ms-3 mb-3 pb-4">
+									<Container className="ps-4 pe-4">
+										<div className="titleEditProfile pt-4">Portofolio</div>
+									</Container>
+									<hr />
+									<Container className="ps-4 pe-4">
+										<Form>
+											<Form.Group className="mb-3 pSideBarProfile" controlId="appsname">
+												<Form.Label>Apps name</Form.Label>
+												<Form.Control size="md" type="text" placeholder="Enter apps" />
+											</Form.Group>
 
-										<Form.Group className="mb-3 pSideBarProfile" controlId="domicile">
-											{["radio"].map((type) => (
-												<div key={`inline-${type}`} className="mb-3">
-													<Form.Check inline label="Mobile Apps" name="group1" type={type} id={`inline-${type}-1`} />
-													<Form.Check inline label="Mobile Apps" name="group1" type={type} id={`inline-${type}-2`} />
-												</div>
-											))}
-										</Form.Group>
+											<Form.Group className="mb-3 pSideBarProfile" controlId="linkrepository">
+												<Form.Label>Link repository</Form.Label>
+												<Form.Control size="md" type="text" placeholder="Enter link repository" />
+											</Form.Group>
 
-										<Form.Group className="mb-3 pSideBarProfile" controlId="fileImage">
-											<Form.Label>Upload image</Form.Label>
-											<Form.Control size="md" type="file" />
-										</Form.Group>
+											<Form.Group className="mb-3 pSideBarProfile" controlId="domicile">
+												{["radio"].map((type) => (
+													<div key={`inline-${type}`} className="mb-3">
+														<Form.Check inline label="Mobile Apps" name="group1" type={type} id={`inline-${type}-1`} />
+														<Form.Check inline label="Mobile Apps" name="group1" type={type} id={`inline-${type}-2`} />
+													</div>
+												))}
+											</Form.Group>
 
-										<Button
-											className="Button skillbutton"
-											variant="primary"
-											// type="submit"
-											// onClick={()}
-										>
-											Add Portofolio
-										</Button>
-									</Form>
-								</Container>
-							</div>
-						</Col>
+											<Form.Group className="mb-3 pSideBarProfile" controlId="fileImage">
+												<Form.Label>Upload image</Form.Label>
+												<Form.Control size="md" type="file" />
+											</Form.Group>
 
-						<Col sm={1} />
-					</Row>
+											<Button
+												className="Button skillbutton"
+												variant="primary"
+												// type="submit"
+												// onClick={()}
+											>
+												Add Portofolio
+											</Button>
+										</Form>
+									</Container>
+								</div>
+							</Col>
 
-					{/* <Row className="bg ">
+							<Col sm={1} />
+						</Row>
+
+						{/* <Row className="bg ">
 					<Col lg={10} className="mx-auto mt-5">
 						<Image src={logo2} height={50} className="mt-3 mb-3" />
 						<p className="mb-5">With supporting text below as a natural lead-in to additional content.</p>
@@ -235,9 +246,10 @@ export default function EmpEdit() {
 						</Row>
 					</Col>
 				</Row> */}
-				</Container>
-			</div>
-			<Footer />
-		</>
+					</Container>
+				</div>
+				<Footer />
+			</>
+		)
 	);
 }

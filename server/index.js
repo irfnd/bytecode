@@ -34,7 +34,7 @@ require("./routes/index")(app);
 app.use(errorHandling);
 
 io.on("connection", (socket) => {
-  socket.on('socket on by : ', socket.id)
+  socket.on("socket on by : ", socket.id);
 });
 
 server.listen(port, () => {

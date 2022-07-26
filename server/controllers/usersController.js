@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 const { hashSync } = require("bcrypt");
-const { Users, UserProfile, Skills } = require("../models");
+const { Users, UserProfile, Skills, Companies, Portfolio } = require("../models");
 const { getPagination, getPagingData, getSort } = require("../utils/SearchPagination");
 
 // Admin Privilages
@@ -27,7 +27,7 @@ const findAll = async (req, res, next) => {
 const findById = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const results = await Users.findByPk(id);
+    const results = await Users.findByPk(id, { include: [UserProfile, Skills, Companies, Portfolio] });
     if (!results) throw new Error("User not found!", { cause: "NOT_FOUND" });
     res.json(results);
   } catch (error) {

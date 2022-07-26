@@ -9,9 +9,11 @@ function Navbar1() {
 	return (
 		<Navbar bg="white" expand="lg">
 			<Container>
-				<Image className="navbar-brand " src={logo} alt="" width={100} height={45} />
+				<Navbar.Brand as={Link} to="/home">
+					<Image src={logo} alt="" height={45} />
+				</Navbar.Brand>
 				<Navbar.Collapse id="navbarScroll">
-					<Nav className="me-auto " style={{ maxHeight: "0px" }} navbarScroll />
+					<Nav className="me-auto" />
 					<OverlayTrigger
 						trigger="click"
 						key="bottom"

@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Form, Image, Button } from "react-bootstrap";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import profil from "../assets/img/profil.jpg";
 
