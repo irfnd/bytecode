@@ -22,9 +22,8 @@ function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (!isLoggedIn) return navigate("/login");
-		if (user?.type !== "recruiter") return navigate("/");
-		return dispatch(JobseekerActions.getJobseekers({ search, sort: sorts, size, page }));
+		if (user?.type !== "recruiter") navigate("/");
+		else dispatch(JobseekerActions.getJobseekers({ search, sort: sorts, size, page }));
 	}, [dispatch, search, sorts, size, page]);
 
 	return (

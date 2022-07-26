@@ -66,7 +66,7 @@ export default function FormLogin() {
 								<Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> Loading
 							</>
 						) : (
-							"Daftar"
+							"Masuk"
 						)}
 					</Button>
 				</Form>

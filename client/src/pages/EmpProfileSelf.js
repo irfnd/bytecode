@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { JobseekerActions } from "../Redux/slices/jobseekerSlice";
 import moment from "moment";
@@ -12,17 +12,14 @@ import profil from "../assets/img/profil.jpg";
 import Navbar1 from "../components/organisms/Navbar1";
 import Footer from "../components/organisms/FooterAdi";
 
-export default function EmpProfile() {
-	const { userId } = useParams();
-	const { isLoggedIn, user } = useSelector((state) => state.auth);
+export default function EmpProfileElse() {
+	const { user } = useSelector((state) => state.auth);
 	const { jobseekers } = useSelector((state) => state.jobseeker);
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (!isLoggedIn) navigate("/");
-		dispatch(JobseekerActions.getJobseeker(userId));
-	}, [dispatch, userId]);
+		dispatch(JobseekerActions.getProfile());
+	}, [dispatch]);
 
 	const getMonth = (startDate, endDate) => {
 		const start = moment(startDate.split("-"));

@@ -23,7 +23,7 @@ export default function Navbar2() {
 					)}
 				</Navbar.Collapse>
 				{isLoggedIn ? (
-					<Link to={`/employed/${user?.id}`}>
+					<Link to="/employed">
 						<Button className="mx-2">Profile</Button>
 					</Link>
 				) : (

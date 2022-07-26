@@ -14,6 +14,7 @@ import Chat from "./pages/Chat";
 import "./Style/adi.css"; // CSS
 import "./Style/HomeStyles.css"; // CSS
 import EmployeeProfile from "./pages/EmpProfile";
+import EmployeeProfileSelf from "./pages/EmpProfileSelf";
 import EmployeeEdit from "./pages/EmpEdit";
 import CompanyProfile from "./pages/ComProfile";
 import CompanyEdit from "./pages/ComEdit";
@@ -31,6 +32,7 @@ function App() {
 						<Route path="login" element={<Login />} />
 						<Route path="register" element={<Register />} />
 						<Route path="chat" element={<Chat />} />
+						<Route path="employed" element={<EmployeeProfileSelf />} />
 						<Route path="employed/:userId" element={<EmployeeProfile />} />
 						<Route path="employed/edit" element={<EmployeeEdit />} />
 						<Route path="company" element={<CompanyProfile />} />
