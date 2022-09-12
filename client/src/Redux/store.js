@@ -1,18 +1,29 @@
+/* eslint-disable import/no-mutable-exports */
 import { createStore, applyMiddleware } from "redux";
-import { persistStore, persistReducer } from "redux-persist";
+import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
+// import promiseMiddleware from 'redux-promise-middleware';
+import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import reducers from "./reducers";
+import rootReducer from "./reducers";
 
 const persistConfig = {
 	key: "root",
 	storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, reducers);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 const middleware = applyMiddleware(thunk);
+let store = null;
+if (process.env.REACT_APP_NODE_ENV === "prod") {
+	store = createStore(persistedReducer, middleware);
+} else {
+	store = createStore(
+		persistedReducer,
+		process.env.REACT_APP_NODE_ENV === "prod" ? middleware : composeWithDevTools(middleware)
+	);
+}
 
-const store = createStore(persistedReducer, middleware);
-const persiststore = persistStore(store);
+const persistor = persistStore(store);
 
-export { store, persiststore };
+export { store, persistor };

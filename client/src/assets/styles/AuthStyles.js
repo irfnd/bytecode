@@ -4,7 +4,8 @@ import "@fontsource/open-sans";
 const Auth = createGlobalStyle`
   .full,
   .custom {
-    min-height: 120vh;
+    min-height: 100vh;
+    over-flow: hidden;
   }
   .title {
     font-family: sans-serif;
@@ -110,7 +111,7 @@ const Auth = createGlobalStyle`
       min-height: 100vh;
     }
     .custom {
-      min-height: 150vh;
+      min-height: 100vh;
     }
     .title
     .description {

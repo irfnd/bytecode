@@ -3,11 +3,9 @@ import axios from "../../helpers/axios";
 export const login = (data) => {
 	return new Promise((resolve, reject) => {
 		axios
-			.post(`${process.env.REACT_APP_BACKEND_URL}/login`, data)
+			.post(`login`, data)
 			.then((res) => {
-				document.cookie = `token=${res.data.token}; path=/`;
-        		document.cookie = `idUser=${res.data.data}; path=/`;
-				resolve(res.data);
+				resolve(res);
 			})
 			.catch((err) => {
 				reject(err);
@@ -18,7 +16,7 @@ export const login = (data) => {
 export const registerRecruiter = (data) => {
 	return new Promise((resolve, reject) => {
 		axios
-			.post(`${process.env.REACT_APP_BACKEND_URL}/register`, data)
+			.post(`register`, data)
 			.then((res) => {
 				resolve(res.data);
 			})
@@ -31,7 +29,7 @@ export const registerRecruiter = (data) => {
 export const registerJobSeeker = (data) => {
 	return new Promise((resolve, reject) => {
 		axios
-			.post(`${process.env.REACT_APP_BACKEND_URL}/register`, data)
+			.post(`register`, data)
 			.then((res) => {
 				resolve(res.data);
 			})

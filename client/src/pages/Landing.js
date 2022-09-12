@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Container, Row, Image,Carousel } from "react-bootstrap";
+import { Button, Col, Container, Row, Image, Carousel } from "react-bootstrap";
 
 import Navbar2 from "../components/organisms/Navbar2";
 import Footer from "../components/organisms/Footer";
@@ -26,12 +26,18 @@ function App() {
 					<Unit3 />
 				</Row>
 				<Row className="item-last  mx-auto col-10">
-				<h2 className="text-center">Their Opinion About Peworld</h2>
+					<h2 className="text-center">Their Opinion About Peworld</h2>
 					<Row className="mt-5 px-5 mb-5">
 						<Carousel variant="dark">
-							<Carousel.Item><Comments className="px-5" /></Carousel.Item>
-							<Carousel.Item><Comments className="px-5" /></Carousel.Item>
-							<Carousel.Item><Comments className="px-5" /></Carousel.Item>
+							<Carousel.Item>
+								<Comments className="px-5" />
+							</Carousel.Item>
+							<Carousel.Item>
+								<Comments className="px-5" />
+							</Carousel.Item>
+							<Carousel.Item>
+								<Comments className="px-5" />
+							</Carousel.Item>
 						</Carousel>
 					</Row>
 					<div className="unit5 mx">
